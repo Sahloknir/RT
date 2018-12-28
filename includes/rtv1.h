@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 12:05:33 by axbal             #+#    #+#             */
-/*   Updated: 2018/12/25 16:27:49 by axbal            ###   ########.fr       */
+/*   Updated: 2018/12/27 17:18:27 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,9 +192,9 @@ t_vec				rot_vec(t_vec ray, float rx, float ry, float rz);
 float				degree_to_radian(float degree);
 float				ft_clamp(float to_clamp, float min, float max);
 t_dot				get_hitpoint(t_vec vector, float d, t_data *data);
-t_color				secondary_rays(t_dot inter, t_data *d, t_obj *obj);
+t_color				secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec r);
 int					test_object(t_data *d, t_vec ray, t_obj *obj);
-int					test_light(t_data *d, t_light *l, t_vec ray, t_obj *obj);
+int					test_light(t_data *d, t_light *l, t_sec_r s, t_obj *obj);
 float				two_point_dist(t_dot p1, t_dot p2);
 t_color				diffuse_cylinder(t_color c, t_dot i, t_obj *obj, t_data *d);
 t_color				diffuse_cone(t_color c, t_dot i, t_obj *obj, t_data *d);
@@ -202,5 +202,7 @@ t_color				diffuse_plane(t_color c, t_dot i, t_obj *obj, t_data *d);
 t_color				diffuse_sphere(t_color c, t_dot i, t_obj *obj, t_data *d);
 t_color				color_interp(t_color c1, t_color c2, float factor);
 int					get_object_lim(char *f, int s, t_obj *obj);
+int					check_lim(t_obj *o, t_dot dot);
+int					double_check_lim(t_obj *o, t_dot d1, t_dot d2);
 
 #endif
