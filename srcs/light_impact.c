@@ -81,18 +81,27 @@ int		light_plane(t_data *d, t_light *l, t_vec ray, t_obj *p)
 	return (-1);
 }
 
-int		in_or_out(t_data *d, t_obj *obj, float dist, t_vec vec)
+int		in_or_out(t_data *d, t_obj *obj, t_sec_r r, t_light *l)
 {
 	float	d1;
 	float	d2;
 	int		l1;
 	int		l2;
+	t_dot	dot;
 
-	d1 = d->t[0] < d->t[1] ? d->t[0] : d->t[1];
+	d1 = d->t[0] <= d->t[1] ? d->t[0] : d->t[1];
 	d2 = d->t[0] < d->t[1] ? d->t[1] : d->t[0];
-	l1 = check_lim(obj, get_hitpoint(vec, d1, d));
-	l2 = check_lim(obj, get_hitpoint(vec, d2, d));
-	if ((d2 == dist && l2 == 1 && l1 != 1) || (d1 == dist && l1 == 1))
+	dot.x = l->px + r.lo.x * d1;
+	dot.y = l->py + r.lo.y * d1;
+	dot.z = l->pz + r.lo.z * d1;
+	l1 = check_lim(obj, dot);
+	dot.x = l->px + r.lo.x * d2;
+	dot.y = l->py + r.lo.y * d2;
+	dot.z = l->pz + r.lo.z * d2;
+	l2 = check_lim(obj, dot);
+	if (l2 == 1 && l1 == 1)
+		return (2);
+	if (d1 != 1 && d2 != 1)
 		return (-1);
 	return (1);
 }
@@ -120,7 +129,7 @@ int		light_sphere(t_data *d, t_light *l, t_sec_r r, t_obj *s)
 	{
 		d->t[0] = (-b - sqrt(delta)) / (2 * a);
 		d->t[1] = (-b + sqrt(delta)) / (2 * a);
-		return (in_or_out(d, s, r.dist, r.lo));
+		return (in_or_out(d, s, r, l));
 	}
 	return (1);
 }
@@ -140,7 +149,5 @@ int		test_light(t_data *d, t_light *l, t_sec_r s, t_obj *obj)
 		ret = light_cyli(d, l, s.lo, obj);
 	if (ft_strcmp(obj->type, "cone") == 0)
 		ret = light_cone(d, l, s.lo, obj);
-	if (ret == 1)
-		return (1);
-	return (0);
+	return (ret);
 }

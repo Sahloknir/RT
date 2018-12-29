@@ -20,18 +20,21 @@ object{
 	radius(20)
 	pos(10,0, 100)
 	color(155, 193, 188)
+	lim_x(-25, 15)
 }
 object{
 	type(sphere)
 	radius(20)
 	pos(-10,-10, 120)
 	color(230, 2350, 22400)
+	lim_x(-25, 15)
 }
 object{
 	type(sphere)
 	radius(20)
 	pos(0,0, 100)
 	color(237, 106, 90)
+	lim_x(-25, 15)
 }
 
 light{

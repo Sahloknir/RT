@@ -12,16 +12,25 @@
 
 #include "rtv1.h"
 
-float		find_right_distance(t_data *d, t_obj *obj, t_vec ray)
+float		find_right_distance(t_data *d, t_obj *obj, t_vec ray, t_dot inter)
 {
 	float	dist;
 	int		d1;
 	int		d2;
+	t_dot	dot;
 
-	d1 = check_lim(obj, get_hitpoint(ray, d->t[0], d));
-	d2 = check_lim(obj, get_hitpoint(ray, d->t[1], d));
+	dot.x = d->light[d->l]->px + ray.x * d->t[0];
+	dot.y = d->light[d->l]->py + ray.y * d->t[0];
+	dot.z = d->light[d->l]->pz + ray.z * d->t[0];
+	d1 = check_lim(obj, dot);
+	dot.x = d->light[d->l]->px + ray.x * d->t[1];
+	dot.y = d->light[d->l]->py + ray.y * d->t[1];
+	dot.z = d->light[d->l]->pz + ray.z * d->t[1];
+	d2 = check_lim(obj, dot);
 	dist = d->t[0];
-	if ((d->t[1] < d->t[0] && d->t[1] > 0 && d2 == 1) || d1 != 1)
+	if (!d1 && d2)
+		dist = d->t[1];
+	if (d2 && cmp_dot(inter, dot))
 		dist = d->t[1];
 	return (dist);
 }
@@ -41,14 +50,17 @@ t_color		find_diffuse(t_color c, t_dot inter, t_obj *obj, t_data *d)
 
 t_color		find_c(t_sec_r s, t_color c, t_obj *obj, t_data *d)
 {
+	t_dot	dot;
+
+	dot.x = d->light[d->l]->px + s.lo.x * d->t[0];
+	dot.y = d->light[d->l]->py + s.lo.y * d->t[0];
+	dot.z = d->light[d->l]->pz + s.lo.z * d->t[0];
 	while (++s.i < d->objects)
 	{
-		if (test_light(d, d->light[d->l], s, d->obj[s.i]) == 1)
+		if (test_light(d, d->light[d->l], s, d->obj[s.i]) == 2)
 		{
-			if ((d->t[0] > 0 && d->t[0] < s.dist &&
-				check_lim(d->obj[s.i], get_hitpoint(s.lo, d->t[0], d)) == 1) ||
-				(d->t[1] > 0 && d->t[1] < s.dist &&
-				check_lim(d->obj[s.i], get_hitpoint(s.lo, d->t[1], d)) == 1))
+			if ((d->t[0] > 0 && d->t[0] < s.dist && !(cmp_dot(s.inter, dot))) ||
+			(d->t[1] > 0 && d->t[1] < s.dist && (cmp_dot(s.inter, dot))))
 				break ;
 		}
 		if (s.i == d->objects - 1)
@@ -69,15 +81,19 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 	c = d->lights > 0 ? new_color(0, 0, 0, 0) :
 	new_color(obj->color.r, obj->color.g, obj->color.b, 0);
 	d->stop = 0;
-	while (++(d->l) < d->lights && d->stop == 0)
+	if (check_lim(obj, inter))
 	{
-		s.ld = new_dot(d->light[d->l]->px, d->light[d->l]->py,
+		while (++(d->l) < d->lights && d->stop == 0)
+		{
+			s.ld = new_dot(d->light[d->l]->px, d->light[d->l]->py,
 			d->light[d->l]->pz);
-		s.lo = two_point_vector(s.ld, s.inter);
-		test_light(d, d->light[d->l], s, obj);
-		s.dist = find_right_distance(d, obj, ray);
-		s.i = -1;
-		c = find_c(s, c, obj, d);
+			s.lo = ray;
+			s.lo = two_point_vector(s.ld, s.inter);
+			test_light(d, d->light[d->l], s, obj);
+			s.dist = find_right_distance(d, obj, s.lo, inter);
+			s.i = -1;
+			c = find_c(s, c, obj, d);
+		}
 	}
 	return (c);
 }

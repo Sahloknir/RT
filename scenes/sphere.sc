@@ -12,6 +12,15 @@ object {
 	shiny
 }
 
+object {
+	type(sphere)
+	pos(0, 45,100)
+	radius(35)
+	color(110,180,104)
+	lim_x(-25, 15)
+	shiny
+}
+
 light {
-	pos(30,0,-40)
+	pos(30,0,-210)
 }

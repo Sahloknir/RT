@@ -48,3 +48,16 @@ float		degree_to_radian(float degree)
 {
 	return (degree * M_PI / 180.0);
 }
+
+int		cmp_dot(t_dot d1, t_dot d2)
+{
+	if (floor(d1.x) != floor(d2.x))
+		return (0);
+	if (floor(d1.y) != floor(d2.y))
+		return (0);
+	if (floor(d1.z) != floor(d2.z))
+		return (0);
+	return (1);
+}
+
+
