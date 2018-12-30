@@ -79,8 +79,7 @@ int		solve_plane(t_data *d, t_vec ray, t_obj *p)
 		if (d->t[0] < 0)
 			return (-1);
 		dot = get_hitpoint(ray, d->t[0], d);
-		if ((dot.x < p->lim_x_neg && p->lim_x_neg < 1)
-		|| (dot.x > p->lim_x_pos && p->lim_x_pos > 0))
+		if (check_lim(p,dot) != 1)
 			return (-1);
 		return (1);
 	}
