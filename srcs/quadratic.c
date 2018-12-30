@@ -89,35 +89,53 @@ int		solve_plane(t_data *d, t_vec ray, t_obj *p)
 
 int		check_lim(t_obj *o, t_dot dot)
 {
-	if ((dot.x < o->lim_x_neg && o->lim_x_neg < 1)
-	|| (dot.x > o->lim_x_pos && o->lim_x_pos > 0))
-		return (-1);
-	if ((dot.y < o->lim_y_neg && o->lim_y_neg < 1)
-	|| (dot.y > o->lim_y_pos && o->lim_y_pos > 0))
-		return (-1);
-	if ((dot.z < o->lim_z_neg && o->lim_z_neg < 1)
-	|| (dot.z > o->lim_z_pos && o->lim_z_pos > 0))
-		return (-1);
+	if (o->lim_x_c)
+	{
+		if ((dot.x < o->lim_x_neg && o->lim_x_neg < 1)
+		|| (dot.x > o->lim_x_pos && o->lim_x_pos > 0))
+			return (-1);
+	}
+	if (o->lim_y_c)
+	{
+		if ((dot.y < o->lim_y_neg && o->lim_y_neg < 1)
+		|| (dot.y > o->lim_y_pos && o->lim_y_pos > 0))
+			return (-1);
+	}
+	if (o->lim_z_c)
+	{
+		if ((dot.z < o->lim_z_neg && o->lim_z_neg < 1)
+		|| (dot.z > o->lim_z_pos && o->lim_z_pos > 0))
+			return (-1);
+	}
 	return (1);
 }
 
 int		double_check_lim(t_obj *o, t_dot d1, t_dot d2)
 {
-	if (((d1.x < o->lim_x_neg && o->lim_x_neg < 1)
-	|| (d1.x > o->lim_x_pos && o->lim_x_pos > 0))
-	&& ((d2.x < o->lim_x_neg && o->lim_x_neg < 1)
-	|| (d2.x > o->lim_x_pos && o->lim_x_pos > 0)))
-		return (-1);
-	if (((d1.y < o->lim_y_neg && o->lim_y_neg < 1)
-	|| (d1.y > o->lim_y_pos && o->lim_y_pos > 0))
-	&& ((d2.y < o->lim_y_neg && o->lim_y_neg < 1)
-	|| (d2.y > o->lim_y_pos && o->lim_y_pos > 0)))
-		return (-1);
-	if (((d1.z < o->lim_z_neg && o->lim_z_neg < 1)
-	|| (d1.z > o->lim_z_pos && o->lim_z_pos > 0))
-	&& ((d2.z < o->lim_z_neg && o->lim_z_neg < 1)
-	|| (d2.z > o->lim_z_pos && o->lim_z_pos > 0)))
-		return (-1);
+	if (o->lim_x_c)
+	{
+		if (((d1.x < o->lim_x_neg && o->lim_x_neg < 1)
+		|| (d1.x > o->lim_x_pos && o->lim_x_pos > 0))
+		&& ((d2.x < o->lim_x_neg && o->lim_x_neg < 1)
+		|| (d2.x > o->lim_x_pos && o->lim_x_pos > 0)))
+			return (-1);
+	}
+	if (o->lim_y_c)
+	{
+		if (((d1.y < o->lim_y_neg && o->lim_y_neg < 1)
+		|| (d1.y > o->lim_y_pos && o->lim_y_pos > 0))
+		&& ((d2.y < o->lim_y_neg && o->lim_y_neg < 1)
+		|| (d2.y > o->lim_y_pos && o->lim_y_pos > 0)))
+			return (-1);
+	}
+	if (o->lim_z_c)
+	{
+		if (((d1.z < o->lim_z_neg && o->lim_z_neg < 1)
+		|| (d1.z > o->lim_z_pos && o->lim_z_pos > 0))
+		&& ((d2.z < o->lim_z_neg && o->lim_z_neg < 1)
+		|| (d2.z > o->lim_z_pos && o->lim_z_pos > 0)))
+			return (-1);
+	}
 	return (1);
 }
 

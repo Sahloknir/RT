@@ -116,6 +116,7 @@ int		get_object_lim(char *f, int s, t_obj *obj)
 	}
 	obj->lim_x_neg = tab[0];
 	obj->lim_x_pos = tab[1];
+	obj->lim_x_c = 1;
 	free(tab);
 	return (1);
 }

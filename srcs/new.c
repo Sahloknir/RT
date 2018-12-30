@@ -78,6 +78,9 @@ t_obj		*create_object(t_data *data)
 	new->angle_c = 0;
 	new->vector_c = 0;
 	new->rotation_c = 0;
+	new->lim_x_c = 0;
+	new->lim_y_c = 0;
+	new->lim_z_c = 0;
 	new->shiny = 0;
 	new->color = new_color(255, 255, 255, 0);
 	return (new);
