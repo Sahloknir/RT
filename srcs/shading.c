@@ -12,26 +12,53 @@
 
 #include "rtv1.h"
 
+float		find_right_distance2(t_data *d, t_dot light, t_vec vec, t_dot inter)
+{
+	float	dist;
+	float	sum1;
+	float	sum2;
+
+	if (d->t[0] < 0 && d->t[1] < 0)
+		return (2000);
+	if (d->t[0] < 0)
+		return (d->t[1]);
+	else if (d->t[1] < 0)
+		return (d->t[0]);
+	sum1 = fabs(inter.x - (light.x + (vec.x * d->t[0])))
+	+ fabs(inter.y - (light.y + (vec.y * d->t[0])))
+	+ fabs(inter.z - (light.z + (vec.z * d->t[0])));
+	sum2 = fabs(inter.x - (light.x + (vec.x * d->t[1])))
+	+ fabs(inter.y - (light.y + (vec.y * d->t[1])))
+	+ fabs(inter.z - (light.z + (vec.z * d->t[1])));
+	dist = sum1 < sum2 ? d->t[0] : d->t[1];
+	return (dist);
+}
+
 float		find_right_distance(t_data *d, t_obj *obj, t_vec ray, t_dot inter)
 {
 	float	dist;
 	int		d1;
 	int		d2;
 	t_dot	dot;
+	t_dot	light;
 
-	dot.x = d->light[d->l]->px + ray.x * d->t[0];
-	dot.y = d->light[d->l]->py + ray.y * d->t[0];
-	dot.z = d->light[d->l]->pz + ray.z * d->t[0];
-	d1 = check_lim(obj, dot);
-	dot.x = d->light[d->l]->px + ray.x * d->t[1];
-	dot.y = d->light[d->l]->py + ray.y * d->t[1];
-	dot.z = d->light[d->l]->pz + ray.z * d->t[1];
-	d2 = check_lim(obj, dot);
-	dist = d->t[0];
-	if (!d1 && d2)
-		dist = d->t[1];
-	if (d2 && cmp_dot(inter, dot))
-		dist = d->t[1];
+	light = new_dot(d->light[d->l]->px, d->light[d->l]->py, d->light[d->l]->pz);
+	if (obj->lim_x_c || obj->lim_y_c || obj->lim_z_c)
+	{
+		dot = new_dot(light.x + ray.x * d->t[0], light.y + ray.y * d->t[0],
+			light.z + ray.z * d->t[0]);
+		d1 = check_lim(obj, dot);
+		dot = new_dot(light.x + ray.x * d->t[1], light.y + ray.y * d->t[1],
+			light.z + ray.z * d->t[1]);
+		d2 = check_lim(obj, dot);
+		dist = d->t[0];
+		if (!d1 && d2)
+			dist = d->t[1];
+		if (d2 && cmp_dot(inter, dot))
+			dist = d->t[1];
+	}
+	else
+		dist = find_right_distance2(d, light, ray, inter);
 	return (dist);
 }
 
