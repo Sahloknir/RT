@@ -52,10 +52,10 @@ float		find_right_distance(t_data *d, t_obj *obj, t_vec ray, t_dot inter)
 			light.z + ray.z * d->t[1]);
 		d2 = check_lim(obj, dot);
 		dist = d->t[0];
-		if (!d1 && d2)
+		if (d1 == -1 && d2)
 			dist = d->t[1];
-		if (d2 && cmp_dot(inter, dot))
-			dist = d->t[1];
+		if (d2 == 1 && d1 == 1)
+			dist = find_right_distance2(d, light, ray, inter);
 	}
 	else
 		dist = find_right_distance2(d, light, ray, inter);
@@ -81,17 +81,19 @@ t_color		find_c(t_sec_r s, t_color c, t_obj *obj, t_data *d)
 	t_dot	dot2;
 	int		ret;
 
-	dot = dot_from_light(d->light[d->l], s.lo, d->t[0]);
-	dot2 = dot_from_light(d->light[d->l], s.lo, d->t[1]);
 	while (++s.i < d->objects)
 	{
 		if ((ret = test_light(d, d->light[d->l], s, d->obj[s.i])) == 2)
 		{
+			dot = dot_from_light(d->light[d->l], s.lo, d->t[0]);
+			dot2 = dot_from_light(d->light[d->l], s.lo, d->t[1]);
 			if ((d->t[0] > 0 && d->t[0] < s.dist && !(cmp_dot(s.inter, dot))) ||
 			(d->t[1] > 0 && d->t[1] < s.dist && !(cmp_dot(s.inter, dot2))))
 				break ;
 		}
-		else if (ret == 1)
+		dot = dot_from_light(d->light[d->l], s.lo, d->t[0]);
+		dot2 = dot_from_light(d->light[d->l], s.lo, d->t[1]);
+		if (ret == 1)
 		{
 			if ((d->t[0] > 0 && d->t[0] < s.dist && check_lim(obj, dot))
 				|| (d->t[1] > 0 && d->t[1] < s.dist && check_lim(obj, dot2)))

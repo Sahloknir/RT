@@ -91,18 +91,14 @@ int		in_or_out(t_data *d, t_obj *obj, t_sec_r r, t_light *l)
 
 	d1 = d->t[0] <= d->t[1] ? d->t[0] : d->t[1];
 	d2 = d->t[0] < d->t[1] ? d->t[1] : d->t[0];
-	dot.x = l->px + r.lo.x * d1;
-	dot.y = l->py + r.lo.y * d1;
-	dot.z = l->pz + r.lo.z * d1;
+	dot = dot_from_light(l, r.lo, d1);
 	l1 = check_lim(obj, dot);
-	dot.x = l->px + r.lo.x * d2;
-	dot.y = l->py + r.lo.y * d2;
-	dot.z = l->pz + r.lo.z * d2;
+	dot = dot_from_light(l, r.lo, d2);
 	l2 = check_lim(obj, dot);
-	if ((l2 == 1 && d2 > 0) && (d1 > 0 && l1 == 1))
-		return (2);
 	if ((l1 != 1 && l2 != 1) || (d1 <= 0 && d2 <= 0))
 		return (-1);
+	if ((l2 == 1 && d2 > 0) && (d1 > 0 && l1 == 1))
+		return (2);
 	return (1);
 }
 
