@@ -78,23 +78,23 @@ t_color		find_diffuse(t_color c, t_dot inter, t_obj *obj, t_data *d)
 t_color		find_c(t_sec_r s, t_color c, t_obj *obj, t_data *d)
 {
 	t_dot	dot;
+	t_dot	dot2;
 	int		ret;
 
-	dot.x = d->light[d->l]->px + s.lo.x * d->t[0];
-	dot.y = d->light[d->l]->py + s.lo.y * d->t[0];
-	dot.z = d->light[d->l]->pz + s.lo.z * d->t[0];
+	dot = dot_from_light(d->light[d->l], s.lo, d->t[0]);
+	dot2 = dot_from_light(d->light[d->l], s.lo, d->t[1]);
 	while (++s.i < d->objects)
 	{
 		if ((ret = test_light(d, d->light[d->l], s, d->obj[s.i])) == 2)
 		{
 			if ((d->t[0] > 0 && d->t[0] < s.dist && !(cmp_dot(s.inter, dot))) ||
-			(d->t[1] > 0 && d->t[1] < s.dist && (cmp_dot(s.inter, dot))))
+			(d->t[1] > 0 && d->t[1] < s.dist && !(cmp_dot(s.inter, dot2))))
 				break ;
 		}
 		else if (ret == 1)
 		{
-			if ((d->t[0] > 0 && d->t[0] < s.dist)
-				|| (d->t[1] > 0 && d->t[1] < s.dist))
+			if ((d->t[0] > 0 && d->t[0] < s.dist && check_lim(obj, dot))
+				|| (d->t[1] > 0 && d->t[1] < s.dist && check_lim(obj, dot2)))
 				break ;
 		}
 		if (s.i == d->objects - 1)

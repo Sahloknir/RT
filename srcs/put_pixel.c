@@ -25,3 +25,13 @@ void	put_pixel_to_image(t_dot d, t_data *dt, char *i, t_color c)
 		i[px + 3] = (char)0;
 	}
 }
+
+t_dot	dot_from_light(t_light *l, t_vec vec, float dist)
+{
+	t_dot	dot;
+
+	dot.x = l->px + vec.x * dist;
+	dot.y = l->py + vec.y * dist;
+	dot.x = l->pz + vec.z * dist;
+	return (dot);
+}

@@ -208,5 +208,6 @@ int					get_object_lim(char *f, int s, t_obj *obj);
 int					check_lim(t_obj *o, t_dot dot);
 int					double_check_lim(t_obj *o, t_dot d1, t_dot d2);
 int					cmp_dot(t_dot d1, t_dot d2);
+t_dot				dot_from_light(t_light *l, t_vec vec, float dist);
 
 #endif
