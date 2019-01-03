@@ -93,7 +93,7 @@ t_color		find_c(t_sec_r s, t_color c, t_obj *obj, t_data *d)
 		}
 		dot = dot_from_light(d->light[d->l], s.lo, d->t[0]);
 		dot2 = dot_from_light(d->light[d->l], s.lo, d->t[1]);
-		if (ret == 1)
+		if (ret >= 1)
 		{
 			if ((d->t[0] > 0 && d->t[0] < s.dist && check_lim(obj, dot))
 				|| (d->t[1] > 0 && d->t[1] < s.dist && check_lim(obj, dot2)))

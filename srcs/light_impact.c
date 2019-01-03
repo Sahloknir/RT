@@ -97,7 +97,8 @@ int		in_or_out(t_data *d, t_obj *obj, t_sec_r r, t_light *l)
 	l2 = check_lim(obj, dot);
 	if ((l1 != 1 && l2 != 1) || (d1 <= 0 && d2 <= 0))
 		return (-1);
-	if ((l2 == 1 && d2 > 0) && (d1 > 0 && l1 == 1))
+	if (((l2 == 1 && d2 > 0) && (l1 != 1))
+		|| ((l1 == 1 && d1 > 0) && (l2 != 1)))
 		return (2);
 	return (1);
 }
