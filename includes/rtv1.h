@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 12:05:33 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/07 14:28:04 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/07 15:44:20 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,9 @@ int					test_object(t_data *d, t_vec ray, t_obj *obj);
 int					test_light(t_data *d, t_light *l, t_sec_r s, t_obj *obj);
 float				two_point_dist(t_dot p1, t_dot p2);
 t_color				color_interp(t_color c1, t_color c2, float factor);
-int					get_object_lim(char *f, int s, t_obj *obj);
+int					get_object_lim_x(char *f, int s, t_obj *obj);
+int					get_object_lim_y(char *f, int s, t_obj *obj);
+int					get_object_lim_z(char *f, int s, t_obj *obj);
 int					check_lim(t_obj *o, t_dot dot);
 int					double_check_lim(t_obj *o, t_dot d1, t_dot d2);
 int					cmp_dot(t_dot d1, t_dot d2);

@@ -96,6 +96,7 @@ object {
 	type(sphere)
 	pos(0, -18, 55)
 	radius(8)
+	lim_z(-8, 1)
 	color(125, 137, 228)
 }
 

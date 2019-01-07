@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 21:56:25 by axbal             #+#    #+#             */
-/*   Updated: 2018/12/25 16:18:44 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/07 15:45:00 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,11 @@ int		compare_string_to_values(char *f, int s, t_obj *new)
 	else if (ft_strncmp(f + s, "color(", 6) == 0)
 		return (get_object_color(f, s, new));
 	else if (ft_strncmp(f + s, "lim_x(", 6) == 0)
-		return (get_object_lim(f, s, new));
+		return (get_object_lim_x(f, s, new));
+	else if (ft_strncmp(f + s, "lim_y(", 6) == 0)
+		return (get_object_lim_y(f, s, new));
+	else if (ft_strncmp(f + s, "lim_z(", 6) == 0)
+		return (get_object_lim_z(f, s, new));
 	return (0);
 }
 

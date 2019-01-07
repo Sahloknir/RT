@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 16:09:35 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/05 13:45:21 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/07 15:43:15 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,25 +101,5 @@ int		get_object_vec(char *f, int s, t_obj *obj)
 	obj->v = vec;
 	free(tab);
 	obj->vector_c += 1;
-	return (1);
-}
-
-int		get_object_lim(char *f, int s, t_obj *obj)
-{
-	float	*tab;
-
-	tab = three_values_tab(f, s);
-	if (!(f[(int)tab[4]]) || tab[3] != 2)
-	{
-		free(tab);
-		return (0);
-	}
-	if (tab[0] < 1 && tab[1] > 0)
-	{
-		obj->lim_x_neg = tab[0];
-		obj->lim_x_pos = tab[1];
-		obj->lim_x_c = 1;
-	}
-	free(tab);
 	return (1);
 }
