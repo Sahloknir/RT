@@ -6,55 +6,11 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:16:31 by axbal             #+#    #+#             */
-/*   Updated: 2018/12/27 12:09:52 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/07 14:15:38 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-int		test_object(t_data *d, t_vec ray, t_obj *obj)
-{
-	int		ret;
-
-	d->t[0] = -1;
-	d->t[1] = -1;
-	ret = 0;
-	if (ft_strcmp(obj->type, "sphere") == 0)
-		ret = solve_sphere(d, ray, obj);
-	if (ft_strcmp(obj->type, "plane") == 0)
-		ret = solve_plane(d, ray, obj);
-	if (ft_strcmp(obj->type, "cylinder") == 0)
-		ret = solve_cyli(d, ray, obj);
-	if (ft_strcmp(obj->type, "cone") == 0)
-		ret = solve_cone(d, ray, obj);
-	if (ret == 1 && (d->t[0] >= 0 || d->t[1] >= 0))
-		return (1);
-	return (0);
-}
-
-float	pick_a_side(float dm, t_vec ray, t_obj *o, t_data *d)
-{
-	int		d1;
-	int		d2;
-
-	d1 = check_lim(o, get_hitpoint(ray, d->t[0], d));
-	d2 = check_lim(o, get_hitpoint(ray, d->t[1], d));
-	if (dm == -1 && ((d->t[0] > 0 && d1 == 1) || (d->t[1] > 0 && d2 == 1)))
-	{
-		if (d->t[0] > 0 && d1 == 1)
-			dm = d->t[0];
-		if (d->t[1] > 0 && d2 == 1 && (dm == -1 || dm > d->t[1]))
-			dm = d->t[1];
-	}
-	else
-	{
-		if (d->t[0] >= 0 && d->t[0] < dm && d1 == 1)
-			dm = d->t[0];
-		if (d->t[1] >= 0 && d->t[1] < dm && d2 == 1)
-			dm = d->t[1];
-	}
-	return (dm);
-}
 
 t_rtc	ft_raytracer(t_rtc r, t_data *d)
 {

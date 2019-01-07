@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 14:44:53 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/04 16:16:00 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/07 14:14:46 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,24 @@ int		solve_sphere(t_data *d, t_vec ray, t_obj *s)
 		get_hitpoint(ray, d->t[1], d)));
 	}
 	return (-1);
+}
+
+int		test_object(t_data *d, t_vec ray, t_obj *obj)
+{
+	int		ret;
+
+	d->t[0] = -1;
+	d->t[1] = -1;
+	ret = 0;
+	if (ft_strcmp(obj->type, "sphere") == 0)
+		ret = solve_sphere(d, ray, obj);
+	if (ft_strcmp(obj->type, "plane") == 0)
+		ret = solve_plane(d, ray, obj);
+	if (ft_strcmp(obj->type, "cylinder") == 0)
+		ret = solve_cyli(d, ray, obj);
+	if (ft_strcmp(obj->type, "cone") == 0)
+		ret = solve_cone(d, ray, obj);
+	if (ret == 1 && (d->t[0] >= 0 || d->t[1] >= 0))
+		return (1);
+	return (0);
 }

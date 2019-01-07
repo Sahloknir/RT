@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 14:44:53 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/06 13:40:08 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/07 14:10:38 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,10 @@ int		light_sphere(t_data *d, t_light *l, t_sec_r r, t_obj *s)
 	}
 	else if (delta > 0)
 	{
-		d->t[0] = check_lim(s, dot_from_light(l, r.lo, ((-b - sqrt(delta)) / (2 * a)))) > 0 ?
-			((-b - sqrt(delta)) / (2 * a)) : -1;
-		d->t[1] = check_lim(s, dot_from_light(l, r.lo, ((-b + sqrt(delta)) / (2 * a)))) > 0 ?
-			((-b + sqrt(delta)) / (2 * a)) : -1;
-//		return (double_check_lim(s, dot_from_light(l, r.lo, ((-b - sqrt(delta)) / (2 * a))),
-//		dot_from_light(l, r.lo, ((-b + sqrt(delta)) / (2 * a)))));
+		d->t[0] = (-b - sqrt(delta)) / (2 * a);
+		d->t[1] = (-b + sqrt(delta)) / (2 * a);
+		return (double_check_lim(s, dot_from_light(l, r.lo, d->t[0]),
+		dot_from_light(l, r.lo, d->t[1])));
 		if (d->t[0] > 0 || d->t[1] > 0)
 			return (1);
 	}

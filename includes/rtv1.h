@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 12:05:33 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/03 13:44:07 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/07 14:28:04 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,10 +187,6 @@ t_color				new_color(int r, int g, int b, int a);
 void				gen_rays(t_data *d);
 t_img				*init_img(t_data *data);
 float				scalar(t_vec *v1, t_vec *v2);
-int					solve_sphere(t_data *d, t_vec ray, t_obj *s);
-int					solve_plane(t_data *d, t_vec ray, t_obj *p);
-int					solve_cyli(t_data *d, t_vec ray, t_obj *o);
-int					solve_cone(t_data *d, t_vec ray, t_obj *o);
 t_vec				trans_vec(t_vec vec, float tx, float ty, float tz);
 t_vec				rot_vec(t_vec ray, float rx, float ry, float rz);
 float				degree_to_radian(float degree);
@@ -200,15 +196,18 @@ t_color				secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec r);
 int					test_object(t_data *d, t_vec ray, t_obj *obj);
 int					test_light(t_data *d, t_light *l, t_sec_r s, t_obj *obj);
 float				two_point_dist(t_dot p1, t_dot p2);
-t_color				diffuse_cylinder(t_color c, t_dot i, t_obj *obj, t_data *d);
-t_color				diffuse_cone(t_color c, t_dot i, t_obj *obj, t_data *d);
-t_color				diffuse_plane(t_color c, t_dot i, t_obj *obj, t_data *d);
-t_color				diffuse_sphere(t_color c, t_dot i, t_obj *obj, t_data *d);
 t_color				color_interp(t_color c1, t_color c2, float factor);
 int					get_object_lim(char *f, int s, t_obj *obj);
 int					check_lim(t_obj *o, t_dot dot);
 int					double_check_lim(t_obj *o, t_dot d1, t_dot d2);
 int					cmp_dot(t_dot d1, t_dot d2);
 t_dot				dot_from_light(t_light *l, t_vec vec, float dist);
+float				find_right_distance(t_data *d, t_dot l, t_vec v, t_dot i);
+int					call_side_light_check(t_sec_r s, t_obj *obj, t_data *d);
+t_color				apply_color(t_color c, t_obj *o, t_data *d, float angle);
+t_color				find_diffuse(t_color c, t_dot inter, t_obj *obj, t_data *d);
+int					test_object(t_data *d, t_vec ray, t_obj *obj);
+float				pick_a_side(float dm, t_vec ray, t_obj *o, t_data *d);
+void				fswap(float *f1, float *f2);
 
 #endif

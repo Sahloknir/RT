@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 16:05:31 by axbal             #+#    #+#             */
-/*   Updated: 2018/11/20 16:24:54 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/07 14:08:02 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,6 @@ t_color		diffuse_plane(t_color c, t_dot inter, t_obj *obj, t_data *d)
 	return (c);
 }
 
-t_color		apply_color(t_color c, t_obj *o, t_data *d, float angle)
-{
-	c.r += ft_clamp(((o->color.r / d->lights) * angle), 0, o->color.r);
-	c.g += ft_clamp(((o->color.g / d->lights) * angle), 0, o->color.g);
-	c.b += ft_clamp(((o->color.b / d->lights) * angle), 0, o->color.b);
-	return (c);
-}
 
 t_color		diffuse_cone(t_color c, t_dot inter, t_obj *o, t_data *d)
 {
@@ -115,5 +108,18 @@ t_color		diffuse_cylinder(t_color c, t_dot inter, t_obj *o, t_data *d)
 			new_color(255, 255, 255, 0), s.angle));
 	}
 	d->stop = 0;
+	return (c);
+}
+
+t_color		find_diffuse(t_color c, t_dot inter, t_obj *obj, t_data *d)
+{
+	if (!ft_strcmp(obj->type, "sphere"))
+		c = diffuse_sphere(c, inter, obj, d);
+	else if (!ft_strcmp(obj->type, "plane"))
+		c = diffuse_plane(c, inter, obj, d);
+	else if (!ft_strcmp(obj->type, "cone"))
+		c = diffuse_cone(c, inter, obj, d);
+	else if (!ft_strcmp(obj->type, "cylinder"))
+		c = diffuse_cylinder(c, inter, obj, d);
 	return (c);
 }
