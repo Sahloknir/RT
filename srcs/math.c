@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:02:44 by axbal             #+#    #+#             */
-/*   Updated: 2018/11/20 16:21:45 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/04 14:41:16 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ float		two_point_dist(t_dot p1, t_dot p2)
 	float	dist;
 
 	dist = pow(p2.x - p1.x, 2) + pow(p2.y - p2.y, 2) + pow(p2.z - p2.z, 2);
-	return (dist);
+	return (sqrt(fabs(dist)));
 }
 
 t_color		color_interp(t_color c1, t_color c2, float factor)

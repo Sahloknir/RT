@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 19:11:29 by axbal             #+#    #+#             */
-/*   Updated: 2018/11/13 13:29:22 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/06 13:57:38 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_dot	dot_from_light(t_light *l, t_vec vec, float dist)
 {
 	t_dot	dot;
 
-	dot.x = l->px + vec.x * dist;
-	dot.y = l->py + vec.y * dist;
-	dot.x = l->pz + vec.z * dist;
+	dot.x = l->px + (float)(vec.x * dist);
+	dot.y = l->py + (float)(vec.y * dist);
+	dot.z = l->pz + (float)(vec.z * dist);
 	return (dot);
 }

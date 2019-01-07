@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 14:44:53 by axbal             #+#    #+#             */
-/*   Updated: 2018/12/28 18:36:38 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/06 13:40:08 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,28 +81,6 @@ int		light_plane(t_data *d, t_light *l, t_vec ray, t_obj *p)
 	return (-1);
 }
 
-int		in_or_out(t_data *d, t_obj *obj, t_sec_r r, t_light *l)
-{
-	float	d1;
-	float	d2;
-	int		l1;
-	int		l2;
-	t_dot	dot;
-
-	d1 = d->t[0] <= d->t[1] ? d->t[0] : d->t[1];
-	d2 = d->t[0] < d->t[1] ? d->t[1] : d->t[0];
-	dot = dot_from_light(l, r.lo, d1);
-	l1 = check_lim(obj, dot);
-	dot = dot_from_light(l, r.lo, d2);
-	l2 = check_lim(obj, dot);
-	if ((l1 != 1 && l2 != 1) || (d1 <= 0 && d2 <= 0))
-		return (-1);
-	if (((l2 == 1 && d2 > 0) && (l1 != 1))
-		|| ((l1 == 1 && d1 > 0) && (l2 != 1)))
-		return (2);
-	return (1);
-}
-
 int		light_sphere(t_data *d, t_light *l, t_sec_r r, t_obj *s)
 {
 	float	a;
@@ -120,15 +98,20 @@ int		light_sphere(t_data *d, t_light *l, t_sec_r r, t_obj *s)
 	if (delta == 0)
 	{
 		d->t[0] = -b / (2 * a);
-		return (check_lim(s, get_hitpoint(r.lo, d->t[0], d)));
+		return (check_lim(s, dot_from_light(l, r.lo, d->t[0])));
 	}
 	else if (delta > 0)
 	{
-		d->t[0] = (-b - sqrt(delta)) / (2 * a);
-		d->t[1] = (-b + sqrt(delta)) / (2 * a);
-		return (in_or_out(d, s, r, l));
+		d->t[0] = check_lim(s, dot_from_light(l, r.lo, ((-b - sqrt(delta)) / (2 * a)))) > 0 ?
+			((-b - sqrt(delta)) / (2 * a)) : -1;
+		d->t[1] = check_lim(s, dot_from_light(l, r.lo, ((-b + sqrt(delta)) / (2 * a)))) > 0 ?
+			((-b + sqrt(delta)) / (2 * a)) : -1;
+//		return (double_check_lim(s, dot_from_light(l, r.lo, ((-b - sqrt(delta)) / (2 * a))),
+//		dot_from_light(l, r.lo, ((-b + sqrt(delta)) / (2 * a)))));
+		if (d->t[0] > 0 || d->t[1] > 0)
+			return (1);
 	}
-	return (1);
+	return (-1);
 }
 
 int		test_light(t_data *d, t_light *l, t_sec_r s, t_obj *obj)

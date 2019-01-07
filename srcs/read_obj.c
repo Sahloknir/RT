@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 16:09:35 by axbal             #+#    #+#             */
-/*   Updated: 2018/12/25 16:27:13 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/05 13:45:21 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,12 @@ int		get_object_lim(char *f, int s, t_obj *obj)
 		free(tab);
 		return (0);
 	}
-	obj->lim_x_neg = tab[0];
-	obj->lim_x_pos = tab[1];
-	obj->lim_x_c = 1;
+	if (tab[0] < 1 && tab[1] > 0)
+	{
+		obj->lim_x_neg = tab[0];
+		obj->lim_x_pos = tab[1];
+		obj->lim_x_c = 1;
+	}
 	free(tab);
 	return (1);
 }
