@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 21:56:25 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/07 15:45:00 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/08 15:07:09 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@ void	add_obj(t_data *data, t_obj *obj)
 		free(data->obj);
 	data->obj = tmp;
 	data->objects++;
+}
+
+int		expected_result2(t_obj *obj)
+{
+	if (!(ft_strcmp(obj->type, "cube")))
+	{
+		if (obj->pos_c == 1 && obj->size_c == 1)
+			return (1);
+	}
+	return (-2);
 }
 
 int		expected_result(t_obj *obj)
@@ -56,7 +66,7 @@ int		expected_result(t_obj *obj)
 		if (obj->pos_c == 1 && obj->vector_c == 1)
 			return (1);
 	}
-	return (-2);
+	return (expected_result2(obj));
 }
 
 int		compare_string_to_values(char *f, int s, t_obj *new)
@@ -83,6 +93,8 @@ int		compare_string_to_values(char *f, int s, t_obj *new)
 		return (get_object_lim_y(f, s, new));
 	else if (ft_strncmp(f + s, "lim_z(", 6) == 0)
 		return (get_object_lim_z(f, s, new));
+	else if (ft_strncmp(f + s, "size(", 5) == 0)
+		return (get_object_size(f, s, new));
 	return (0);
 }
 
@@ -115,6 +127,12 @@ int		read_object(t_data *d, char *f, int s)
 		free(new);
 		return (0);
 	}
-	add_obj(d, new);
+	if (ft_strcmp(new->type, "cube") == 0)
+	{
+		fabricated_object(d, new);
+		free(new->type);
+	}
+	else
+		add_obj(d, new);
 	return (1);
 }

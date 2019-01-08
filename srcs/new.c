@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:04:35 by axbal             #+#    #+#             */
-/*   Updated: 2018/11/13 13:28:55 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/08 12:27:34 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_obj		*create_object(t_data *data)
 	new->pos_c = 0;
 	new->type_c = 0;
 	new->radius_c = 0;
+	new->size_c = 0;
 	new->angle_c = 0;
 	new->vector_c = 0;
 	new->rotation_c = 0;

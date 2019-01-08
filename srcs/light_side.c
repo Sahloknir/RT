@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 13:59:34 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/07 15:25:56 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/08 12:01:26 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int			call_side_light_check(t_sec_r s, t_obj *obj, t_data *d)
 	t_dot	org;
 	int		ret;
 
+	if (strncmp(obj->type, "plane", 5) == 0)
+		return (1);
 	org = new_dot(d->light[d->l]->px, d->light[d->l]->py, d->light[d->l]->pz);
 	if (d->t[0] != find_right_distance(d, org, s.lo, s.inter))
 		fswap(&(d->t[0]), &(d->t[1]));

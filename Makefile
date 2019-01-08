@@ -23,6 +23,7 @@ SRCS =	main.c					\
 		check_lim.c				\
 		light_side.c			\
 		misc_utils.c			\
+		fabricated_objects.c	\
 
 SRCO = $(SRCS:.c=.o)
 

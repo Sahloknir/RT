@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 12:05:33 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/07 15:44:20 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/08 12:50:17 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct		s_obj
 	float			pz;
 	float			radius;
 	float			angle;
+	float			size;
 	t_vec			*v;
 	int				rx;
 	int				ry;
@@ -84,6 +85,7 @@ typedef struct		s_obj
 	int				lim_x_c;
 	int				lim_y_c;
 	int				lim_z_c;
+	int				size_c;
 	int				pos_c;
 	int				type_c;
 	int				radius_c;
@@ -170,6 +172,7 @@ int					get_object_angle(char *f, int s, t_obj *obj);
 int					get_object_rot(char *f, int s, t_obj *obj);
 int					get_object_vec(char *f, int s, t_obj *obj);
 int					get_object_color(char *f, int s, t_obj *obj);
+int					get_object_size(char *f, int s, t_obj *obj);
 t_obj				*create_object(t_data *data);
 int					key_release(int key, void *d);
 int					ft_increase_file(char **file, char *line);
@@ -211,5 +214,7 @@ t_color				find_diffuse(t_color c, t_dot inter, t_obj *obj, t_data *d);
 int					test_object(t_data *d, t_vec ray, t_obj *obj);
 float				pick_a_side(float dm, t_vec ray, t_obj *o, t_data *d);
 void				fswap(float *f1, float *f2);
+void				fabricated_object(t_data *d, t_obj *obj);
+void				add_obj(t_data *data, t_obj *obj);
 
 #endif

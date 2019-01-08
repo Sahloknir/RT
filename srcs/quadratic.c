@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 14:44:53 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/07 14:14:46 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/08 11:47:38 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		solve_plane(t_data *d, t_vec ray, t_obj *p)
 		if (d->t[0] < 0)
 			return (-1);
 		dot = get_hitpoint(ray, d->t[0], d);
-		if (check_lim(p,dot) != 1)
+		if (check_lim(p, dot) != 1)
 			return (-1);
 		return (1);
 	}

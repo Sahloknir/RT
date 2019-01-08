@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 16:09:35 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/07 15:43:15 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/08 13:10:06 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		get_object_type(char *f, int s, t_obj *obj)
 	type = word_return(f, s);
 	if (type != NULL && (ft_strcmp(type, "sphere") == 0
 		|| ft_strcmp(type, "cylinder") == 0 || ft_strcmp(type, "cone") == 0
-			|| ft_strcmp(type, "plane") == 0))
+			|| ft_strcmp(type, "plane") == 0 || ft_strcmp(type, "cube") == 0))
 	{
 		if (obj->type_c == 0)
 			obj->type = type;
