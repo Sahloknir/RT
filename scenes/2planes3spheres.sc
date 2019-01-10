@@ -1,5 +1,5 @@
 camera {
-	pos(0, 0, -10)
+	pos(0, 0, 40)
 	rotation(0, 0, 0)
 }
 
@@ -43,4 +43,8 @@ object {
 
 light {
 	pos(-40, 8, 20)
+}
+
+light {
+	pos(-45, 8, 20)
 }

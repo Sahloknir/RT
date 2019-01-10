@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 12:10:49 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/08 13:21:47 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/10 15:27:23 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int			main(int argc, char **argv)
 		ft_putstr_fd("No object to draw! Enjoy the black screen.\n", 2);
 	if (data->cam == NULL)
 		ft_fail("Error: No valid camera. Cannot draw the scene.", data);
-	let_mlx_loop(data);
+	else
+		let_mlx_loop(data);
 	return (0);
 }

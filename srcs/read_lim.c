@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 15:43:31 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/07 15:45:45 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/10 15:39:00 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int		get_object_lim_y(char *f, int s, t_obj *obj)
 	}
 	free(tab);
 	return (1);
-
 }
+
 int		get_object_lim_z(char *f, int s, t_obj *obj)
 {
 	float	*tab;

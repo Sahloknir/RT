@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 16:05:31 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/07 14:08:02 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/10 15:38:23 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ t_color		diffuse_plane(t_color c, t_dot inter, t_obj *obj, t_data *d)
 	d->stop = 0;
 	return (c);
 }
-
 
 t_color		diffuse_cone(t_color c, t_dot inter, t_obj *o, t_data *d)
 {

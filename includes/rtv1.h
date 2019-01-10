@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 12:05:33 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/08 12:50:17 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/10 15:23:46 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <math.h>
 # include <fcntl.h>
 
-# define LA 896
-# define HA 504
+# define LA 1152
+# define HA 648
 # define FOV 90
 
 typedef struct		s_color

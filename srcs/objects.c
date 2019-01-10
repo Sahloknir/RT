@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 21:56:25 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/08 15:07:09 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/10 15:40:22 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ int		read_object(t_data *d, char *f, int s)
 	{
 		fabricated_object(d, new);
 		free(new->type);
+		free(new);
+		return (0);
 	}
 	else
 		add_obj(d, new);

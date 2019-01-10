@@ -6,13 +6,13 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:02:44 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/04 14:41:16 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/10 15:37:22 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-float		ft_clamp(float to_clamp, float min, float max)
+float	ft_clamp(float to_clamp, float min, float max)
 {
 	if (to_clamp > max)
 		return (max);
@@ -21,7 +21,7 @@ float		ft_clamp(float to_clamp, float min, float max)
 	return (to_clamp);
 }
 
-float		two_point_dist(t_dot p1, t_dot p2)
+float	two_point_dist(t_dot p1, t_dot p2)
 {
 	float	dist;
 
@@ -29,7 +29,7 @@ float		two_point_dist(t_dot p1, t_dot p2)
 	return (sqrt(fabs(dist)));
 }
 
-t_color		color_interp(t_color c1, t_color c2, float factor)
+t_color	color_interp(t_color c1, t_color c2, float factor)
 {
 	t_color	result;
 	int		r;
@@ -44,7 +44,7 @@ t_color		color_interp(t_color c1, t_color c2, float factor)
 	return (result);
 }
 
-float		degree_to_radian(float degree)
+float	degree_to_radian(float degree)
 {
 	return (degree * M_PI / 180.0);
 }
@@ -59,5 +59,3 @@ int		cmp_dot(t_dot d1, t_dot d2)
 		return (0);
 	return (1);
 }
-
-

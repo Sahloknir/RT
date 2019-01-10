@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 12:30:01 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/08 15:05:24 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/10 15:35:57 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,8 @@ int		get_object_size(char *f, int s, t_obj *obj)
 	return (1);
 }
 
-t_obj	*gen_plane(t_dot d, t_vec v, t_obj *o, t_data *data)
+void	find_limits(t_obj *o, t_obj *obj)
 {
-	t_obj	*obj;
-	t_vec	*v2;
-
-	if (!(v2 = (t_vec *)malloc(sizeof(t_vec) * 1)))
-		ft_fail("Prout", data);
-	obj = create_object(data);
-	obj->type = "plane";
-	obj->type_c = 1;
-	obj->px = d.x;
-	obj->py = d.y;
-	obj->pz = d.z;
-	obj->pos_c = 1;
-	v2->x = v.x;
-	v2->y = v.y;
-	v2->z = v.z;
-	obj->v = v2;
-	obj->vector_c = 1;
-	obj->color = o->color;
 	if (obj->px == o->px)
 	{
 		obj->lim_x_c = 1;
@@ -66,6 +48,29 @@ t_obj	*gen_plane(t_dot d, t_vec v, t_obj *o, t_data *data)
 		obj->lim_z_neg = -(o->size / 2);
 		obj->lim_z_pos = o->size / 2;
 	}
+}
+
+t_obj	*gen_plane(t_dot d, t_vec v, t_obj *o, t_data *data)
+{
+	t_obj	*obj;
+	t_vec	*v2;
+
+	if (!(v2 = (t_vec *)malloc(sizeof(t_vec) * 1)))
+		ft_fail("Error: Unable to allocate enough memory.\n", data);
+	obj = create_object(data);
+	obj->type = "plane";
+	obj->type_c = 1;
+	obj->px = d.x;
+	obj->py = d.y;
+	obj->pz = d.z;
+	obj->pos_c = 1;
+	v2->x = v.x;
+	v2->y = v.y;
+	v2->z = v.z;
+	obj->v = v2;
+	obj->vector_c = 1;
+	obj->color = o->color;
+	find_limits(o, obj);
 	return (obj);
 }
 
@@ -73,19 +78,14 @@ int		create_cube(t_data *d, t_obj *obj)
 {
 	add_obj(d, gen_plane(new_dot(obj->px - (obj->size / 2), obj->py, obj->pz),
 	new_vec(1, 0, 0), obj, d));
-
 	add_obj(d, gen_plane(new_dot(obj->px + (obj->size / 2), obj->py, obj->pz),
 	new_vec(1, 0, 0), obj, d));
-
 	add_obj(d, gen_plane(new_dot(obj->px, obj->py - (obj->size / 2), obj->pz),
 	new_vec(0, 1, 0), obj, d));
-
 	add_obj(d, gen_plane(new_dot(obj->px, obj->py + (obj->size / 2), obj->pz),
 	new_vec(0, 1, 0), obj, d));
-
 	add_obj(d, gen_plane(new_dot(obj->px, obj->py, obj->pz - (obj->size / 2)),
 	new_vec(0, 0, 1), obj, d));
-
 	add_obj(d, gen_plane(new_dot(obj->px, obj->py, obj->pz + (obj->size / 2)),
 	new_vec(0, 0, 1), obj, d));
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:17:13 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/08 13:23:46 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/10 15:26:17 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ t_color		find_c(t_sec_r s, t_color c, t_obj *obj, t_data *d)
 		dot2 = dot_from_light(d->light[d->l], s.lo, d->t[1]);
 		if (ret == 1)
 		{
-			if ((d->t[0] > 0 && d->t[0] < s.dist && check_lim(d->obj[s.i], dot) == 1)
-				|| (d->t[1] > 0 && d->t[1] < s.dist && check_lim(d->obj[s.i], dot2) == 1))
+			if ((d->t[0] > 0 && d->t[0] < s.dist && check_lim(d->obj[s.i], dot)
+				== 1) || (d->t[1] > 0 && d->t[1] < s.dist &&
+					check_lim(d->obj[s.i], dot2) == 1))
 				break ;
 		}
 		if (s.i == d->objects - 1)

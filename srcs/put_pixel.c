@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/10 19:11:29 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/07 14:07:11 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/10 15:39:38 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	put_pixel_to_image(t_dot d, t_data *dt, char *i, t_color c)
 	}
 }
 
-t_color		apply_color(t_color c, t_obj *o, t_data *d, float angle)
+t_color	apply_color(t_color c, t_obj *o, t_data *d, float angle)
 {
 	c.r += ft_clamp(((o->color.r / d->lights) * angle), 0, o->color.r);
 	c.g += ft_clamp(((o->color.g / d->lights) * angle), 0, o->color.g);
