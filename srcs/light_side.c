@@ -33,7 +33,7 @@ int			call_side_light_check(t_sec_r s, t_obj *obj, t_data *d)
 	t_dot	org;
 	int		ret;
 
-	if (strncmp(obj->type, "plane", 5) == 0)
+	if (obj->type == PLANE)
 		return (1);
 	org = new_dot(d->light[d->l]->px, d->light[d->l]->py, d->light[d->l]->pz);
 	if (d->t[0] != find_right_distance(d, org, s.lo, s.inter))

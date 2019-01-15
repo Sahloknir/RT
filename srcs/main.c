@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <fcntl.h>
 
 void		ft_fail(char *str, t_data *data)
 {

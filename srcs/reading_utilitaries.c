@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <fcntl.h>
 
 float		ft_atof(const char *str)
 {

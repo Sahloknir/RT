@@ -112,13 +112,13 @@ t_color		diffuse_cylinder(t_color c, t_dot inter, t_obj *o, t_data *d)
 
 t_color		find_diffuse(t_color c, t_dot inter, t_obj *obj, t_data *d)
 {
-	if (!ft_strcmp(obj->type, "sphere"))
+	if (obj->type == SPHERE)
 		c = diffuse_sphere(c, inter, obj, d);
-	else if (!ft_strcmp(obj->type, "plane"))
+	else if (obj->type == PLANE)
 		c = diffuse_plane(c, inter, obj, d);
-	else if (!ft_strcmp(obj->type, "cone"))
+	else if (obj->type == CONE)
 		c = diffuse_cone(c, inter, obj, d);
-	else if (!ft_strcmp(obj->type, "cylinder"))
+	else if (obj->type == CYLINDER)
 		c = diffuse_cylinder(c, inter, obj, d);
 	return (c);
 }

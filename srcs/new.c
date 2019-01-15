@@ -72,6 +72,7 @@ t_obj		*create_object(t_data *data)
 
 	if (!(new = (t_obj *)malloc(sizeof(t_obj))))
 		ft_fail("Error: Could not allocate memory.", data);
+	new->type = 0;
 	new->pos_c = 0;
 	new->type_c = 0;
 	new->radius_c = 0;

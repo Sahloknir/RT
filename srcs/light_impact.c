@@ -119,13 +119,13 @@ int		test_light(t_data *d, t_light *l, t_sec_r s, t_obj *obj)
 	d->t[0] = -1;
 	d->t[1] = -1;
 	ret = 0;
-	if (ft_strcmp(obj->type, "sphere") == 0)
+	if (obj->type == SPHERE)
 		ret = light_sphere(d, l, s, obj);
-	if (ft_strcmp(obj->type, "plane") == 0)
+	if (obj->type == PLANE)
 		ret = light_plane(d, l, s, obj);
-	if (ft_strcmp(obj->type, "cylinder") == 0)
+	if (obj->type == CYLINDER)
 		ret = light_cyli(d, l, s, obj);
-	if (ft_strcmp(obj->type, "cone") == 0)
+	if (obj->type == CONE)
 		ret = light_cone(d, l, s, obj);
 	return (ret);
 }

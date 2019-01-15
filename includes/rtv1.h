@@ -16,11 +16,15 @@
 # include "../libft/includes/libft.h"
 # include "../mlx/mlx.h"
 # include <math.h>
-# include <fcntl.h>
 
 # define LA 1152
 # define HA 648
 # define FOV 90
+# define SPHERE 1
+# define PLANE 2
+# define CYLINDER 3
+# define CONE 4
+# define CUBE 5
 
 typedef struct		s_color
 {
@@ -64,7 +68,7 @@ typedef struct		s_light
 
 typedef struct		s_obj
 {
-	char			*type;
+	int				type;
 	float			px;
 	float			py;
 	float			pz;

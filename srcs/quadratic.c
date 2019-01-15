@@ -122,13 +122,13 @@ int		test_object(t_data *d, t_vec ray, t_obj *obj)
 	d->t[0] = -1;
 	d->t[1] = -1;
 	ret = 0;
-	if (ft_strcmp(obj->type, "sphere") == 0)
+	if (obj->type == SPHERE)
 		ret = solve_sphere(d, ray, obj);
-	if (ft_strcmp(obj->type, "plane") == 0)
+	if (obj->type == PLANE)
 		ret = solve_plane(d, ray, obj);
-	if (ft_strcmp(obj->type, "cylinder") == 0)
+	if (obj->type == CYLINDER)
 		ret = solve_cyli(d, ray, obj);
-	if (ft_strcmp(obj->type, "cone") == 0)
+	if (obj->type == CONE)
 		ret = solve_cone(d, ray, obj);
 	if (ret == 1 && (d->t[0] >= 0 || d->t[1] >= 0))
 		return (1);

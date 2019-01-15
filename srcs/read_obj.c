@@ -23,11 +23,21 @@ int		get_object_type(char *f, int s, t_obj *obj)
 			|| ft_strcmp(type, "plane") == 0 || ft_strcmp(type, "cube") == 0))
 	{
 		if (obj->type_c == 0)
-			obj->type = type;
-		else
-			free(type);
+		{
+			if (ft_strcmp(type, "sphere") == 0)
+				obj->type = SPHERE;
+			if (ft_strcmp(type, "cylinder") == 0)
+				obj->type = CYLINDER;
+			if (ft_strcmp(type, "plane") == 0)
+				obj->type = PLANE;
+			if (ft_strcmp(type, "cone") == 0)
+				obj->type = CONE;
+			if (ft_strcmp(type, "cube") == 0)
+				obj->type = CUBE;
+		}
 		obj->type_c += 1;
 	}
+	free(type);
 	return (0);
 }
 

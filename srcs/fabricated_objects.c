@@ -58,7 +58,7 @@ t_obj	*gen_plane(t_dot d, t_vec v, t_obj *o, t_data *data)
 	if (!(v2 = (t_vec *)malloc(sizeof(t_vec) * 1)))
 		ft_fail("Error: Unable to allocate enough memory.\n", data);
 	obj = create_object(data);
-	obj->type = "plane";
+	obj->type = PLANE;
 	obj->type_c = 1;
 	obj->px = d.x;
 	obj->py = d.y;
@@ -93,6 +93,6 @@ int		create_cube(t_data *d, t_obj *obj)
 
 void	fabricated_object(t_data *d, t_obj *obj)
 {
-	if (ft_strcmp(obj->type, "cube") == 0)
+	if (obj->type == CUBE)
 		create_cube(d, obj);
 }

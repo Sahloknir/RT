@@ -34,7 +34,7 @@ void	add_obj(t_data *data, t_obj *obj)
 
 int		expected_result2(t_obj *obj)
 {
-	if (!(ft_strcmp(obj->type, "cube")))
+	if (obj->type == CUBE)
 	{
 		if (obj->pos_c == 1 && obj->size_c == 1)
 			return (1);
@@ -46,22 +46,22 @@ int		expected_result(t_obj *obj)
 {
 	if (obj->type_c == 0)
 		return (0);
-	if (!(ft_strcmp(obj->type, "sphere")))
+	if (obj->type == SPHERE)
 	{
 		if (obj->pos_c == 1 && obj->radius_c == 1)
 			return (1);
 	}
-	if (!(ft_strcmp(obj->type, "cylinder")))
+	if (obj->type == CYLINDER)
 	{
 		if (obj->pos_c == 1 && obj->radius_c == 1 && obj->rotation_c == 1)
 			return (1);
 	}
-	if (!(ft_strcmp(obj->type, "cone")))
+	if (obj->type == CONE)
 	{
 		if (obj->pos_c == 1 && obj->angle_c == 1 && obj->rotation_c == 1)
 			return (1);
 	}
-	if (!(ft_strcmp(obj->type, "plane")))
+	if (obj->type == PLANE)
 	{
 		if (obj->pos_c == 1 && obj->vector_c == 1)
 			return (1);
@@ -100,7 +100,7 @@ int		compare_string_to_values(char *f, int s, t_obj *new)
 
 int		read_object_var(char *f, int s, t_obj *new)
 {
-	new->type = NULL;
+	new->type = 0;
 	while (f[s] && (f[s] != '}'))
 	{
 		if (ft_isalpha(f[s]))
@@ -118,19 +118,15 @@ int		read_object(t_data *d, char *f, int s)
 	int		result;
 
 	new = create_object(d);
-	new->type = NULL;
 	result = read_object_var(f, s, new);
-	if (new->type == NULL || result != 1)
+	if (new->type == 0 || result != 1)
 	{
-		if (new->type != NULL)
-			free(new->type);
 		free(new);
 		return (0);
 	}
-	if (ft_strcmp(new->type, "cube") == 0)
+	if (new->type == CUBE)
 	{
 		fabricated_object(d, new);
-		free(new->type);
 		free(new);
 		return (0);
 	}
