@@ -27,7 +27,9 @@ SRCS =	main.c					\
 
 SRCO = $(SRCS:.c=.o)
 
-FLAGS = -Wall -Wextra -Werror
+HEADER = includes/rtv1.h		\
+
+FLAGS = -o2 -Wall -Wextra -Werror
 
 FRMW = -framework OpenGL -framework Appkit
 
@@ -48,10 +50,10 @@ INCLUDES = includes
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(OBJ)
+$(NAME): $(LIB) $(OBJ) $(HEADER)
 	gcc -o $(NAME) $(OBJ) $(LIB) $(FRMW)
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c $(HEADER)
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
 	gcc -c $(FLAGS) -I$(INCLUDES) -o $@ -c $<
 
