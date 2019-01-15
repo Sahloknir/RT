@@ -60,7 +60,7 @@ t_data		*new_data(void)
 		ft_fail("Error: Could not allocate memory", NULL);
 	if (!(new->mlx_ptr = mlx_init()))
 		ft_fail("Error: Connection failed.", NULL);
-	if (!(new->win_ptr = mlx_new_window(new->mlx_ptr, LA, HA, "rtv1")))
+	if (!(new->win_ptr = mlx_new_window(new->mlx_ptr, LA, HA, "rt")))
 		ft_fail("Error: Unable to create window.", NULL);
 	new->img = init_img(new);
 	return (new);

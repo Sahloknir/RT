@@ -79,7 +79,6 @@ typedef struct		s_obj
 	int				rx;
 	int				ry;
 	t_color			color;
-	struct s_obj	*next;
 	float			lim_x_neg;
 	float			lim_x_pos;
 	float			lim_y_neg;

@@ -13,10 +13,43 @@
 #include "rtv1.h"
 #include <fcntl.h>
 
+void	free_obj(t_obj *obj)
+{
+	if (obj->vector_c != 0 && obj->v)
+		free(obj->v);
+	free(obj);
+}
+
+void	free_data(t_data *d)
+{
+	int		j;
+
+	free(d->t);
+	j = -1;
+	while (++j <= HA)
+		free(d->rays[j]);
+	if (d->rays)
+		free(d->rays);
+	j = -1;
+	while (++j < d->lights)
+		free(d->light[j]);
+	if (d->light)
+	free(d->light);
+	j = -1;
+	while (++j < d->objects)
+		free_obj(d->obj[j]);
+	if (d->obj)
+		free(d->obj);
+	free(d->cam);
+	free(d->img);
+	free(d);
+	while (1);
+}
+
 int		close_program(t_data *d)
 {
 	if (d)
-		exit(0);
+		free_data(d);
 	exit(0);
 }
 
