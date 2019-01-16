@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <math.h>
 
 float	ft_clamp(float to_clamp, float min, float max)
 {

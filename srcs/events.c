@@ -26,24 +26,20 @@ void	free_data(t_data *d)
 
 	free(d->t);
 	j = -1;
-	while (++j <= HA)
+	while (d->objects > 0 && ++j <= HA)
 		free(d->rays[j]);
-	if (d->rays)
+	if (d->objects > 0 && d->rays)
 		free(d->rays);
 	j = -1;
-	while (++j < d->lights)
+	while (d->lights > 0 && ++j < d->lights)
 		free(d->light[j]);
-	if (d->light)
+	if (d->lights > 0)
 	free(d->light);
 	j = -1;
-	while (++j < d->objects)
+	while (d->objects > 0 && ++j < d->objects)
 		free_obj(d->obj[j]);
-	if (d->obj)
+	if (d->objects > 0)
 		free(d->obj);
-	free(d->cam);
-	free(d->img);
-	free(d);
-	while (1);
 }
 
 int		close_program(t_data *d)

@@ -15,7 +15,6 @@
 
 # include "../libft/includes/libft.h"
 # include "../mlx/mlx.h"
-# include <math.h>
 
 # define LA 1152
 # define HA 648

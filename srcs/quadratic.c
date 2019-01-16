@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <math.h>
 
 int		solve_cyli(t_data *d, t_vec ray, t_obj *o)
 {

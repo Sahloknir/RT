@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <math.h>
 
 t_dot	get_hitpoint(t_vec vector, float d, t_data *data)
 {

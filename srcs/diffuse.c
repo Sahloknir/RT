@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <math.h>
 
 t_color		diffuse_sphere(t_color c, t_dot inter, t_obj *o, t_data *d)
 {

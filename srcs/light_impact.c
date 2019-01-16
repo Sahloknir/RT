@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <math.h>
 
 int		light_cyli(t_data *d, t_light *l, t_sec_r r, t_obj *o)
 {
