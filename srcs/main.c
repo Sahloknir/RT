@@ -61,6 +61,7 @@ int			main(int argc, char **argv)
 	read_file(data, file);
 	if (data->objects != 0 && data->cam != NULL)
 		start_raytracing(data);
+	mlx_destroy_image(data->mlx_ptr, data->img2->ptr);
 	if (data->objects < 1 && data->cam != NULL)
 		ft_putstr_fd("No object to draw! Enjoy the black screen.\n", 2);
 	if (data->cam == NULL)

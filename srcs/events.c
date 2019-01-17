@@ -40,12 +40,14 @@ void	free_data(t_data *d)
 		free_obj(d->obj[j]);
 	if (d->objects > 0)
 		free(d->obj);
+	mlx_destroy_image(d->mlx_ptr, d->img->ptr);
 }
 
 int		close_program(t_data *d)
 {
 	if (d)
 		free_data(d);
+	mlx_destroy_window(d->mlx_ptr, d->win_ptr);
 	exit(0);
 }
 

@@ -113,6 +113,7 @@ typedef struct		s_data
 	void			*mlx_ptr;
 	void			*win_ptr;
 	t_img			*img;
+	t_img			*img2;
 	t_obj			**obj;
 	t_light			**light;
 	t_cam			*cam;
@@ -126,6 +127,9 @@ typedef struct		s_data
 	int				l;
 	float			*t;
 	int				stop;
+	t_color			green;
+	t_color			red;
+	t_color			blue;
 }					t_data;
 
 typedef struct		s_rtc
