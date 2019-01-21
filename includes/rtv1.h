@@ -127,6 +127,7 @@ typedef struct		s_data
 	int				l;
 	float			*t;
 	int				stop;
+	t_color			a;
 	t_color			green;
 	t_color			red;
 	t_color			blue;

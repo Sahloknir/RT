@@ -48,7 +48,24 @@ int		search_dir_cam(t_cam *cam, char *f, int s)
 	return (1);
 }
 
-int		read_camera2(char *file, int select, t_cam *new)
+int		read_ambient(char *f, int s, t_data *d)
+{
+	float	*tab;
+
+	tab = three_values_tab(f, s);
+	if (!(f[(int)tab[4]]) || tab[3] != 3)
+	{
+		free(tab);
+		return (-1);
+	}
+	else if (tab[0] > 0 && tab[1] > 0 && tab[2] > 0 && tab[0] < 255
+		&& tab[1] < 255 && tab[2] < 255)
+		d->a = new_color(tab[0] / 10 / 2, tab[1] / 10 / 2, tab[2] / 10 / 2, 0);
+	free(tab);
+	return (0);
+}
+
+int		read_camera2(char *file, int select, t_cam *new, t_data *d)
 {
 	int		pos;
 	int		dir;
@@ -68,6 +85,8 @@ int		read_camera2(char *file, int select, t_cam *new)
 				pos = search_pos_cam(new, file, select);
 			else if (!(ft_strcmp(word, "rotation")))
 				dir = search_dir_cam(new, file, select);
+			else if (!(ft_strcmp(word, "ambient")))
+				read_ambient(file, select, d);
 			free(word);
 		}
 		select++;
@@ -82,7 +101,7 @@ int		read_camera(t_data *data, char *file, int select)
 
 	if (!(new = (t_cam *)malloc(sizeof(t_cam) * 1)))
 		ft_fail("Error: Could not allocate memory.", data);
-	result = read_camera2(file, select, new);
+	result = read_camera2(file, select, new, data);
 	if (result == 2 && data->cam != NULL)
 	{
 		free(new);

@@ -48,7 +48,9 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 
 	s.inter = inter;
 	d->l = -1;
-	c = d->lights > 0 ? new_color(0, 0, 0, 0) :
+	c = d->lights > 0 ? new_color(d->a.r * (obj->color.r * 0.2)
+		/ (d->lights + 2), d->a.g * (obj->color.g * 0.2) / (d->lights + 2),
+			d->a.b * (obj->color.b * 0.2) / (d->lights + 2), 0) :
 	new_color(obj->color.r, obj->color.g, obj->color.b, 0);
 	d->stop = 0;
 	while (++(d->l) < d->lights && d->stop == 0)

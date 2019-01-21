@@ -34,7 +34,7 @@ void	free_data(t_data *d)
 	while (d->lights > 0 && ++j < d->lights)
 		free(d->light[j]);
 	if (d->lights > 0)
-	free(d->light);
+		free(d->light);
 	j = -1;
 	while (d->objects > 0 && ++j < d->objects)
 		free_obj(d->obj[j]);

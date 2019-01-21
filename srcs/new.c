@@ -68,6 +68,7 @@ t_data		*new_data(void)
 	new->green = new_color(180, 250, 180, 0);
 	new->red = new_color(250, 180, 180, 0);
 	new->blue = new_color(180, 180, 250, 0);
+	new->a = new_color(0, 0, 0, 0);
 	return (new);
 }
 

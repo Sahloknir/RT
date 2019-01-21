@@ -28,11 +28,11 @@ t_color		diffuse_sphere(t_color c, t_dot inter, t_obj *o, t_data *d)
 	c.r += (int)ft_clamp(((o->color.r / d->lights) * s.angle), 0, o->color.r);
 	c.g += (int)ft_clamp(((o->color.g / d->lights) * s.angle), 0, o->color.g);
 	c.b += (int)ft_clamp(((o->color.b / d->lights) * s.angle), 0, o->color.b);
-	if (o->shiny && s.angle >= 0.99)
-	{
-		return (color_interp(new_color(o->color.r, o->color.g, o->color.b, 0),
-			new_color(255, 255, 255, 0), s.angle));
-	}
+//	if (o->shiny && s.angle >= 0.99)
+//	{
+///		return (color_interp(new_color(o->color.r, o->color.g, o->color.b, 0),
+//			new_color(255, 255, 255, 0), s.angle));
+//	}
 	d->stop = 0;
 	return (c);
 }
@@ -74,11 +74,11 @@ t_color		diffuse_cone(t_color c, t_dot inter, t_obj *o, t_data *d)
 	norm_vec(&(s.lo));
 	s.angle = fabs(scalar(&(s.normale), &(s.lo)));
 	c = apply_color(c, o, d, s.angle);
-	if (o->shiny && s.angle > 0.99)
-	{
-		return (color_interp(new_color(o->color.r, o->color.g, o->color.b, 0),
-			new_color(255, 255, 255, 0), s.angle));
-	}
+//	if (o->shiny && s.angle > 0.99)
+//	{
+//		return (color_interp(new_color(o->color.r, o->color.g, o->color.b, 0),
+//			new_color(255, 255, 255, 0), s.angle));
+//	}
 	d->stop = 0;
 	return (c);
 }
@@ -102,11 +102,11 @@ t_color		diffuse_cylinder(t_color c, t_dot inter, t_obj *o, t_data *d)
 	norm_vec(&(s.lo));
 	s.angle = fabs(scalar(&(s.normale), &(s.lo)));
 	c = apply_color(c, o, d, s.angle);
-	if (o->shiny && s.angle > 0.99)
-	{
-		return (color_interp(new_color(o->color.r, o->color.g, o->color.b, 0),
-			new_color(255, 255, 255, 0), s.angle));
-	}
+//	if (o->shiny && s.angle > 0.99)
+//	{
+//		return (color_interp(new_color(o->color.r, o->color.g, o->color.b, 0),
+//			new_color(255, 255, 255, 0), s.angle));
+//	}
 	d->stop = 0;
 	return (c);
 }
