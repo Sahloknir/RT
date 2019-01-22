@@ -134,6 +134,25 @@ typedef struct		s_data
 	t_color			blue;
 }					t_data;
 
+typedef struct		s_hdr
+{
+	char			type[2];
+	int				file_size;
+	int				rsrvd;
+	int				offset;
+	int				size;
+	int				plane_nb;
+	int				compression;
+	int				h_res;
+	int				v_res;
+	int				color_nb;
+	int				imp_color_nb;
+	int				i_size;
+	int				bpp;
+	int				la;
+	int				ha;
+}					t_hdr;
+
 typedef struct		s_rtc
 {
 	int				obj_i;
@@ -225,5 +244,6 @@ void				fswap(float *f1, float *f2);
 void				fabricated_object(t_data *d, t_obj *obj);
 void				add_obj(t_data *data, t_obj *obj);
 int					screenshot(t_data *d);
+char				*get_file_name(char *str);
 
 #endif

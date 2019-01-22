@@ -48,24 +48,6 @@ void		let_mlx_loop(t_data *data)
 	mlx_loop(data->mlx_ptr);
 }
 
-char	*get_file_name(char *str)
-{
-	int		s;
-	int		max_len;
-	int		min_len;
-
-	s = 0;
-	while (str[s] != '.' && str[s] != '\0')
-		s++;
-	if (str[s] == '\0')
-		return (NULL);
-	max_len = s;
-	while (str[s] != '\0' && str[s] != '/')
-		s--;
-	min_len = s;
-	return(ft_strsub(str, s + 1, max_len - min_len - 1));
-}
-
 int			main(int argc, char **argv)
 {
 	t_data	*data;
@@ -87,7 +69,6 @@ int			main(int argc, char **argv)
 	else
 	{
 		data->file_name = get_file_name(argv[1]);
-		ft_putstr(data->file_name);
 		let_mlx_loop(data);
 	}
 	return (0);
