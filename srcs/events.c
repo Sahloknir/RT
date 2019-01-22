@@ -24,10 +24,6 @@ void	free_data(t_data *d)
 {
 	int		j;
 
-	free(d->t);
-	j = -1;
-	while (d->objects > 0 && ++j <= HA && d->rays)
-		free(d->rays[j]);
 	j = -1;
 	while (d->lights > 0 && ++j < d->lights)
 		free(d->light[j]);
@@ -49,6 +45,8 @@ int		key_release(int key, void *d)
 {
 	if (key == 53 || key == 12)
 		close_program(d);
+	else if (key == 1)
+		screenshot(d);
 	return (1);
 }
 

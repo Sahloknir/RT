@@ -110,6 +110,7 @@ typedef struct		s_img
 
 typedef struct		s_data
 {
+	char			*file_name;
 	void			*mlx_ptr;
 	void			*win_ptr;
 	t_img			*img;
@@ -223,5 +224,6 @@ float				pick_a_side(float dm, t_vec ray, t_obj *o, t_data *d);
 void				fswap(float *f1, float *f2);
 void				fabricated_object(t_data *d, t_obj *obj);
 void				add_obj(t_data *data, t_obj *obj);
+int					screenshot(t_data *d);
 
 #endif

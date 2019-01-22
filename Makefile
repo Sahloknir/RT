@@ -24,6 +24,7 @@ SRCS =	main.c					\
 		light_side.c			\
 		misc_utils.c			\
 		fabricated_objects.c	\
+		screenshot.c			\
 
 SRCO = $(SRCS:.c=.o)
 
