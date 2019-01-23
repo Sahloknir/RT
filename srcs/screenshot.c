@@ -28,13 +28,13 @@ char	*get_img(char *img_str, t_data *d, t_hdr h)
 
 	i = h.i_size - 1;
 	j = 0;
-	if (!(str = malloc(sizeof(char) * h.i_size)))
+	if (!(str = (char *)malloc(sizeof(char) * 3 * LA * HA)))
 		ft_fail("Error: Could not malloc enough memory.\n", d);
 	while (i >= 0)
 	{
-		i -= LA;
+		i -= d->img->s_l;
 		k = 0;
-		while (k < LA)
+		while (k < d->img->s_l)
 		{
 			str[j] = img_str[i + k + 1];
 			str[j + 1] = img_str[i + k + 2];
@@ -66,7 +66,7 @@ void	write_to_file(int fd, t_hdr h, t_data *d)
 	write(fd, &h.color_nb, 4);
 	write(fd, &h.imp_color_nb, 4);
 	image_string = get_img(d->img->str, d, h);
-	write(fd, image_string, LA * HA);
+	write(fd, image_string, h.i_size);
 	free(image_string);
 }
 
@@ -77,15 +77,15 @@ void	fill_header_info(int fd, t_data *d)
 	h.type[0] = 0x42;
 	h.type[1] = 0x4D;
 	h.offset = 54;
-	h.i_size = LA * HA;
+	h.i_size = d->img->s_l * HA;
 	h.file_size = h.offset + h.i_size;
-	h.rsrvd = 0x00000000;
+	h.rsrvd = 0;
 	h.size = 40;
 	h.plane_nb = 1;
 	h.bpp = 24;
 	h.compression = 0;
-	h.h_res = LA;
-	h.v_res = HA;
+	h.h_res = 2835;
+	h.v_res = 2835;
 	h.color_nb = 0;
 	h.imp_color_nb = 0;
 	h.la = LA;
@@ -102,8 +102,7 @@ int		screenshot(t_data *d)
 	tmp = ft_strjoin("./screenshots/", d->file_name);
 	name = ft_strjoin(tmp, ".bmp");
 	free(tmp);
-	if ((fd = open(name, O_WRONLY | O_CREAT, O_EXCL | S_IRWXU | S_IRWXG
-		| S_IRWXO)) == -1)
+	if ((fd = open(name, O_WRONLY | O_CREAT | O_EXCL, 0640)) < 0)
 	{
 		ft_putstr("Screenshot ");
 		ft_putstr(name);
