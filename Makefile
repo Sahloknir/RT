@@ -25,6 +25,8 @@ SRCS =	main.c					\
 		misc_utils.c			\
 		fabricated_objects.c	\
 		screenshot.c			\
+		clear_variables.c		\
+		menu.c					\
 
 SRCO = $(SRCS:.c=.o)
 

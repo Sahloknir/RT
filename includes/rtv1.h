@@ -113,6 +113,8 @@ typedef struct		s_data
 	char			*file_name;
 	void			*mlx_ptr;
 	void			*win_ptr;
+	t_img			*current_img;
+	t_img			*img0;
 	t_img			*img;
 	t_img			*img2;
 	t_obj			**obj;
@@ -126,12 +128,14 @@ typedef struct		s_data
 	float			s_xmax;
 	float			s_ymax;
 	int				l;
-	float			*t;
+	float			t[2];
 	int				stop;
 	t_color			a;
 	t_color			green;
 	t_color			red;
 	t_color			blue;
+	int				selected_choice;
+	int				menu;
 }					t_data;
 
 typedef struct		s_hdr
@@ -245,5 +249,7 @@ void				fabricated_object(t_data *d, t_obj *obj);
 void				add_obj(t_data *data, t_obj *obj);
 int					screenshot(t_data *d);
 char				*get_file_name(char *str);
+void				free_data(t_data *d);
+void				set_up_menu(t_data *d);
 
 #endif

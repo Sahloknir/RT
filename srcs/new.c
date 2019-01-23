@@ -57,8 +57,8 @@ t_data		*new_data(void)
 	new->rays = NULL;
 	new->lights = 0;
 	new->objects = 0;
-	if (!(new->t = (float *)malloc(sizeof(float) * 2)))
-		ft_fail("Error: Could not allocate memory", NULL);
+	new->t[0] = -1;
+	new->t[1] = -1;
 	if (!(new->mlx_ptr = mlx_init()))
 		ft_fail("Error: Connection failed.", NULL);
 	if (!(new->win_ptr = mlx_new_window(new->mlx_ptr, LA, HA, "rt")))
@@ -69,6 +69,7 @@ t_data		*new_data(void)
 	new->red = new_color(250, 180, 180, 0);
 	new->blue = new_color(180, 180, 250, 0);
 	new->a = new_color(0, 0, 0, 0);
+	new->current_img = new->img;
 	return (new);
 }
 

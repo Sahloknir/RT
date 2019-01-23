@@ -13,27 +13,6 @@
 #include "rtv1.h"
 #include <fcntl.h>
 
-void	free_obj(t_obj *obj)
-{
-	if (obj->vector_c != 0)
-		free(obj->v);
-	free(obj);
-}
-
-void	free_data(t_data *d)
-{
-	int		j;
-
-	j = -1;
-	while (d->lights > 0 && ++j < d->lights)
-		free(d->light[j]);
-	j = -1;
-	while (d->objects > 0 && ++j < d->objects)
-		free_obj(d->obj[j]);
-	mlx_destroy_image(d->mlx_ptr, d->img->ptr);
-	mlx_destroy_window(d->mlx_ptr, d->win_ptr);
-}
-
 int		close_program(t_data *d)
 {
 	if (d)
@@ -43,8 +22,10 @@ int		close_program(t_data *d)
 
 int		key_release(int key, void *d)
 {
-	if (key == 53 || key == 12)
+	if (key == 53)
 		close_program(d);
+	else if (key == 12)
+		free_data(d);
 	else if (key == 1)
 		screenshot(d);
 	return (1);
@@ -52,6 +33,6 @@ int		key_release(int key, void *d)
 
 int		refresh_expose(t_data *d)
 {
-	mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img->ptr, 0, 0);
+	mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->current_img, 0, 0);
 	return (0);
 }
