@@ -58,6 +58,7 @@ int			main(int argc, char **argv)
 		ft_fail("Usage: rtv1 input_file", NULL);
 	data = new_data();
 	set_up_menu(data);
+	open_scenes_dir(data);
 	file = start_reading(argv[1]);
 	read_file(data, file);
 	if (data->objects != 0 && data->cam != NULL)

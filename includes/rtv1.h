@@ -19,6 +19,7 @@
 # define LA 1152
 # define HA 648
 # define FOV 90
+# define SCENES_PATH "./scenes/"
 # define SPHERE 1
 # define PLANE 2
 # define CYLINDER 3
@@ -251,5 +252,6 @@ int					screenshot(t_data *d);
 char				*get_file_name(char *str);
 void				free_data(t_data *d);
 void				set_up_menu(t_data *d);
+int					open_scenes_dir(t_data *d);
 
 #endif

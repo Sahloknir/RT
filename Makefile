@@ -27,6 +27,7 @@ SRCS =	main.c					\
 		screenshot.c			\
 		clear_variables.c		\
 		menu.c					\
+		list_files.c			\
 
 SRCO = $(SRCS:.c=.o)
 
