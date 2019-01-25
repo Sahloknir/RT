@@ -1,6 +1,30 @@
 #include "rtv1.h"
 #include <dirent.h>
 
+void	add_to_list(t_data *d, char *name)
+{
+	t_list	*new;
+	t_list	*parcour;
+
+	parcour = d->lst;
+	if (d->dir_files == 1)
+	{
+		d->lst = ft_lstnew(name, ft_strlen(name));
+		d->lst->next = NULL;
+	}
+	else
+	{
+		new = ft_lstnew(name, ft_strlen(name));
+		new->next = NULL;
+		while (parcour->next != NULL)
+			parcour = parcour->next;
+		parcour->next = new;
+		ft_putstr("added ");
+		ft_putstr(name);
+		ft_putstr(".\n");
+	}
+}
+
 int		list_all_scene_files(t_data *d, DIR *di)
 {
 	struct dirent	*dir;
@@ -18,8 +42,7 @@ int		list_all_scene_files(t_data *d, DIR *di)
 			if (ft_strequ(str, ".sc"))
 			{
 				d->dir_files++;
-				ft_putstr(dir->d_name);
-				ft_putstr("\n");
+				add_to_list(d, dir->d_name);
 			}
 		}
 	}
@@ -34,7 +57,7 @@ int		open_scenes_dir(t_data *d)
 	if ((di = opendir(SCENES_PATH)) == NULL)
 		ft_fail("Error: Path to scenes directory is invalid.", d);
 	else if (list_all_scene_files(d, di) == 0)
-		ft_fail("Error: There are no scene files in the path mentionned.", d);
+		ft_fail("Error: There are no scene files in the mentionned path.", d);
 	closedir(di);
 	return (1);
 }

@@ -139,6 +139,7 @@ typedef struct		s_data
 	int				menu;
 	int				dir_files;
 	char			**files;
+	struct s_list	*lst;
 }					t_data;
 
 typedef struct		s_hdr
