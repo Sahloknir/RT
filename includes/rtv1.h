@@ -137,6 +137,8 @@ typedef struct		s_data
 	t_color			blue;
 	int				selected_choice;
 	int				menu;
+	int				dir_files;
+	char			**files;
 }					t_data;
 
 typedef struct		s_hdr
