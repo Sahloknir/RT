@@ -19,41 +19,39 @@ void	free_rays(t_data *d)
 		free(d->rays);
 }
 
-void	free_data(t_data *d)
+void	clear_images(t_data *d)
 {
-	int		j;
-
-	ft_putstr("clear1\n");
-	if (d->file_name != NULL)
-		free(d->file_name);
-	d->file_name = NULL;
-	ft_putstr("clear2\n");
-	j = -1;
-	while (d->lights > 0 && ++j < d->lights)
-	{
-		free(d->light[j]);
-		d->light[j] = NULL;
-	ft_putstr("clear3\n");
-	}
-	if (d->light != NULL)
-		free(d->light);
-	ft_putstr("clear4\n");
-	j = -1;
-	while (d->objects > 0 && ++j < d->objects)
-		free_obj(d->obj[j]);
-	ft_putstr("clear5\n");
-	if (d->objects > 0 && d->cam != NULL && d->rays != NULL)
-		free_rays(d);
-	ft_putstr("clear6\n");
-	if (d->cam != NULL)
-		free(d->cam);
-	ft_putstr("clear7\n");
 	d->cam = NULL;
 	d->light = NULL;
 	d->rays = NULL;
 	d->objects = 0;
 	d->lights = 0;
-	ft_putstr("clear8\n");
-	d->current_img = d->img0;
+	d->current_img = 0;
 	mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img0->ptr, 0, 0);
+	ft_strclr(d->img->str);
+}
+
+void	free_data(t_data *d)
+{
+	int		j;
+
+	if (d->file_name != NULL)
+		free(d->file_name);
+	d->file_name = NULL;
+	j = -1;
+	while (d->lights > 0 && ++j < d->lights)
+	{
+		free(d->light[j]);
+		d->light[j] = NULL;
+	}
+	if (d->light != NULL)
+		free(d->light);
+	j = -1;
+	while (d->objects > 0 && ++j < d->objects)
+		free_obj(d->obj[j]);
+	if (d->objects > 0 && d->cam != NULL && d->rays != NULL)
+		free_rays(d);
+	if (d->cam != NULL)
+		free(d->cam);
+	clear_images(d);
 }

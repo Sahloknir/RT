@@ -44,7 +44,6 @@ void		let_mlx_loop(t_data *data)
 	mlx_hook(data->win_ptr, 17, 1L << 17, &close_program, data);
 	mlx_hook(data->win_ptr, 3, 1L << 1, &key_release, data);
 	mlx_loop_hook(data->mlx_ptr, &refresh_expose, data);
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img->ptr, 0, 0);
 	mlx_loop(data->mlx_ptr);
 }
 
@@ -57,8 +56,8 @@ int			main(int argc, char **argv)
 	if (argc < 2)
 		ft_fail("Usage: rtv1 input_file", NULL);
 	data = new_data();
-	set_up_menu(data);
 	open_scenes_dir(data);
+	set_up_menu(data);
 	file = start_reading(argv[1]);
 	read_file(data, file);
 	if (data->objects != 0 && data->cam != NULL)
@@ -69,8 +68,8 @@ int			main(int argc, char **argv)
 		ft_fail("Error: No valid camera. Cannot draw the scene.", data);
 	else
 	{
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img->ptr, 0, 0);
 		data->file_name = get_file_name(argv[1]);
-		mlx_destroy_image(data->mlx_ptr, data->img2->ptr);
 		let_mlx_loop(data);
 	}
 	return (0);

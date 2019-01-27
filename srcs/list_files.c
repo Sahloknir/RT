@@ -1,28 +1,37 @@
 #include "rtv1.h"
 #include <dirent.h>
 
-void	add_to_list(t_data *d, char *name)
+int		add_to_files(t_data *d, char *name)
 {
-	t_list	*new;
-	t_list	*parcour;
+	char	**tmp;
+	int		i;
 
-	parcour = d->lst;
-	if (d->dir_files == 1)
+	i = -1;
+	if (d->dir_files <= 1)
 	{
-		d->lst = ft_lstnew(name, ft_strlen(name));
-		d->lst->next = NULL;
+		if (!(d->files = (char **)(malloc(sizeof(char **) * 1))))
+			ft_fail("Error: Could not malloc memory for files tab.", d);
+		d->files[d->dir_files - 1] = ft_strdup(name);
+		ft_putstr("added file ");
+		ft_putstr(d->files[d->dir_files - 1]);
+		ft_putstr(" to tab.\n");
+		return (1);
 	}
-	else
+	if (!(tmp = (char **)(malloc(sizeof(char *) * d->dir_files - 1))))
+			ft_fail("Error: Could not malloc memory for files tab.", d);
+	while (++i < d->dir_files - 1)
 	{
-		new = ft_lstnew(name, ft_strlen(name));
-		new->next = NULL;
-		while (parcour->next != NULL)
-			parcour = parcour->next;
-		parcour->next = new;
-		ft_putstr("added ");
-		ft_putstr(name);
-		ft_putstr(".\n");
+		tmp[i] = ft_strdup(d->files[i]);
+		free(d->files[i]);
+		ft_putstr("free ok\n");
 	}
+	free(d->files);
+	tmp[d->dir_files - 1] = ft_strdup(name);
+	ft_putstr("added file ");
+	ft_putstr(tmp[d->dir_files - 1]);
+	ft_putstr(" to tab.\n");
+	d->files = tmp;
+	return (1);
 }
 
 int		list_all_scene_files(t_data *d, DIR *di)
@@ -42,10 +51,11 @@ int		list_all_scene_files(t_data *d, DIR *di)
 			if (ft_strequ(str, ".sc"))
 			{
 				d->dir_files++;
-				add_to_list(d, dir->d_name);
+				add_to_files(d, dir->d_name);
 			}
 		}
 	}
+	ft_putstr("Finished.\n");
 	return (d->dir_files);
 }
 
@@ -53,6 +63,7 @@ int		open_scenes_dir(t_data *d)
 {
 	DIR				*di;
 
+	ft_putstr("Starting.\n");
 	d->dir_files = 0;
 	if ((di = opendir(SCENES_PATH)) == NULL)
 		ft_fail("Error: Path to scenes directory is invalid.", d);

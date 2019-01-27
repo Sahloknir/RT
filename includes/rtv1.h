@@ -114,7 +114,7 @@ typedef struct		s_data
 	char			*file_name;
 	void			*mlx_ptr;
 	void			*win_ptr;
-	t_img			*current_img;
+	int				current_img;
 	t_img			*img0;
 	t_img			*img;
 	t_img			*img2;
@@ -139,7 +139,6 @@ typedef struct		s_data
 	int				menu;
 	int				dir_files;
 	char			**files;
-	struct s_list	*lst;
 }					t_data;
 
 typedef struct		s_hdr
@@ -256,5 +255,7 @@ char				*get_file_name(char *str);
 void				free_data(t_data *d);
 void				set_up_menu(t_data *d);
 int					open_scenes_dir(t_data *d);
+void				write_menu(t_data *d);
+void				draw_menu0(t_img *img, t_data *d);
 
 #endif
