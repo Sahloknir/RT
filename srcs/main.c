@@ -17,8 +17,11 @@ void		ft_return(char *str, t_data *d)
 {
 	if (d)
 		free_data(d);
-	ft_putstr_fd(str, 2);
-	ft_putchar('\n');
+	if (str)
+	{
+		ft_putstr_fd(str, 2);
+		ft_putchar('\n');
+	}
 	d->current_img = 0;
 	refresh_expose(d);
 }

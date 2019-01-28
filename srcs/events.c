@@ -41,7 +41,7 @@ int		keys_repertory(int key, t_data *d)
 	if (d->current_img == 1)
 	{
 		if (key == 12)
-			free_data(d);
+			ft_return(NULL, d);
 		else if (key == 1)
 			screenshot(d);
 	}
@@ -64,11 +64,14 @@ int		key_release(int key, void *d)
 int		refresh_expose(t_data *d)
 {
 	mlx_clear_window(d->mlx_ptr, d->win_ptr);
-	mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img0->ptr, 0, 0);
-	write_menu(d);
 	if (d->current_img == 1)
 		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img->ptr, 0, 0);
 	else if (d->current_img == 2)
 		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img2->ptr, 0, 0);
+	else
+	{
+		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img0->ptr, 0, 0);
+		write_menu(d);
+	}
 	return (0);
 }

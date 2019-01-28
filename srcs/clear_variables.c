@@ -4,8 +4,8 @@ void	free_obj(int j, t_data *d)
 {
 	if (d->obj[j]->vector_c != 0)
 		free(d->obj[j]->v);
-	if (d->obj[j])
-		free(d->obj[j]);
+	d->obj[j]->vector_c = 0;
+	free(d->obj[j]);
 	d->obj[j] = NULL;
 }
 
@@ -15,7 +15,10 @@ void	free_rays(t_data *d)
 
 	j = -1;
 	while (++j < HA)
+	{
 		free(d->rays[j]);
+		d->rays[j] = NULL;
+	}
 	if (d->rays)
 		free(d->rays);
 }

@@ -28,12 +28,12 @@ void	loading_screen_update(t_data *d, int h)
 {
 	t_dot	dot;
 
-	d->current_img = 2;
 	dot = new_dot(LA / 5 + h, HA - 15, 0);
-	while (++dot.y < HA - 12)
+	while (++dot.y < HA - 11)
 		put_pixel_to_image(dot, d, d->img2->str, d->green);
 	mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img2->ptr, 0, 0);
-	if (h % 18 == 0)
+	refresh_expose(d);
+	if (h % 31 == 0)
 		mlx_do_sync(d->mlx_ptr);
 }
 
@@ -42,12 +42,12 @@ void	start_raytracing(t_data *d)
 	t_rtc	r;
 	t_color	c;
 
+	d->current_img = 2;
 	r.i = -1;
 	gen_rays(d);
 	while (++r.i < HA)
 	{
-		if (r.i % 2 == 0)
-			loading_screen_update(d, r.i);
+		loading_screen_update(d, r.i);
 		r.j = -1;
 		while (++r.j < LA)
 		{
