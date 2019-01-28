@@ -6,6 +6,7 @@ int		open_selected_choice(t_data *d)
 
 	if (d)
 		free_data(d);
+	d->file_name = ft_strdup(d->files[d->selected_choice]);
 	if (!(str = malloc(sizeof(char) * ft_strlen(d->files[d->selected_choice]
 		+ ft_strlen(SCENES_PATH)))))
 		ft_fail("Error: Could not allocate memory.", d);
@@ -18,14 +19,10 @@ int		open_selected_choice(t_data *d)
 
 int		check_file(t_data *d, char *file)
 {
-	if (d)
-		free_data(d);
-	d->file_name = get_file_name(file);
 	file = start_reading(file);
 	read_file(d, file);
 	d->current_img = 2;
-	mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img2->ptr, 0, 0);
-	mlx_do_sync(d->mlx_ptr);
+	refresh_expose(d);
 	if (d->objects != 0 && d->cam != NULL)
 		start_raytracing(d);
 	else if (d->objects == 0)
@@ -36,6 +33,6 @@ int		check_file(t_data *d, char *file)
 		return (-1);
 	}
 	d->current_img = 1;
-	mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img->ptr, 0, 0);
+	refresh_expose(d);
 	return (1);
 }

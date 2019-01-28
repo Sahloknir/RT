@@ -32,6 +32,7 @@ int		side_keys(int key, t_data *d)
 		d->selected_choice = d->dir_files - 1;
 	else if (d->selected_choice >= d->dir_files)
 		d->selected_choice = 0;
+	refresh_expose(d);
 	return (1);
 }
 
@@ -63,14 +64,11 @@ int		key_release(int key, void *d)
 int		refresh_expose(t_data *d)
 {
 	mlx_clear_window(d->mlx_ptr, d->win_ptr);
+	mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img0->ptr, 0, 0);
+	write_menu(d);
 	if (d->current_img == 1)
 		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img->ptr, 0, 0);
-	else if (d->current_img == 0)
-	{
-		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img0->ptr, 0, 0);
-		write_menu(d);
-	}
-	else
+	else if (d->current_img == 2)
 		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img2->ptr, 0, 0);
 	return (0);
 }

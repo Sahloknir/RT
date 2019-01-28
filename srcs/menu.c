@@ -48,6 +48,5 @@ void	set_up_menu(t_data *d)
 	d->selected_choice = 0;
 	d->img0 = init_img(d);
 	draw_menu0(d->img0, d);
-	mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img0->ptr, 0, 0);
 	write_menu(d);
 }

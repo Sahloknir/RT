@@ -20,6 +20,7 @@ void		ft_return(char *str, t_data *d)
 	ft_putstr_fd(str, 2);
 	ft_putchar('\n');
 	d->current_img = 0;
+	refresh_expose(d);
 }
 
 void		ft_fail(char *str, t_data *data)
@@ -52,7 +53,7 @@ void		let_mlx_loop(t_data *data)
 {
 	mlx_hook(data->win_ptr, 17, 1L << 17, &close_program, data);
 	mlx_hook(data->win_ptr, 3, 1L << 1, &key_release, data);
-	mlx_loop_hook(data->mlx_ptr, &refresh_expose, data);
+	mlx_expose_hook(data->win_ptr, &refresh_expose, data);
 	mlx_loop(data->mlx_ptr);
 }
 
@@ -71,6 +72,7 @@ int			main(int argc, char **argv)
 		check_file(data, argv[1]);
 	else if (argc < 2)
 		data->current_img = 0;
+	refresh_expose(data);
 	let_mlx_loop(data);
 	return (0);
 }

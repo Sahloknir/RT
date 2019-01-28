@@ -28,11 +28,11 @@ void	clear_images(t_data *d)
 	d->rays = NULL;
 	d->objects = 0;
 	d->lights = 0;
-	d->current_img = 0;
 	d->a = new_color(0, 0, 0, 1);
-	mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img0->ptr, 0, 0);
-	ft_bzero(d->img->str, LA * d->img->bpp + (HA - 1) * d->img->s_l);
-	ft_bzero(d->img2->str, LA * d->img2->bpp + (HA - 1) * d->img2->s_l);
+	d->current_img = 0;
+	ft_memset(d->img->str, 0, (LA - 1) * d->img->bpp + (HA - 1) * d->img->s_l);
+	ft_memset(d->img2->str, 0, (LA - 1) * d->img2->bpp + (HA - 1) * d->img2->s_l);
+	refresh_expose(d);
 }
 
 void	free_data(t_data *d)
