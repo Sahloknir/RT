@@ -192,6 +192,7 @@ typedef struct		s_sec_r
 }					t_sec_r;
 
 void				ft_fail(char *str, t_data *data);
+void				ft_return(char *str, t_data *data);
 int					read_file(t_data *data, char *file);
 float				ft_atof(const char *str);
 float				*three_values_tab(char *f, int s);
@@ -257,5 +258,7 @@ void				set_up_menu(t_data *d);
 int					open_scenes_dir(t_data *d);
 void				write_menu(t_data *d);
 void				draw_menu0(t_img *img, t_data *d);
+int					check_file(t_data *d, char *file);
+int					open_selected_choice(t_data *d);
 
 #endif

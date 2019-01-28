@@ -46,6 +46,8 @@ int		keys_repertory(int key, t_data *d)
 	}
 	else if (key == 123 || key == 124)
 		side_keys(key, d);
+	else if (key == 36)
+		open_selected_choice(d);
 	return (1);
 }
 
@@ -63,10 +65,12 @@ int		refresh_expose(t_data *d)
 	mlx_clear_window(d->mlx_ptr, d->win_ptr);
 	if (d->current_img == 1)
 		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img->ptr, 0, 0);
-	else
+	else if (d->current_img == 0)
 	{
 		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img0->ptr, 0, 0);
 		write_menu(d);
 	}
+	else
+		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img2->ptr, 0, 0);
 	return (0);
 }

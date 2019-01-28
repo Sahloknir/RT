@@ -1,11 +1,12 @@
 #include "rtv1.h"
 
-void	free_obj(t_obj *obj)
+void	free_obj(int j, t_data *d)
 {
-	if (obj->vector_c != 0)
-		free(obj->v);
-	if (obj)
-		free(obj);
+	if (d->obj[j]->vector_c != 0)
+		free(d->obj[j]->v);
+	if (d->obj[j])
+		free(d->obj[j]);
+	d->obj[j] = NULL;
 }
 
 void	free_rays(t_data *d)
@@ -22,13 +23,16 @@ void	free_rays(t_data *d)
 void	clear_images(t_data *d)
 {
 	d->cam = NULL;
+	d->obj = NULL;
 	d->light = NULL;
 	d->rays = NULL;
 	d->objects = 0;
 	d->lights = 0;
 	d->current_img = 0;
+	d->a = new_color(0, 0, 0, 1);
 	mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img0->ptr, 0, 0);
-	ft_strclr(d->img->str);
+	ft_bzero(d->img->str, LA * d->img->bpp + (HA - 1) * d->img->s_l);
+	ft_bzero(d->img2->str, LA * d->img2->bpp + (HA - 1) * d->img2->s_l);
 }
 
 void	free_data(t_data *d)
@@ -47,8 +51,10 @@ void	free_data(t_data *d)
 	if (d->light != NULL)
 		free(d->light);
 	j = -1;
-	while (d->objects > 0 && ++j < d->objects)
-		free_obj(d->obj[j]);
+	while (d->obj && d->objects > 0 && ++j < d->objects)
+		free_obj(j, d);
+	if (d->obj != NULL)
+		free(d->obj);
 	if (d->objects > 0 && d->cam != NULL && d->rays != NULL)
 		free_rays(d);
 	if (d->cam != NULL)

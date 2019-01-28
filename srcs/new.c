@@ -70,6 +70,7 @@ t_data		*new_data(void)
 	new->blue = new_color(180, 180, 250, 0);
 	new->a = new_color(0, 0, 0, 0);
 	new->current_img = 1;
+	new->file_name = NULL;
 	return (new);
 }
 

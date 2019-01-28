@@ -12,9 +12,6 @@ int		add_to_files(t_data *d, char *name)
 		if (!(d->files = (char **)(malloc(sizeof(char **) * 1))))
 			ft_fail("Error: Could not malloc memory for files tab.", d);
 		d->files[d->dir_files - 1] = ft_strdup(name);
-		ft_putstr("added file ");
-		ft_putstr(d->files[d->dir_files - 1]);
-		ft_putstr(" to tab.\n");
 		return (1);
 	}
 	if (!(tmp = (char **)(malloc(sizeof(char *) * d->dir_files - 1))))
@@ -23,13 +20,9 @@ int		add_to_files(t_data *d, char *name)
 	{
 		tmp[i] = ft_strdup(d->files[i]);
 		free(d->files[i]);
-		ft_putstr("free ok\n");
 	}
 	free(d->files);
 	tmp[d->dir_files - 1] = ft_strdup(name);
-	ft_putstr("added file ");
-	ft_putstr(tmp[d->dir_files - 1]);
-	ft_putstr(" to tab.\n");
 	d->files = tmp;
 	return (1);
 }
@@ -55,7 +48,6 @@ int		list_all_scene_files(t_data *d, DIR *di)
 			}
 		}
 	}
-	ft_putstr("Finished.\n");
 	return (d->dir_files);
 }
 
@@ -63,7 +55,6 @@ int		open_scenes_dir(t_data *d)
 {
 	DIR				*di;
 
-	ft_putstr("Starting.\n");
 	d->dir_files = 0;
 	if ((di = opendir(SCENES_PATH)) == NULL)
 		ft_fail("Error: Path to scenes directory is invalid.", d);

@@ -28,15 +28,14 @@ void	loading_screen_update(t_data *d, int h)
 {
 	t_dot	dot;
 
+	d->current_img = 2;
 	dot = new_dot(LA / 5 + h, HA - 15, 0);
 	while (++dot.y < HA - 12)
 		put_pixel_to_image(dot, d, d->img2->str, d->green);
 	if (h % 4 == 0)
-	{
 		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img2->ptr, 0, 0);
-		if (h % 20 == 0)
-			mlx_do_sync(d->mlx_ptr);
-	}
+	if (h % 20 == 0)
+		mlx_do_sync(d->mlx_ptr);
 }
 
 void	start_raytracing(t_data *d)

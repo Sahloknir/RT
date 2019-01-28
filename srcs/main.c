@@ -13,6 +13,15 @@
 #include "rtv1.h"
 #include <fcntl.h>
 
+void		ft_return(char *str, t_data *d)
+{
+	if (d)
+		free_data(d);
+	ft_putstr_fd(str, 2);
+	ft_putchar('\n');
+	d->current_img = 0;
+}
+
 void		ft_fail(char *str, t_data *data)
 {
 	ft_putstr_fd(str, 2);
@@ -53,24 +62,15 @@ int			main(int argc, char **argv)
 	char	*file;
 
 	file = NULL;
-	if (argc < 2)
-		ft_fail("Usage: rtv1 input_file", NULL);
 	data = new_data();
+	if (argc > 2)
+		ft_fail("Usage: rtv1 [input_file]", data);
 	open_scenes_dir(data);
 	set_up_menu(data);
-	file = start_reading(argv[1]);
-	read_file(data, file);
-	if (data->objects != 0 && data->cam != NULL)
-		start_raytracing(data);
-	if (data->objects < 1 && data->cam != NULL)
-		ft_putstr_fd("No object to draw! Enjoy the black screen.\n", 2);
-	if (data->cam == NULL)
-		ft_fail("Error: No valid camera. Cannot draw the scene.", data);
-	else
-	{
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img->ptr, 0, 0);
-		data->file_name = get_file_name(argv[1]);
-		let_mlx_loop(data);
-	}
+	if (argc == 2)
+		check_file(data, argv[1]);
+	else if (argc < 2)
+		data->current_img = 0;
+	let_mlx_loop(data);
 	return (0);
 }
