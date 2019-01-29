@@ -28,6 +28,7 @@ int		check_file(t_data *d, char *file)
 	else if (d->cam == NULL)
 	{
 		ft_return("Error: No valid camera. Cannot draw the scene.", d);
+		ft_putchar('\a');
 		return (-1);
 	}
 	d->current_img = 1;

@@ -23,23 +23,25 @@ void	draw_menu0(t_img *img, t_data *d)
 
 void	write_menu(t_data *d)
 {
-	char	*s_middle;
-	int		i;
+	char	*s_string;
+	int		choice;
 
-	i = -1;
-	s_middle = ft_strdup(d->files[d->selected_choice]);
-	mlx_string_put(d->mlx_ptr, d->win_ptr, 40, HA / 1.76, 0xFFFFFFF, s_middle);
-	free(s_middle);
-//	i = -1;
-//	l = d->lst;
-//	while (++i != middle)
-//		l = l->next;
-//	mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 2, HA / 2, 0xFFFFFFFF, l->content);
-//	l = d->lst;
-//	i = -1;
-//	while (++i != right)
-//		l = l->next;
-//	mlx_string_put(d->mlx_ptr, d->win_ptr, LA - 10, HA / 1.76, 0xCCCCCCCC, l->content);
+	choice = d->selected_choice - 1;
+	if (choice < 0)
+		choice = d->dir_files - 1;
+	s_string = ft_strdup(d->files[choice]);
+	mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 8 - (ft_strlen(s_string) * 2), HA / 1.76, 0xCCCCCCCC, s_string);
+	free(s_string);
+	choice = d->selected_choice;
+	s_string = ft_strdup(d->files[choice]);
+	mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 2.1 - (ft_strlen(s_string) * 2), HA / 1.6, 0xAAFFFAA, s_string);
+	free(s_string);
+	choice = d->selected_choice + 1;
+	if (choice >= d->dir_files)
+		choice = 0;
+	s_string = ft_strdup(d->files[choice]);
+	mlx_string_put(d->mlx_ptr, d->win_ptr, LA - LA / 5 - (ft_strlen(s_string) * 2), HA / 1.76, 0xCCCCCCC, s_string);
+	free(s_string);
 }
 
 void	set_up_menu(t_data *d)
