@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:16:31 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/08 13:21:59 by axbal            ###   ########.fr       */
+/*   Updated: 2019/01/30 12:10:39 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,19 @@ t_rtc	ft_raytracer(t_rtc r, t_data *d)
 	return (r);
 }
 
+void	loading_screen_bar(t_data *d)
+{
+	t_dot	dot;
+
+	dot.x = LA / 5;
+	while (++dot.x < LA / 5 + HA)
+	{
+		dot.y = HA -15;
+		while (++dot.y < HA - 11)
+			put_pixel_to_image(dot, d, d->img2->str, d->blue);
+	}
+}
+
 void	loading_screen_update(t_data *d, int h)
 {
 	t_dot	dot;
@@ -32,8 +45,7 @@ void	loading_screen_update(t_data *d, int h)
 	while (++dot.y < HA - 11)
 		put_pixel_to_image(dot, d, d->img2->str, d->green);
 	mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img2->ptr, 0, 0);
-	refresh_expose(d);
-	if (h % 31 == 0)
+	if (h % 38 == 0)
 		mlx_do_sync(d->mlx_ptr);
 }
 
@@ -42,6 +54,7 @@ void	start_raytracing(t_data *d)
 	t_rtc	r;
 	t_color	c;
 
+	loading_screen_bar(d);
 	d->current_img = 2;
 	r.i = -1;
 	gen_rays(d);

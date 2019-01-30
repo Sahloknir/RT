@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 12:05:33 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/10 15:23:46 by ceugene          ###   ########.fr       */
+/*   Updated: 2019/01/30 12:11:13 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "../libft/includes/libft.h"
 # include "../mlx/mlx.h"
 
-# define LA 1152
-# define HA 648
+# define LA 1280
+# define HA 720
 # define FOV 90
 # define SCENES_PATH "./scenes/"
 # define SPHERE 1
