@@ -38,7 +38,6 @@ int		side_keys(int key, t_data *d)
 
 int		keys_repertory(int key, t_data *d)
 {
-	ft_putstr("KEYS -\n");
 	if (d->current_img == 1)
 	{
 		if (key == 12)
@@ -53,7 +52,6 @@ int		keys_repertory(int key, t_data *d)
 		if (key == 36)
 			open_selected_choice(d);
 	}
-	ft_putstr("KEYS OK\n");
 	return (1);
 }
 
@@ -68,7 +66,6 @@ int		key_release(int key, void *d)
 
 int		refresh_expose(t_data *d)
 {
-	ft_putstr("EXPOSE -\n");
 	mlx_clear_window(d->mlx_ptr, d->win_ptr);
 	if (d->current_img == 1)
 		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img->ptr, 0, 0);
@@ -79,6 +76,5 @@ int		refresh_expose(t_data *d)
 		mlx_put_image_to_window(d->mlx_ptr, d->win_ptr, d->img0->ptr, 0, 0);
 		write_menu(d);
 	}
-	ft_putstr("EXPOSE OK\n");
 	return (0);
 }
