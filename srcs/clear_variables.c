@@ -38,6 +38,7 @@ void	clear_images(t_data *d)
 	loading_screen_bar(d);
 	reset_colors(d);
 	refresh_expose(d);
+	d->selected_option = -1;
 }
 
 void	free_data(t_data *d)

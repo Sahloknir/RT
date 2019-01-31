@@ -30,17 +30,26 @@ void	write_menu(t_data *d)
 	if (choice < 0)
 		choice = d->dir_files - 1;
 	s_string = ft_strdup(d->files[choice]);
-	mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 8 - (ft_strlen(s_string) * 2), HA / 1.76, 0xCCCCCCCC, s_string);
+	mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 8 - (ft_strlen(s_string) * 2.5), HA / 1.76, 0xCCCCCCCC, s_string);
 	free(s_string);
 	choice = d->selected_choice;
 	s_string = ft_strdup(d->files[choice]);
-	mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 2.1 - (ft_strlen(s_string) * 2), HA / 1.6, 0xAAFFFAA, s_string);
+	if (d->selected_option == -1)
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 2.1 - (ft_strlen(s_string) * 2.5), HA / 1.6, 0xAAFFFAA, s_string);
+	else
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 2.1 - (ft_strlen(s_string) * 2.5), HA / 1.6, 0xCCCCCCCC, s_string);
 	free(s_string);
 	choice = d->selected_choice + 1;
 	if (choice >= d->dir_files)
 		choice = 0;
 	s_string = ft_strdup(d->files[choice]);
-	mlx_string_put(d->mlx_ptr, d->win_ptr, LA - LA / 5 - (ft_strlen(s_string) * 2), HA / 1.76, 0xCCCCCCC, s_string);
+	mlx_string_put(d->mlx_ptr, d->win_ptr, LA - LA / 5 - (ft_strlen(s_string) * 2.5), HA / 1.76, 0xCCCCCCC, s_string);
+	free(s_string);
+	s_string = ft_strdup("options");
+	if (d->selected_option == -1)
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 2.1 - (ft_strlen(s_string) * 2.5), HA / 1.3, 0xCCCCCCCC, s_string);
+	else
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 2.1 - (ft_strlen(s_string) * 2.5), HA / 1.3, 0xAAFFFAA, s_string);
 	free(s_string);
 }
 

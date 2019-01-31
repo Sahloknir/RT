@@ -24,14 +24,17 @@ int		side_keys(int key, t_data *d)
 {
 	if (d->current_img != 0)
 		return (1);
-	if (key == 123)
-		d->selected_choice--;
-	else if (key == 124)
-		d->selected_choice++;
-	if (d->selected_choice < 0)
-		d->selected_choice = d->dir_files - 1;
-	else if (d->selected_choice >= d->dir_files)
-		d->selected_choice = 0;
+	if (d->selected_option == -1)
+	{
+		if (key == 123)
+			d->selected_choice--;
+		else if (key == 124)
+			d->selected_choice++;
+		if (d->selected_choice < 0)
+			d->selected_choice = d->dir_files - 1;
+		else if (d->selected_choice >= d->dir_files)
+			d->selected_choice = 0;
+	}
 	refresh_expose(d);
 	return (1);
 }

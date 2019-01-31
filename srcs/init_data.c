@@ -56,4 +56,5 @@ void	init_data(t_data *new)
 	new->current_img = 1;
 	new->file_name = NULL;
 	gen_colors(new);
+	new->selected_option = -1;
 }
