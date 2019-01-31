@@ -49,28 +49,11 @@ t_data		*new_data(void)
 
 	if (!(new = (t_data *)malloc(sizeof(t_data) * 1)))
 		ft_fail("Error: Could not allocate memory", NULL);
-	new->img = NULL;
-	new->img2 = NULL;
-	new->obj = NULL;
-	new->cam = NULL;
-	new->light = NULL;
-	new->rays = NULL;
-	new->lights = 0;
-	new->objects = 0;
-	new->t[0] = -1;
-	new->t[1] = -1;
 	if (!(new->mlx_ptr = mlx_init()))
 		ft_fail("Error: Connection failed.", NULL);
 	if (!(new->win_ptr = mlx_new_window(new->mlx_ptr, LA, HA, "rt")))
 		ft_fail("Error: Unable to create window.", NULL);
-	new->img = init_img(new);
-	new->img2 = init_img(new);
-	new->green = new_color(180, 250, 180, 0);
-	new->red = new_color(250, 180, 180, 0);
-	new->blue = new_color(180, 180, 250, 0);
-	new->a = new_color(0, 0, 0, 0);
-	new->current_img = 1;
-	new->file_name = NULL;
+	init_data(new);
 	return (new);
 }
 

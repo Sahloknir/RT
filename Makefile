@@ -29,6 +29,7 @@ SRCS =	main.c					\
 		menu.c					\
 		selected_file.c			\
 		list_files.c			\
+		init_data.c				\
 
 SRCO = $(SRCS:.c=.o)
 

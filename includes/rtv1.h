@@ -122,6 +122,7 @@ typedef struct		s_data
 	t_light			**light;
 	t_cam			*cam;
 	t_vec			**rays;
+	t_color			**pix_col;
 	int				lights;
 	int				objects;
 	float			s_xmin;
@@ -261,5 +262,8 @@ void				draw_menu0(t_img *img, t_data *d);
 int					check_file(t_data *d, char *file);
 int					open_selected_choice(t_data *d);
 void				loading_screen_bar(t_data *d);
+t_color				real_lerp(t_color c1, t_color c2, float factor);
+void				init_data(t_data *n);
+void				reset_colors(t_data *d);
 
 #endif

@@ -75,6 +75,7 @@ void	start_raytracing(t_data *d)
 				c = secondary_rays(get_hitpoint(d->rays[r.i][r.j], r.dm, d),
 					d, r.o, d->rays[r.i][r.j]);
 				put_pixel_to_image(new_dot(r.j, r.i, 0), d, d->img->str, c);
+				d->pix_col[r.i][r.j] = c;
 			}
 		}
 	}

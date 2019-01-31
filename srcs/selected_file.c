@@ -11,6 +11,43 @@ t_color	real_lerp(t_color c1, t_color c2, float factor)
 	return (color);
 }
 
+void	anti_aliasing(t_data *d)
+{
+	int		y;
+	int		x;
+	t_dot	t;
+	t_color	blend1;
+	t_color	blend2;
+	t_color	blend3;
+
+	y = -1;
+	while (++y < HA)
+	{
+		x = -1;
+		while (++x < LA)
+		{
+			blend1 = d->pix_col[y][x];
+			blend2 = d->pix_col[y][x];
+			blend3 = d->pix_col[y][x];
+			if (y > 0)
+				blend1 = real_lerp(d->pix_col[y][x], d->pix_col[y - 1][x], 80);
+			if (y < HA - 1)
+				blend2 = real_lerp(d->pix_col[y][x], d->pix_col[y + 1][x], 80);
+			blend1 = real_lerp(blend1, blend2, 50);
+			blend2 = d->pix_col[y][x];
+			if (x > 0)
+				blend2 = real_lerp(d->pix_col[y][x], d->pix_col[y][x - 1], 80);
+			if (x < LA - 1)
+				blend3 = real_lerp(d->pix_col[y][x], d->pix_col[y][x + 1], 80);
+			blend2 = real_lerp(blend2, blend3, 50);
+			d->pix_col[y][x] = real_lerp(blend1, blend2, 50);
+			t.y = y;
+			t.x = x;
+			put_pixel_to_image(t, d, d->img->str, d->pix_col[y][x]);
+		}
+	}
+}
+
 int		open_selected_choice(t_data *d)
 {
 	char	*str;
@@ -42,6 +79,7 @@ int		check_file(t_data *d, char *file)
 		ft_putchar('\a');
 		return (-1);
 	}
+	anti_aliasing(d);
 	d->current_img = 1;
 	refresh_expose(d);
 	return (1);

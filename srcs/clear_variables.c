@@ -36,6 +36,7 @@ void	clear_images(t_data *d)
 	ft_memset(d->img->str, 0, (LA - 1) * d->img->bpp + (HA - 1) * d->img->s_l);
 	ft_memset(d->img2->str, 0, (LA - 1) * d->img2->bpp + (HA - 1) * d->img2->s_l);
 	loading_screen_bar(d);
+	reset_colors(d);
 	refresh_expose(d);
 }
 
