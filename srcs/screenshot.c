@@ -28,7 +28,7 @@ char	*get_img(char *img_str, t_data *d, t_hdr h)
 
 	i = h.i_size - 1;
 	j = 0;
-	if (!(str = (char *)malloc(sizeof(char) * 3 * LA * HA)))
+	if (!(str = (char *)malloc(sizeof(char) * LA * d->img->s_l)))
 		ft_fail("Error: Could not malloc enough memory.\n", d);
 	while (i >= 0)
 	{
@@ -98,8 +98,12 @@ int		screenshot(t_data *d)
 	int		fd;
 	char	*name;
 	char	*tmp;
+	char	*trois;
 
-	tmp = ft_strjoin("./screenshots/", d->file_name);
+	ft_putstr("SCREENSHOT -\n");
+	trois = get_file_name(d->file_name);
+	tmp = ft_strjoin("./screenshots/", trois);
+	free(trois);
 	name = ft_strjoin(tmp, ".bmp");
 	free(tmp);
 	if ((fd = open(name, O_WRONLY | O_CREAT | O_EXCL, 0640)) < 0)
@@ -108,11 +112,13 @@ int		screenshot(t_data *d)
 		ft_putstr(name);
 		ft_putstr(" already exists or cannot be created.\n");
 		free(name);
+		ft_putstr("SCREENSHOT OK\n");
 		return (-1);
 	}
 	free(name);
 	fill_header_info(fd, d);
 	if (close(fd) == -1)
 		ft_fail("Error occurred while closing file descriptor.\n", d);
+	ft_putstr("SCREENSHOT OK\n");
 	return (1);
 }

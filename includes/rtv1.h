@@ -16,8 +16,8 @@
 # include "../libft/includes/libft.h"
 # include "../mlx/mlx.h"
 
-# define LA 1280
-# define HA 720
+# define LA 1152
+# define HA 648
 # define FOV 90
 # define SCENES_PATH "./scenes/"
 # define SPHERE 1
@@ -260,5 +260,6 @@ void				write_menu(t_data *d);
 void				draw_menu0(t_img *img, t_data *d);
 int					check_file(t_data *d, char *file);
 int					open_selected_choice(t_data *d);
+void				loading_screen_bar(t_data *d);
 
 #endif

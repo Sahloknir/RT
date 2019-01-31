@@ -46,9 +46,9 @@ object {
 object {
 	shiny
 	type(cone)
-	pos(20, 5, 50)
+	pos(-20, -5, 50)
 	angle(5)
-	rotation(60, 20)
+	rotation(-60, -20)
 	color(212, 164, 249)
 }
 

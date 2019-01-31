@@ -72,7 +72,11 @@ int			main(int argc, char **argv)
 	open_scenes_dir(data);
 	set_up_menu(data);
 	if (argc == 2)
+	{
+		loading_screen_bar(data);
+		data->file_name = ft_strdup(argv[1]);
 		check_file(data, argv[1]);
+	}
 	else if (argc < 2)
 		data->current_img = 0;
 	refresh_expose(data);
