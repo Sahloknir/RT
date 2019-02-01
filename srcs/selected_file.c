@@ -21,17 +21,29 @@ void	blend_colors(t_data *d, int x, int y)
 			blend2 = d->pix_col[y][x];
 			blend3 = d->pix_col[y][x];
 	if (y > 0)
-		blend1 = real_lerp(d->pix_col[y][x], d->pix_col[y - 1][x], 60);
+	{
+		d->pix_col[y -1][x] = real_lerp(d->pix_col[y - 1][x], d->pix_col[y][x], 25);
+		blend1 = real_lerp(d->pix_col[y][x], d->pix_col[y - 1][x], 40);
+	}
 	if (y < HA - 1)
-		blend2 = real_lerp(d->pix_col[y][x], d->pix_col[y + 1][x], 60);
+	{
+		d->pix_col[y +1][x] = real_lerp(d->pix_col[y + 1][x], d->pix_col[y][x], 25);
+		blend2 = real_lerp(d->pix_col[y][x], d->pix_col[y + 1][x], 40);
+	}
 	blend1 = real_lerp(blend1, blend2, 50);
 	blend2 = d->pix_col[y][x];
 	if (x > 0)
-		blend2 = real_lerp(d->pix_col[y][x], d->pix_col[y][x - 1], 60);
+	{
+		d->pix_col[y][x - 1] = real_lerp(d->pix_col[y][x - 1], d->pix_col[y][x], 25);
+		blend2 = real_lerp(d->pix_col[y][x], d->pix_col[y][x - 1], 40);
+	}
 	if (x < LA - 1)
-		blend3 = real_lerp(d->pix_col[y][x], d->pix_col[y][x + 1], 60);
+	{
+		d->pix_col[y][x + 1] = real_lerp(d->pix_col[y][x + 1], d->pix_col[y][x], 25);
+		blend3 = real_lerp(d->pix_col[y][x], d->pix_col[y][x + 1], 40);
+	}
 	blend2 = real_lerp(blend2, blend3, 50);
-	d->pix_col[y][x] = real_lerp(blend1, blend2, 50);
+	d->pix_col[y][x] = real_lerp(blend1, blend2, 20);
 }
 
 void	anti_aliasing(t_data *d)
@@ -42,7 +54,7 @@ void	anti_aliasing(t_data *d)
 	int		itr;
 
 	itr = -1;
-	while (++itr < 6)
+	while (++itr < 3)
 	{
 		y = -1;
 		while (++y < HA)
