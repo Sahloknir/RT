@@ -11,6 +11,16 @@ t_color	real_lerp(t_color c1, t_color c2, float factor)
 	return (color);
 }
 
+int		color_diff(t_color c1, t_color c2)
+{
+	int		res;
+
+	res = abs(c1.r - c2.r);
+	res += abs(c1.g - c2.g);
+	res += abs(c1.b - c2.b);
+	return (res);
+}
+
 void	blend_colors(t_data *d, int x, int y)
 {
 	t_color	blend1;
@@ -20,24 +30,24 @@ void	blend_colors(t_data *d, int x, int y)
 			blend1 = d->pix_col[y][x];
 			blend2 = d->pix_col[y][x];
 			blend3 = d->pix_col[y][x];
-	if (y > 0)
+	if (y > 0 && color_diff(d->pix_col[y - 1][x], d->pix_col[y][x]) > 50)
 	{
 		d->pix_col[y -1][x] = real_lerp(d->pix_col[y - 1][x], d->pix_col[y][x], 25);
 		blend1 = real_lerp(d->pix_col[y][x], d->pix_col[y - 1][x], 40);
 	}
-	if (y < HA - 1)
+	if (y < HA - 1 && color_diff(d->pix_col[y + 1][x], d->pix_col[y][x]) > 50)
 	{
 		d->pix_col[y +1][x] = real_lerp(d->pix_col[y + 1][x], d->pix_col[y][x], 25);
 		blend2 = real_lerp(d->pix_col[y][x], d->pix_col[y + 1][x], 40);
 	}
 	blend1 = real_lerp(blend1, blend2, 50);
 	blend2 = d->pix_col[y][x];
-	if (x > 0)
+	if (x > 0 && color_diff(d->pix_col[y][x - 1], d->pix_col[y][x]) > 50)
 	{
 		d->pix_col[y][x - 1] = real_lerp(d->pix_col[y][x - 1], d->pix_col[y][x], 25);
 		blend2 = real_lerp(d->pix_col[y][x], d->pix_col[y][x - 1], 40);
 	}
-	if (x < LA - 1)
+	if (x < LA - 1 && color_diff(d->pix_col[y][x + 1], d->pix_col[y][x]) > 50)
 	{
 		d->pix_col[y][x + 1] = real_lerp(d->pix_col[y][x + 1], d->pix_col[y][x], 25);
 		blend3 = real_lerp(d->pix_col[y][x], d->pix_col[y][x + 1], 40);
@@ -102,7 +112,7 @@ int		check_file(t_data *d, char *file)
 		ft_putchar('\a');
 		return (-1);
 	}
-	if (d->objects > 0)
+	if (d->objects > 0 && d->img->aa)
 		anti_aliasing(d);
 	d->current_img = 1;
 	refresh_expose(d);

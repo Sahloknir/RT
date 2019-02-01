@@ -39,14 +39,33 @@ int		side_keys(int key, t_data *d)
 	return (1);
 }
 
+void	switch_option(int option, t_data *d)
+{
+	if (option == 1)
+		d->img->aa = d->img->aa > 0 ? 0 : 1;
+	refresh_expose(d);
+}
+
 int		select_option(int key, t_data *d)
 {
 	if (d->current_img != 0)
 		return (-1);
 	if (d->selected_option == -1 && key == 125)
-		d->selected_option = 1;
-	else if (d->selected_option == 1 && key == 126)
+		d->selected_option = 0;
+	else if (d->selected_option == 0 && key == 126)
 		d->selected_option = -1;
+	if (d->selected_option == 0 && key == 36)
+		d->selected_option = 1;
+	else if (d->selected_option > 0)
+	{
+		if (key == 12)
+		{
+			d->selected_option = -1;
+			ft_return(NULL, d);
+		}
+		if (key == 36)
+			switch_option(d->selected_option, d);
+	}
 	refresh_expose(d);
 	return (1);
 }
@@ -64,8 +83,10 @@ int		keys_repertory(int key, t_data *d)
 	{
 		if (key == 123 || key == 124)
 			side_keys(key, d);
-		if (key == 36)
+		if (key == 36 && d->selected_option == -1)
 			open_selected_choice(d);
+		else if (key == 36 || key == 12)
+			select_option(key, d);
 		else if (key == 125 || key == 126)
 			select_option(key, d);
 	}

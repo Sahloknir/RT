@@ -21,12 +21,37 @@ void	draw_menu0(t_img *img, t_data *d)
 	}
 }
 
-void	write_menu(t_data *d)
+int		write_options(t_data *d)
+{
+	char	*on;
+	char	*off;
+	char	*str;
+
+	on = ft_strdup("ON");
+	off = ft_strdup("OFF");
+	str = ft_strdup("Anti Aliasing");
+	if (d->selected_option == 1)
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 3.2, 0xAAFFFAA, str);
+	else
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 3.2, 0xCCCCCCCC, str);
+	if (d->img->aa == 0)
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 3.2, 0xFFDDDDDD, off);
+	else
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 3.2, 0xDDFFDDDD, on);
+	free(on);
+	free(off);
+	free(str);
+return (1);
+}
+
+int		write_menu(t_data *d)
 {
 	char	*s_string;
 	int		choice;
 
 	choice = d->selected_choice - 1;
+	if (d->selected_option > 0)
+		return (write_options(d));
 	if (choice < 0)
 		choice = d->dir_files - 1;
 	s_string = ft_strdup(d->files[choice]);
@@ -51,6 +76,7 @@ void	write_menu(t_data *d)
 	else
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 2.1 - (ft_strlen(s_string) * 2.5), HA / 1.3, 0xAAFFFAA, s_string);
 	free(s_string);
+	return (1);
 }
 
 void	set_up_menu(t_data *d)

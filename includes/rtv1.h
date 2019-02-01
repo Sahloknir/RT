@@ -107,6 +107,7 @@ typedef struct		s_img
 	int				bpp;
 	int				s_l;
 	int				endian;
+	int				aa;
 }					t_img;
 
 typedef struct		s_data
@@ -258,7 +259,7 @@ char				*get_file_name(char *str);
 void				free_data(t_data *d);
 void				set_up_menu(t_data *d);
 int					open_scenes_dir(t_data *d);
-void				write_menu(t_data *d);
+int					write_menu(t_data *d);
 void				draw_menu0(t_img *img, t_data *d);
 int					check_file(t_data *d, char *file);
 int					open_selected_choice(t_data *d);
