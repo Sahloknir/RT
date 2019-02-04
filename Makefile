@@ -30,6 +30,7 @@ SRCS =	main.c					\
 		selected_file.c			\
 		list_files.c			\
 		init_data.c				\
+		colors.c				\
 
 SRCO = $(SRCS:.c=.o)
 

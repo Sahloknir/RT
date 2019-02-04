@@ -267,5 +267,6 @@ void				loading_screen_bar(t_data *d);
 t_color				real_lerp(t_color c1, t_color c2, float factor);
 void				init_data(t_data *n);
 void				reset_colors(t_data *d);
+int					color_diff(t_color c1, t_color c2);
 
 #endif
