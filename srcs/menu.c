@@ -29,7 +29,7 @@ int		write_options(t_data *d)
 
 	on = ft_strdup("ON");
 	off = ft_strdup("OFF");
-	str = ft_strdup("Sepia");
+	str = ft_strdup("sepia");
 	if (d->selected_option == 1)
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 3.2, 0xAAFFFAA, str);
 	else
@@ -38,6 +38,16 @@ int		write_options(t_data *d)
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 3.2, 0xFFDDDDDD, off);
 	else
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 3.2, 0xDDFFDDDD, on);
+	free(str);
+	str = ft_strdup("grayscale");
+	if (d->selected_option == 2)
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 2.5, 0xAAFFFAA, str);
+	else
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 2.5, 0xCCCCCCCC, str);
+	if (d->img->gs == 0)
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 2.5, 0xFFDDDDDD, off);
+	else
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 2.5, 0xDDFFDDDD, on);
 	free(on);
 	free(off);
 	free(str);

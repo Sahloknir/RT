@@ -1,7 +1,17 @@
 #include "rtv1.h"
 #include <math.h>
 
-int		blend_sepia(t_data *d, int x, int y)
+void	blend_grey(t_data *d, int x, int y)
+{
+	t_color	color;
+	int		l;
+
+	l = d->pix_col[y][x].r * 0.2126 + d->pix_col[y][x].g * 0.7152 + d->pix_col[y][x].b * 0.0722;
+	color = new_color(l, l, l, 0);
+	d->pix_col[y][x] = color;
+}
+
+void	blend_sepia(t_data *d, int x, int y)
 {
 	float	ou_red;
 	float	ou_blue;
@@ -16,10 +26,9 @@ int		blend_sepia(t_data *d, int x, int y)
 		* 0.534) + (d->pix_col[y][x].b * 0.131), 0, 255);
 	color = new_color((int)ou_red, (int)ou_green, (int)ou_blue, 0);
 	d->pix_col[y][x] = color;
-	return (1);
 }
 
-void	sepia(t_data *d)
+void	filter(t_data *d)
 {
 	t_dot	t;
 	int		y;
@@ -33,7 +42,10 @@ void	sepia(t_data *d)
 			while (++x < LA)
 			{
 				t.x = x;
-				blend_sepia(d, x, y);
+				if (d->img->sp)
+					blend_sepia(d, x, y);
+				else if (d->img->gs)
+					blend_grey(d, x, y);
 				put_pixel_to_image(t, d, d->img->str, d->pix_col[y][x]);
 			}
 		}
@@ -70,8 +82,8 @@ int		check_file(t_data *d, char *file)
 		ft_putchar('\a');
 		return (-1);
 	}
-	if (d->objects > 0 && d->img->sp)
-		sepia(d);
+	if (d->objects > 0 && (d->img->sp || d->img->gs))
+		filter(d);
 	d->current_img = 1;
 	refresh_expose(d);
 	return (1);

@@ -58,4 +58,5 @@ void	init_data(t_data *new)
 	gen_colors(new);
 	new->selected_option = -1;
 	new->img->sp = 0;
+	new->img->gs = 0;
 }

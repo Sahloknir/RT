@@ -108,6 +108,7 @@ typedef struct		s_img
 	int				s_l;
 	int				endian;
 	int				sp;
+	int				gs;
 }					t_img;
 
 typedef struct		s_data
