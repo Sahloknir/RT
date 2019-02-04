@@ -42,7 +42,7 @@ int		side_keys(int key, t_data *d)
 void	switch_option(int option, t_data *d)
 {
 	if (option == 1)
-		d->img->aa = d->img->aa > 0 ? 0 : 1;
+		d->img->sp = d->img->sp > 0 ? 0 : 1;
 	refresh_expose(d);
 }
 

@@ -29,12 +29,12 @@ int		write_options(t_data *d)
 
 	on = ft_strdup("ON");
 	off = ft_strdup("OFF");
-	str = ft_strdup("Anti Aliasing");
+	str = ft_strdup("Sepia");
 	if (d->selected_option == 1)
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 3.2, 0xAAFFFAA, str);
 	else
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 3.2, 0xCCCCCCCC, str);
-	if (d->img->aa == 0)
+	if (d->img->sp == 0)
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 3.2, 0xFFDDDDDD, off);
 	else
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 3.2, 0xDDFFDDDD, on);
