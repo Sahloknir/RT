@@ -59,4 +59,5 @@ void	init_data(t_data *new)
 	new->selected_option = -1;
 	new->img->sp = 0;
 	new->img->gs = 0;
+	new->img->d = 0;
 }
