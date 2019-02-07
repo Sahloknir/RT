@@ -46,17 +46,19 @@ void	switch_option(int option, t_data *d)
 		d->img->sp = d->img->sp > 0 ? 0 : 1;
 		d->img->gs = 0;
 	}
-	if (option == 2)
+	else if (option == 2)
 	{
 		d->img->gs = d->img->gs > 0 ? 0 : 1;
 		d->img->sp = 0;
 	}
-	if (option == 3)
+	else if (option == 3)
 	{
 		if (d->img->d == 2)
 			d->img->d = -1;
 		d->img->d += 1;
 	}
+	else if (option == 4)
+		d->img->crtn = d->img->crtn > 0 ? 0 : 1;
 	refresh_expose(d);
 }
 
@@ -79,7 +81,7 @@ int		select_option(int key, t_data *d)
 		}
 		if (key == 36)
 			switch_option(d->selected_option, d);
-		if (key == 125 && d->selected_option < 3)
+		if (key == 125 && d->selected_option < 4)
 			d->selected_option += 1;
 		if (key == 126 && d->selected_option > 1)
 			d->selected_option -= 1;

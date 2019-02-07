@@ -51,20 +51,30 @@ int		write_options(t_data *d)
 	free(str);
 	str = ft_strdup("disturbance");
 	if (d->selected_option == 3)
-		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 1.8, 0xAAFFFAA, str);
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 1.9, 0xAAFFFAA, str);
 	else
-		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 1.8, 0xCCCCCCCC, str);
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 1.9, 0xCCCCCCCC, str);
 	free(str);
 	if (d->img->d > 0)
 	{
 		str = d->img->d < 2 ? ft_strdup("sinus") : ft_strdup("squared");
-		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(str) * 2.5), HA / 1.8, 0xAAFFFAA, str);
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(str) * 2.5), HA / 1.9, 0xAAFFFAA, str);
 	}
 	else
 	{
 		str = ft_strdup("none");
-		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(str) * 2.5), HA / 1.8, 0xCCCCCCCC, str);
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(str) * 2.5), HA / 1.9, 0xCCCCCCCC, str);
 	}
+	free(str);
+	str = ft_strdup("cartoon");
+	if (d->selected_option == 4)
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 1.5, 0xAAFFFAA, str);
+	else
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 1.5, 0xCCCCCCCC, str);
+	if (d->img->crtn == 0)
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 1.5, 0xFFDDDDDD, off);
+	else
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 1.5, 0xDDFFDDDD, on);
 	free(on);
 	free(off);
 	free(str);

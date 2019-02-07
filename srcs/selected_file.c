@@ -1,6 +1,27 @@
 #include "rtv1.h"
 #include <math.h>
 
+int		simp_clr(int clr)
+{
+	if (clr <= 0)
+		return (0);
+	if (clr < 50)
+		return (25);
+	if (clr <= 95)
+		return (50);
+	if (clr <= 125)
+		return (100);
+	if (clr <= 160)
+		return (125);
+	if (clr <= 200)
+		return (175);
+	if (clr < 225)
+		return (200);
+	if (clr < 245)
+		return (225);
+	return (255);
+}
+
 void	blend_grey(t_data *d, int x, int y)
 {
 	t_color	color;
@@ -42,6 +63,8 @@ void	filter(t_data *d)
 			while (++x < LA)
 			{
 				t.x = x;
+				if (d->img->crtn)
+					d->pix_col[y][x] = new_color(simp_clr(d->pix_col[y][x].r), simp_clr(d->pix_col[y][x].g), simp_clr(d->pix_col[y][x].b), 0);
 				if (d->img->sp)
 					blend_sepia(d, x, y);
 				else if (d->img->gs)
@@ -82,7 +105,7 @@ int		check_file(t_data *d, char *file)
 		ft_putchar('\a');
 		return (-1);
 	}
-	if (d->objects > 0 && (d->img->sp || d->img->gs))
+	if (d->objects > 0 && (d->img->sp || d->img->gs || d->img->crtn))
 		filter(d);
 	d->current_img = 1;
 	refresh_expose(d);

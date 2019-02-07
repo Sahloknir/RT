@@ -60,4 +60,5 @@ void	init_data(t_data *new)
 	new->img->sp = 0;
 	new->img->gs = 0;
 	new->img->d = 0;
+	new->img->crtn = 0;
 }
