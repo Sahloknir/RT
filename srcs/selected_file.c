@@ -7,18 +7,20 @@ int		simp_clr(int clr)
 		return (0);
 	if (clr < 50)
 		return (25);
-	if (clr <= 95)
-		return (50);
+	if (clr <= 75)
+		return (75);
 	if (clr <= 125)
 		return (100);
-	if (clr <= 160)
-		return (125);
-	if (clr <= 200)
+	if (clr <= 150)
+		return (150);
+	if (clr <= 175)
 		return (175);
-	if (clr < 225)
+	if (clr <= 215)
 		return (200);
-	if (clr < 245)
-		return (225);
+	if (clr <= 230)
+		return (230);
+	if (clr <= 245)
+		return (245);
 	return (255);
 }
 

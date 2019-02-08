@@ -1,6 +1,6 @@
 camera {
-	pos(-100,0,30)
-	rotation(0,90,0)
+	pos(0,0,0)
+	rotation(0,0,0)
 	ambient(200, 200, 200);
 }
 
