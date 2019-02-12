@@ -69,12 +69,21 @@ int		expected_result(t_obj *obj)
 	return (expected_result2(obj));
 }
 
+int		compare_string_to_values2(char *f, int s, t_obj *new)
+{
+	if (ft_strncmp(f + s, "shiny", 5) == 0)
+		new->shiny = 1;
+	if (ft_strncmp(f + s, "sinus", 5) == 0)
+		new->d1 = 1;
+	if (ft_strncmp(f + s, "squared", 7) == 0)
+		new->d2 = 1;
+	return (-1);
+}
+
 int		compare_string_to_values(char *f, int s, t_obj *new)
 {
 	if (ft_strncmp(f + s, "type(", 5) == 0)
 		return (get_object_type(f, s, new));
-	else if (ft_strncmp(f + s, "shiny", 5) == 0)
-		new->shiny = 1;
 	else if (ft_strncmp(f + s, "pos(", 4) == 0)
 		return (get_object_pos(f, s, new));
 	else if (ft_strncmp(f + s, "radius(", 7) == 0)
@@ -95,7 +104,7 @@ int		compare_string_to_values(char *f, int s, t_obj *new)
 		return (get_object_lim_z(f, s, new));
 	else if (ft_strncmp(f + s, "size(", 5) == 0)
 		return (get_object_size(f, s, new));
-	return (0);
+	return (compare_string_to_values2(f, s, new));
 }
 
 int		read_object_var(char *f, int s, t_obj *new)

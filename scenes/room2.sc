@@ -113,6 +113,7 @@ object{
 	pos(0, -25, 0)
 	vector(0, 1, 0)
 	color(125, 195, 218)
+	squared
 }
 
 object{

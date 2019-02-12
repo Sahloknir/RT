@@ -96,6 +96,8 @@ typedef struct		s_obj
 	int				vector_c;
 	int				rotation_c;
 	int				shiny;
+	int				d1;
+	int				d2;
 }					t_obj;
 
 typedef struct		s_img
