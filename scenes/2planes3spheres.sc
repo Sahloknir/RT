@@ -17,6 +17,7 @@ object {
 	radius(10)
 	color(246, 228, 246)
 	shiny
+	checkered
 }
 
 object {

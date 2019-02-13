@@ -9,6 +9,7 @@ object {
 	rotation(30, 0)
 	size(40)
 	color(99,143,230)
+	checkered
 }
 
 light {

@@ -42,7 +42,7 @@ t_color		find_c(t_sec_r s, t_color c, t_obj *obj, t_data *d)
 	return (c);
 }
 
-t_color		checkered(t_dot inter, t_color c1, t_color c2, t_vec ray)
+t_color		checkered(t_dot inter, t_color c1, t_color c2)
 {
 	int		x;
 	int		y;
@@ -50,10 +50,11 @@ t_color		checkered(t_dot inter, t_color c1, t_color c2, t_vec ray)
 	float	offset;
 
 	offset = 1000;
-	x = (int)((inter.x + offset) - ray.x) % 2 == 0 ? 1 : 0;
-	y = (int)((inter.y + offset) - ray.y) % 2 == 0 ? 1 : 0;
-	z = (int)((inter.z + offset) - ray.z) % 2 == 0 ? 1 : 0;
-	if ((x && !y && !z) || (y && !x && !z) || (z && !x && !y))
+	x = (int)(1 + (inter.x + offset)) % 2 == 0 ? 1 : 0;
+	y = (int)(1 + (inter.y + offset)) % 2 == 0 ? 1 : 0;
+	z = (int)(1 + (inter.z + offset)) % 2 == 0 ? 1 : 0;
+	if ((x && ((!y && !z) || (y && z))) || (y && ((!x && !z) || (x && z)))
+		|| (z && ((!x && !y) || (x && y))))
 		return (c2);
 	return (c1);
 }
@@ -82,6 +83,6 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 		c = find_c(s, c, obj, d);
 	}
 	if (obj->d3)
-		c = checkered(inter, c, new_color(1 + c.r / 2, 1 + c.g / 2, 1 + c.b / 2, 0), ray);
+		c = checkered(inter, c, new_color(1 + c.r / 2, 1 + c.g / 2, 1 + c.b / 2, 0));
 	return (c);
 }
