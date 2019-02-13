@@ -98,6 +98,7 @@ typedef struct		s_obj
 	int				shiny;
 	int				d1;
 	int				d2;
+	int				d3;
 }					t_obj;
 
 typedef struct		s_img

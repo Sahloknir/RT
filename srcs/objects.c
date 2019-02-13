@@ -77,6 +77,8 @@ int		compare_string_to_values2(char *f, int s, t_obj *new)
 		new->d1 = 1;
 	if (ft_strncmp(f + s, "squared", 7) == 0)
 		new->d2 = 1;
+	if (ft_strncmp(f + s, "checkered", 9) == 0)
+		new->d3 = 1;
 	return (-1);
 }
 

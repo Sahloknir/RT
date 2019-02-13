@@ -77,6 +77,7 @@ t_obj		*create_object(t_data *data)
 	new->shiny = 0;
 	new->d1 = 0;
 	new->d2 = 0;
+	new->d3 = 0;
 	new->color = new_color(255, 255, 255, 0);
 	return (new);
 }

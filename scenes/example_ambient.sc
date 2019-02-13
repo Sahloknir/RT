@@ -42,6 +42,7 @@ object {
 	pos(0,-15,0)
 	vector(0,1,0)
 	color(195,195,195)
+	checkered
 }
 
 light {

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+#include <math.h>
 
 t_color		find_c(t_sec_r s, t_color c, t_obj *obj, t_data *d)
 {
@@ -41,6 +42,22 @@ t_color		find_c(t_sec_r s, t_color c, t_obj *obj, t_data *d)
 	return (c);
 }
 
+t_color		checkered(t_dot inter, t_color c1, t_color c2, t_vec ray)
+{
+	int		x;
+	int		y;
+	int		z;
+	float	offset;
+
+	offset = 1000;
+	x = (int)((inter.x + offset) - ray.x) % 2 == 0 ? 1 : 0;
+	y = (int)((inter.y + offset) - ray.y) % 2 == 0 ? 1 : 0;
+	z = (int)((inter.z + offset) - ray.z) % 2 == 0 ? 1 : 0;
+	if ((x && !y && !z) || (y && !x && !z) || (z && !x && !y))
+		return (c2);
+	return (c1);
+}
+
 t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 {
 	t_sec_r	s;
@@ -64,5 +81,7 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 		s.i = -1;
 		c = find_c(s, c, obj, d);
 	}
+	if (obj->d3)
+		c = checkered(inter, c, new_color(1 + c.r / 2, 1 + c.g / 2, 1 + c.b / 2, 0), ray);
 	return (c);
 }

@@ -70,6 +70,9 @@ t_obj	*gen_plane(t_dot d, t_vec v, t_obj *o, t_data *data)
 	obj->v = v2;
 	obj->vector_c = 1;
 	obj->color = o->color;
+	obj->d1 = o->d1;
+	obj->d2 = o->d2;
+	obj->d3 = o->d3;
 	find_limits(o, obj);
 	return (obj);
 }
