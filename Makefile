@@ -31,6 +31,7 @@ SRCS =	main.c					\
 		list_files.c			\
 		init_data.c				\
 		colors.c				\
+		perlin.c				\
 
 SRCO = $(SRCS:.c=.o)
 

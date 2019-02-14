@@ -49,6 +49,7 @@ t_img		*init_img(t_data *data)
 		&img->s_l, &img->endian)))
 		ft_fail("Error: cant create image.", NULL);
 	img->bpp /= 8;
+	img->d4 = 0;
 	return (img);
 }
 

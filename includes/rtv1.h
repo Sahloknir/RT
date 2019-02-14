@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RTV1_H
-# define RTV1_H
+#ifndef RT_H
+# define RT_H
 
 # include "../libft/includes/libft.h"
 # include "../mlx/mlx.h"
@@ -114,6 +114,7 @@ typedef struct		s_img
 	int				gs;
 	int				d;
 	int				crtn;
+	int				d4;
 }					t_img;
 
 typedef struct		s_data
@@ -148,6 +149,8 @@ typedef struct		s_data
 	int				menu;
 	int				dir_files;
 	char			**files;
+	int				perlin;
+	int				p[256];
 }					t_data;
 
 typedef struct		s_hdr
@@ -274,5 +277,6 @@ t_color				real_lerp(t_color c1, t_color c2, float factor);
 void				init_data(t_data *n);
 void				reset_colors(t_data *d);
 int					color_diff(t_color c1, t_color c2);
+t_color				perlin(t_data *d, int red, int blue, int green, t_dot pt);
 
 #endif

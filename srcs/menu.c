@@ -75,6 +75,15 @@ int		write_options(t_data *d)
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 1.5, 0xFFDDDDDD, off);
 	else
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 1.5, 0xDDFFDDDD, on);
+	str = ft_strdup("minecraft texture");
+	if (d->selected_option == 5)
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 1.5), HA / 1.2, 0xAAFFFAA, str);
+	else
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 1.2, 0xCCCCCCCC, str);
+	if (d->img->d4 == 0)
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 1.2, 0xFFDDDDDD, off);
+	else
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 1.2, 0xDDFFDDDD, on);
 	free(on);
 	free(off);
 	free(str);
