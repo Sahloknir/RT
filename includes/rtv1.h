@@ -139,7 +139,6 @@ typedef struct		s_data
 	float			s_ymax;
 	int				l;
 	float			t[2];
-	int				stop;
 	t_color			a;
 	t_color			green;
 	t_color			red;
@@ -201,6 +200,8 @@ typedef struct		s_sec_r
 	float			dist;
 	int				i;
 	t_dot			inter;
+	int				*tab;
+	int				tab_size;
 }					t_sec_r;
 
 void				ft_fail(char *str, t_data *data);

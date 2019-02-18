@@ -34,7 +34,6 @@ object {
 	pos(0,0,80)
 	vector(-1,0,4)
 	color(0,0,255)
-	checkered
 }
 
 object {
@@ -42,6 +41,7 @@ object {
 	pos(0,-15,0)
 	vector(0,1,0)
 	color(195,195,195)
+	checkered
 }
 
 light {

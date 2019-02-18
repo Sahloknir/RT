@@ -37,7 +37,6 @@ t_color		diffuse_sphere(t_color c, t_dot inter, t_obj *o, t_data *d)
 {
 	t_diffuse	s;
 
-	d->stop = 1;
 	s.lc = new_dot(d->light[d->l]->px, d->light[d->l]->py, d->light[d->l]->pz);
 	s.obj_center = new_dot(o->px, o->py, o->pz);
 	s.normale = two_point_vector(s.obj_center, inter);
@@ -49,12 +48,6 @@ t_color		diffuse_sphere(t_color c, t_dot inter, t_obj *o, t_data *d)
 	c.r += (int)ft_clamp(((o->color.r / d->lights) * s.angle), 0, o->color.r);
 	c.g += (int)ft_clamp(((o->color.g / d->lights) * s.angle), 0, o->color.g);
 	c.b += (int)ft_clamp(((o->color.b / d->lights) * s.angle), 0, o->color.b);
-//	if (o->shiny && s.angle >= 0.99)
-//	{
-///		return (color_interp(new_color(o->color.r, o->color.g, o->color.b, 0),
-//			new_color(255, 255, 255, 0), s.angle));
-//	}
-	d->stop = 0;
 	return (c);
 }
 
@@ -62,7 +55,6 @@ t_color		diffuse_plane(t_color c, t_dot inter, t_obj *obj, t_data *d)
 {
 	t_diffuse	s;
 
-	d->stop = 1;
 	s.lc = new_dot(d->light[d->l]->px, d->light[d->l]->py, d->light[d->l]->pz);
 	s.normale = *(obj->v);
 	norm_vec(&(s.normale));
@@ -73,7 +65,6 @@ t_color		diffuse_plane(t_color c, t_dot inter, t_obj *obj, t_data *d)
 	c.r += ft_clamp(((obj->color.r / d->lights) * s.angle), 0, obj->color.r);
 	c.g += ft_clamp(((obj->color.g / d->lights) * s.angle), 0, obj->color.g);
 	c.b += ft_clamp(((obj->color.b / d->lights) * s.angle), 0, obj->color.b);
-	d->stop = 0;
 	return (c);
 }
 
@@ -81,7 +72,6 @@ t_color		diffuse_cone(t_color c, t_dot inter, t_obj *o, t_data *d)
 {
 	t_diffuse	s;
 
-	d->stop = 1;
 	s.lo = new_vec(d->light[d->l]->px, d->light[d->l]->py, d->light[d->l]->pz);
 	s.lo = trans_vec(s.lo, o->px, o->py, o->pz);
 	s.lo = rot_vec(s.lo, o->rx, o->ry, 0);
@@ -102,7 +92,6 @@ t_color		diffuse_cone(t_color c, t_dot inter, t_obj *o, t_data *d)
 //		return (color_interp(new_color(o->color.r, o->color.g, o->color.b, 0),
 //			new_color(255, 255, 255, 0), s.angle));
 //	}
-	d->stop = 0;
 	return (c);
 }
 
@@ -110,7 +99,6 @@ t_color		diffuse_cylinder(t_color c, t_dot inter, t_obj *o, t_data *d)
 {
 	t_diffuse	s;
 
-	d->stop = 1;
 	s.lo = new_vec(d->light[d->l]->px, d->light[d->l]->py, d->light[d->l]->pz);
 	s.lo = trans_vec(s.lo, o->px, o->py, o->pz);
 	s.lo = rot_vec(s.lo, o->rx, o->ry, 0);
@@ -131,7 +119,6 @@ t_color		diffuse_cylinder(t_color c, t_dot inter, t_obj *o, t_data *d)
 //		return (color_interp(new_color(o->color.r, o->color.g, o->color.b, 0),
 //			new_color(255, 255, 255, 0), s.angle));
 //	}
-	d->stop = 0;
 	return (c);
 }
 

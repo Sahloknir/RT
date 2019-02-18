@@ -19,7 +19,12 @@ object {
 	lim_x(-25, 15)
 	shiny
 }
-
+light {
+	pos(115,10,-100)
+}
+light {
+	pos(105,5,-100)
+}
 light {
 	pos(100,0,-100)
 }

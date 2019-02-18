@@ -91,14 +91,12 @@ object {
 	color(125, 137, 94)
 }
 
-
 object {
 	type(sphere)
 	pos(0, -18, 55)
 	radius(8)
 	color(125, 137, 228)
 }
-
 
 object {
 	type(plane)
