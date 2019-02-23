@@ -30,7 +30,7 @@ object {
 object {
 	type(plane)
 	pos(0,0,200)
-	vector(-10,-10,-10)
+	rotation(45,45)
 	color(125,149,238)
 }
 

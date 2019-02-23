@@ -5,6 +5,7 @@ SRCS =	main.c					\
 		events.c				\
 		reading.c				\
 		reading_utilitaries.c	\
+		reading_utilitaries2.c	\
 		read_light.c			\
 		read_cam.c				\
 		read_obj.c				\
@@ -17,7 +18,6 @@ SRCS =	main.c					\
 		matrix.c				\
 		math.c					\
 		shading.c				\
-		light_impact.c			\
 		diffuse.c				\
 		read_lim.c				\
 		check_lim.c				\
@@ -32,6 +32,9 @@ SRCS =	main.c					\
 		init_data.c				\
 		colors.c				\
 		perlin.c				\
+		reflection.c			\
+		normales.c				\
+		check_rlim.c			\
 
 SRCO = $(SRCS:.c=.o)
 

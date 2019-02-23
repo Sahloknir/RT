@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 16:09:35 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/08 13:10:06 by axbal            ###   ########.fr       */
+/*   Updated: 2019/02/23 15:07:14 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ int		get_object_pos(char *f, int s, t_obj *obj)
 		free(tab);
 		return (0);
 	}
-	obj->px = tab[0];
-	obj->py = tab[1];
-	obj->pz = tab[2];
+	obj->pos.x = tab[0];
+	obj->pos.y = tab[1];
+	obj->pos.z = tab[2];
 	free(tab);
 	obj->pos_c += 1;
 	return (1);

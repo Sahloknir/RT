@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:15:40 by axbal             #+#    #+#             */
-/*   Updated: 2018/11/13 15:24:14 by ceugene          ###   ########.fr       */
+/*   Updated: 2019/02/23 15:05:02 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	rot_rays(t_data *d)
 		j = 0;
 		while (j < LA)
 		{
-			d->rays[i][j] = rot_vec(d->rays[i][j], d->cam->rx, d->cam->ry,
-				d->cam->rz);
+			d->rays[i][j] = rot_vec(d->rays[i][j], d->cam->vec.x, d->cam->vec.y,
+				d->cam->vec.z);
 			j++;
 		}
 		i++;

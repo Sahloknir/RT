@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:17:13 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/10 15:26:17 by ceugene          ###   ########.fr       */
+/*   Updated: 2019/02/23 16:29:18 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,12 @@ t_color		add_shine(t_light *l, t_obj *o, t_color c, t_dot inter, t_color b)
 {
 	float	angle;
 	t_color	col;
-	t_dot	obj_center;
 	t_vec	norm;
 	t_vec	lo;
-	t_dot	lc;
 
-	obj_center = new_dot(o->px, o->py, o->pz);
-	norm = two_point_vector(obj_center, inter);
+	norm = two_point_vector(o->pos, inter);
 	norm_vec(&(norm));
-	lc = new_dot(l->px, l->py, l->pz);
-	lo = two_point_vector(obj_center, lc);
+	lo = two_point_vector(o->pos, l->pos);
 	norm_vec(&(lo));
 	col = new_color(c.r, c.g, c.b, 0);
 	angle = fabs(scalar(&norm, &lo));
@@ -48,9 +44,9 @@ t_color		find_c(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 		return (c);
 	while (++(s->i) < d->objects)
 	{
-		ret = test_light(d, d->light[d->l], *s, d->obj[s->i]);
-		dot = dot_from_light(d->light[d->l], s->lo, d->t[0]);
-		dot2 = dot_from_light(d->light[d->l], s->lo, d->t[1]);
+		ret = test_object(d, s->lo ,d->obj[s->i], d->light[d->l]->pos);
+		dot = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[0]);
+		dot2 = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[1]);
 		if (ret == 1)
 		{
 			if ((d->t[0] > 0 && d->t[0] < s->dist && check_lim(d->obj[s->i], dot)
@@ -90,6 +86,7 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 	t_color	c;
 	t_color	col;
 	int		i;
+	t_obj	*o;
 
 	s.inter = inter;
 	if (!(s.tab = malloc(sizeof(int) * d->lights)))
@@ -102,14 +99,14 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 	new_color(obj->color.r, obj->color.g, obj->color.b, 0);
 	while (++(d->l) < d->lights)
 	{
-		s.ld = new_dot(d->light[d->l]->px, d->light[d->l]->py,
-		d->light[d->l]->pz);
 		s.o_ray = ray;
-		s.lo = two_point_vector(s.ld, s.inter);
-		test_light(d, d->light[d->l], s, obj);
-		s.dist = find_right_distance(d, s.ld, s.lo, inter);
+		s.lo = two_point_vector(d->light[d->l]->pos, s.inter);
+		if (!(o = find_reflection(&s, obj, d, NULL)))
+			return (c);
+		test_object(d, s.lo, o, d->light[d->l]->pos);
+		s.dist = find_right_distance(d, d->light[d->l]->pos, s.lo, inter);
 		s.i = -1;
-		c = find_c(&s, c, obj, d);
+		c = find_c(&s, c, o, d);
 	}
 //	if (d->img->d4)
 		c = perlin(d, c.r, c.g, c.b, inter);

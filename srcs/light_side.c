@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 13:59:34 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/08 12:01:26 by axbal            ###   ########.fr       */
+/*   Updated: 2019/02/23 16:03:01 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,18 @@ int			call_side_light_check(t_sec_r s, t_obj *obj, t_data *d)
 
 	if (obj->type == PLANE)
 		return (1);
-	org = new_dot(d->light[d->l]->px, d->light[d->l]->py, d->light[d->l]->pz);
+	org = d->light[d->l]->pos;
 	if (d->t[0] != find_right_distance(d, org, s.lo, s.inter))
 		fswap(&(d->t[0]), &(d->t[1]));
-	d1 = dot_from_light(d->light[d->l], s.lo, d->t[0]);
-	d2 = dot_from_light(d->light[d->l], s.lo, d->t[1]);
+	d1 = get_hitpoint(d->light[d->l]->pos, s.lo, d->t[0]);
+	d2 = get_hitpoint(d->light[d->l]->pos, s.lo, d->t[1]);
 	ret = side_light_check(org, d1, d2, obj);
-	org = new_dot(d->cam->px, d->cam->py, d->cam->pz);
-	test_object(d, s.o_ray, obj);
+	org = d->cam->pos;
+	test_object(d, s.o_ray, obj, d->cam->pos);
 	if (d->t[0] != find_right_distance(d, org, s.o_ray, s.inter))
 		fswap(&(d->t[0]), &(d->t[1]));
-	d1 = get_hitpoint(s.o_ray, d->t[0], d);
-	d2 = get_hitpoint(s.o_ray, d->t[1], d);
+	d1 = get_hitpoint(d->cam->pos, s.o_ray, d->t[0]);
+	d2 = get_hitpoint(d->cam->pos, s.o_ray, d->t[1]);
 	if (ret == 0 || ret != side_light_check(org, d1, d2, obj))
 		return (-1);
 	return (1);

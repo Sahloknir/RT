@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:04:35 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/08 12:27:34 by axbal            ###   ########.fr       */
+/*   Updated: 2019/02/23 15:36:23 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,11 @@ t_obj		*create_object(t_data *data)
 	new->lim_x_c = 0;
 	new->lim_y_c = 0;
 	new->lim_z_c = 0;
+	new->rlim_x_c = 0;
+	new->rlim_y_c = 0;
+	new->rlim_z_c = 0;
 	new->shiny = 0;
+	new->mirror = 0;
 	new->d1 = 0;
 	new->d2 = 0;
 	new->d3 = 0;

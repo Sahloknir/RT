@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 12:05:33 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/30 12:11:13 by ceugene          ###   ########.fr       */
+/*   Updated: 2019/02/23 15:52:32 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include "../libft/includes/libft.h"
 # include "../mlx/mlx.h"
 
-# define LA 1152
-# define HA 648
+# define LA 1280
+# define HA 720
 # define FOV 90
 # define SCENES_PATH "./scenes/"
 # define SPHERE 1
@@ -50,28 +50,20 @@ typedef struct		s_dot
 
 typedef struct		s_cam
 {
-	float			px;
-	float			py;
-	float			pz;
-	float			rx;
-	float			ry;
-	float			rz;
+	t_dot			pos;
+	t_vec			vec;
 }					t_cam;
 
 typedef struct		s_light
 {
-	float			px;
-	float			py;
-	float			pz;
+	t_dot			pos;
 	int				intensity;
 }					t_light;
 
 typedef struct		s_obj
 {
 	int				type;
-	float			px;
-	float			py;
-	float			pz;
+	t_dot			pos;
 	float			radius;
 	float			angle;
 	float			size;
@@ -79,6 +71,7 @@ typedef struct		s_obj
 	int				rx;
 	int				ry;
 	t_color			color;
+	t_vec			(*norm)(struct s_obj *, t_dot);
 	float			lim_x_neg;
 	float			lim_x_pos;
 	float			lim_y_neg;
@@ -88,6 +81,15 @@ typedef struct		s_obj
 	int				lim_x_c;
 	int				lim_y_c;
 	int				lim_z_c;
+	float			rlim_x_neg;
+	float			rlim_x_pos;
+	float			rlim_y_neg;
+	float			rlim_y_pos;
+	float			rlim_z_neg;
+	float			rlim_z_pos;
+	int				rlim_x_c;
+	int				rlim_y_c;
+	int				rlim_z_c;
 	int				size_c;
 	int				pos_c;
 	int				type_c;
@@ -96,6 +98,7 @@ typedef struct		s_obj
 	int				vector_c;
 	int				rotation_c;
 	int				shiny;
+	int				mirror;
 	int				d1;
 	int				d2;
 	int				d3;
@@ -186,8 +189,6 @@ typedef struct		s_diffuse
 	t_vec			normale;
 	t_vec			lo;
 	t_vec			a_dot;
-	t_dot			obj_center;
-	t_dot			lc;
 	t_dot			affixe;
 	float			angle;
 }					t_diffuse;
@@ -242,24 +243,24 @@ t_vec				trans_vec(t_vec vec, float tx, float ty, float tz);
 t_vec				rot_vec(t_vec ray, float rx, float ry, float rz);
 float				degree_to_radian(float degree);
 float				ft_clamp(float to_clamp, float min, float max);
-t_dot				get_hitpoint(t_vec vector, float d, t_data *data);
+t_dot				get_hitpoint(t_dot start, t_vec vector, float d);
 t_color				secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec r);
-int					test_object(t_data *d, t_vec ray, t_obj *obj);
-int					test_light(t_data *d, t_light *l, t_sec_r s, t_obj *obj);
+int					test_object(t_data *d, t_vec ray, t_obj *obj, t_dot start);
 float				two_point_dist(t_dot p1, t_dot p2);
 t_color				color_interp(t_color c1, t_color c2, float factor);
 int					get_object_lim_x(char *f, int s, t_obj *obj);
 int					get_object_lim_y(char *f, int s, t_obj *obj);
 int					get_object_lim_z(char *f, int s, t_obj *obj);
+int					get_object_rlim_x(char *f, int s, t_obj *obj);
+int					get_object_rlim_y(char *f, int s, t_obj *obj);
+int					get_object_rlim_z(char *f, int s, t_obj *obj);
 int					check_lim(t_obj *o, t_dot dot);
 int					double_check_lim(t_obj *o, t_dot d1, t_dot d2);
 int					cmp_dot(t_dot d1, t_dot d2);
-t_dot				dot_from_light(t_light *l, t_vec vec, float dist);
 float				find_right_distance(t_data *d, t_dot l, t_vec v, t_dot i);
 int					call_side_light_check(t_sec_r s, t_obj *obj, t_data *d);
 t_color				apply_color(t_color c, t_obj *o, t_data *d, float angle);
 t_color				find_diffuse(t_color c, t_dot inter, t_obj *obj, t_data *d);
-int					test_object(t_data *d, t_vec ray, t_obj *obj);
 float				pick_a_side(float dm, t_vec ray, t_obj *o, t_data *d);
 void				fswap(float *f1, float *f2);
 void				fabricated_object(t_data *d, t_obj *obj);
@@ -279,5 +280,13 @@ void				init_data(t_data *n);
 void				reset_colors(t_data *d);
 int					color_diff(t_color c1, t_color c2);
 t_color				perlin(t_data *d, int red, int blue, int green, t_dot pt);
+t_vec				reflect_ray(t_vec *inc, t_vec *norm);
+t_obj				*find_reflection(t_sec_r *s, t_obj *o, t_data *d, t_obj *p);
+int					get_object_mirror(char *f, int s, t_obj *obj);
+t_vec				cylinder_norm(t_obj *o, t_dot inter);
+t_vec				cone_norm(t_obj *o, t_dot inter);
+t_vec				sphere_norm(t_obj *o, t_dot inter);
+int					rel_lim(t_obj *o, t_dot d);
+int					double_rel_lim(t_obj *o, t_dot d1, t_dot d2);
 
 #endif

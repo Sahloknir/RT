@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 21:56:25 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/10 15:40:22 by ceugene          ###   ########.fr       */
+/*   Updated: 2019/02/23 16:34:15 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,19 @@ void	add_obj(t_data *data, t_obj *obj)
 	data->objects++;
 }
 
+int		assign_func(t_obj *o)
+{
+	if (o->type == PLANE)
+		o->norm = NULL;
+	if (o->type == SPHERE)
+		o->norm = &sphere_norm;
+	if (o->type == CYLINDER)
+		o->norm = &cylinder_norm;
+	if (o->type == CONE)
+		o->norm = &cone_norm;
+	return (1);
+}
+
 int		expected_result2(t_obj *obj)
 {
 	if (obj->type == CUBE)
@@ -49,22 +62,22 @@ int		expected_result(t_obj *obj)
 	if (obj->type == SPHERE)
 	{
 		if (obj->pos_c == 1 && obj->radius_c == 1)
-			return (1);
+			return (assign_func(obj));
 	}
 	if (obj->type == CYLINDER)
 	{
 		if (obj->pos_c == 1 && obj->radius_c == 1 && obj->rotation_c == 1)
-			return (1);
+			return (assign_func(obj));
 	}
 	if (obj->type == CONE)
 	{
 		if (obj->pos_c == 1 && obj->angle_c == 1 && obj->rotation_c == 1)
-			return (1);
+			return (assign_func(obj));
 	}
 	if (obj->type == PLANE)
 	{
-		if (obj->pos_c == 1 && obj->vector_c == 1)
-			return (1);
+		if (obj->pos_c == 1 && obj->rotation_c == 1)
+			return (assign_func(obj));
 	}
 	return (expected_result2(obj));
 }
@@ -86,6 +99,8 @@ int		compare_string_to_values(char *f, int s, t_obj *new)
 {
 	if (ft_strncmp(f + s, "type(", 5) == 0)
 		return (get_object_type(f, s, new));
+	else if (ft_strncmp(f + s, "mirror(", 7) == 0)
+		return (get_object_mirror(f, s, new));
 	else if (ft_strncmp(f + s, "pos(", 4) == 0)
 		return (get_object_pos(f, s, new));
 	else if (ft_strncmp(f + s, "radius(", 7) == 0)
@@ -98,11 +113,17 @@ int		compare_string_to_values(char *f, int s, t_obj *new)
 		return (get_object_rot(f, s, new));
 	else if (ft_strncmp(f + s, "color(", 6) == 0)
 		return (get_object_color(f, s, new));
-	else if (ft_strncmp(f + s, "lim_x(", 6) == 0)
+	else if (ft_strncmp(f + s, "plim_x(", 7) == 0)
 		return (get_object_lim_x(f, s, new));
-	else if (ft_strncmp(f + s, "lim_y(", 6) == 0)
+	else if (ft_strncmp(f + s, "plim_y(", 7) == 0)
 		return (get_object_lim_y(f, s, new));
-	else if (ft_strncmp(f + s, "lim_z(", 6) == 0)
+	else if (ft_strncmp(f + s, "plim_z(", 7) == 0)
+		return (get_object_lim_z(f, s, new));
+	else if (ft_strncmp(f + s, "rlim_x(", 7) == 0)
+		return (get_object_lim_z(f, s, new));
+	else if (ft_strncmp(f + s, "rlim_y(", 7) == 0)
+		return (get_object_lim_z(f, s, new));
+	else if (ft_strncmp(f + s, "rlim_z(", 7) == 0)
 		return (get_object_lim_z(f, s, new));
 	else if (ft_strncmp(f + s, "size(", 5) == 0)
 		return (get_object_size(f, s, new));

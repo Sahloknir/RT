@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:16:58 by axbal             #+#    #+#             */
-/*   Updated: 2018/11/13 13:30:07 by axbal            ###   ########.fr       */
+/*   Updated: 2019/02/23 15:06:24 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int		search_pos_cam(t_cam *cam, char *f, int s)
 		free(tab);
 		return (-1);
 	}
-	cam->px = tab[0];
-	cam->py = tab[1];
-	cam->pz = tab[2];
+	cam->pos.x = tab[0];
+	cam->pos.y = tab[1];
+	cam->pos.z = tab[2];
 	free(tab);
 	return (1);
 }
@@ -41,9 +41,9 @@ int		search_dir_cam(t_cam *cam, char *f, int s)
 		free(tab);
 		return (-1);
 	}
-	cam->rx = tab[0];
-	cam->ry = tab[1];
-	cam->rz = tab[2];
+	cam->vec.x = tab[0];
+	cam->vec.y = tab[1];
+	cam->vec.z = tab[2];
 	free(tab);
 	return (1);
 }

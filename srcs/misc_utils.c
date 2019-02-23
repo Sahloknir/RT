@@ -6,30 +6,20 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 14:05:21 by axbal             #+#    #+#             */
-/*   Updated: 2019/01/07 14:20:06 by axbal            ###   ########.fr       */
+/*   Updated: 2019/02/23 15:02:28 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 #include <math.h>
 
-t_dot	get_hitpoint(t_vec vector, float d, t_data *data)
+t_dot	get_hitpoint(t_dot start, t_vec vector, float d)
 {
 	t_dot	dot;
 
-	dot.x = data->cam->px + vector.x * d;
-	dot.y = data->cam->py + vector.y * d;
-	dot.z = data->cam->pz + vector.z * d;
-	return (dot);
-}
-
-t_dot	dot_from_light(t_light *l, t_vec vec, float dist)
-{
-	t_dot	dot;
-
-	dot.x = l->px + (float)(vec.x * dist);
-	dot.y = l->py + (float)(vec.y * dist);
-	dot.z = l->pz + (float)(vec.z * dist);
+	dot.x = start.x + vector.x * d;
+	dot.y = start.y + vector.y * d;
+	dot.z = start.z + vector.z * d;
 	return (dot);
 }
 
@@ -38,8 +28,8 @@ float	pick_a_side(float dm, t_vec ray, t_obj *o, t_data *d)
 	int		d1;
 	int		d2;
 
-	d1 = check_lim(o, get_hitpoint(ray, d->t[0], d));
-	d2 = check_lim(o, get_hitpoint(ray, d->t[1], d));
+	d1 = check_lim(o, get_hitpoint(d->cam->pos, ray, d->t[0]));
+	d2 = check_lim(o, get_hitpoint(d->cam->pos, ray, d->t[1]));
 	if (dm == -1 && ((d->t[0] > 0 && d1 == 1) || (d->t[1] > 0 && d2 == 1)))
 	{
 		if (d->t[0] > 0 && d1 == 1)

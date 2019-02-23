@@ -16,7 +16,7 @@ object {
 	pos(0,0,50)
 	radius(25)
 	color(110,80,164)
-	lim_x(-25, 15)
+	plim_x(-25, 15)
 	shiny
 }
 
