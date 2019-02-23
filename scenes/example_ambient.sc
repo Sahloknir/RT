@@ -33,14 +33,14 @@ object {
 object {
 	type(plane)
 	pos(0,0,80)
-	vector(-1,0,4)
+	rotation(0, 0)
 	color(0,0,255)
 }
 
 object {
 	type(plane)
 	pos(0,-15,0)
-	vector(0,1,0)
+	rotation(90, 0)
 	color(195,195,195)
 	checkered
 }

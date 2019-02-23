@@ -24,6 +24,7 @@ t_obj	*find_reflection(t_sec_r *s, t_obj *obj, t_data *d, t_obj *prev)
 		t = -1;
 		s->o_ray = reflect_ray(&(s->o_ray), &norm);
 		s->dist = -1;
+		o = NULL;
 		while (++t <= d->objects - 1)
 		{
 			if (d->obj[t] != obj && test_object(d, s->o_ray, d->obj[t], s->inter) > 0)
@@ -46,7 +47,7 @@ t_obj	*find_reflection(t_sec_r *s, t_obj *obj, t_data *d, t_obj *prev)
 		if (s->dist == -1 || (prev != NULL && prev == o))
 			return (NULL);
 		s->inter = get_hitpoint(s->inter, s->o_ray, s->dist);
-		if (o->mirror > 0)
+		if (o != NULL && o->mirror > 0)
 			o = find_reflection(s, o, d, obj);
 		return (o);
 	}

@@ -28,20 +28,6 @@ object {
 	shiny
 }
 
-object {
-	type(plane)
-	pos(-50, -50, 0)
-	color(244, 244, 244)
-	vector(1, 1, 0.2)
-}
-
-object {
-	type(plane)
-	pos(50, 50, 0)
-	color(137, 87, 92)
-	vector(1, 1, -0.2)
-}
-
 light {
 	pos(-40, 8, 20)
 }

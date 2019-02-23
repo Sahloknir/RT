@@ -2,9 +2,8 @@
 
 void	free_obj(int j, t_data *d)
 {
-	if (d->obj[j]->vector_c != 0)
+	if (d->obj[j]->vector_c == 1)
 		free(d->obj[j]->v);
-	d->obj[j]->vector_c = 0;
 	free(d->obj[j]);
 	d->obj[j] = NULL;
 }
@@ -25,7 +24,6 @@ void	free_rays(t_data *d)
 
 void	clear_images(t_data *d)
 {
-	d->cam = NULL;
 	d->obj = NULL;
 	d->light = NULL;
 	d->rays = NULL;
@@ -65,5 +63,6 @@ void	free_data(t_data *d)
 		free_rays(d);
 	if (d->cam != NULL)
 		free(d->cam);
+	d->cam = NULL;
 	clear_images(d);
 }

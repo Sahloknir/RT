@@ -16,9 +16,7 @@
 t_vec	sphere_norm(t_obj *o, t_dot inter)
 {
 	t_vec	norm;
-	t_obj	t;
 
-	t = *o;
 	norm = two_point_vector(new_dot(o->pos.x, o->pos.y, o->pos.z), inter);
 	norm_vec(&norm);
 	return (norm);
@@ -54,8 +52,8 @@ t_vec	cone_norm(t_obj *o, t_dot inter)
 	r_inter = new_vec(inter.x, inter.y, inter.z);
 	r_inter = trans_vec(r_inter, o->pos.x, o->pos.y, o->pos.z);
 	r_inter = rot_vec(r_inter, o->rx, o->ry, 0);
-	len = two_point_dist(new_dot(r_inter.x, r_inter.y, r_inter.z),
-		new_dot(0, 0, 0));
+	affixe = new_dot(0, 0, r_inter.z);
+	len = two_point_dist(new_dot(r_inter.x, r_inter.y, r_inter.z), new_dot(0, 0, 0));
 	r_inter = new_vec(0, 0, len / (sin(angle)));
 	r_inter = rot_vec(r_inter, -o->rx, -o->ry, 0);
 	r_inter = trans_vec(r_inter, -o->pos.x, -o->pos.y, -o->pos.z);

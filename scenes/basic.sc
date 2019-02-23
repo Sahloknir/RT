@@ -44,8 +44,8 @@ object {
 }
 
 object {
-	shiny
 	type(cone)
+	shiny
 	pos(20, 5, 50)
 	angle(5)
 	rotation(60, 20)

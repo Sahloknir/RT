@@ -99,14 +99,14 @@ int		check_file(t_data *d, char *file)
 	refresh_expose(d);
 	if (d->objects != 0 && d->cam != NULL)
 		start_raytracing(d);
-	else if (d->objects == 0)
-		ft_putstr_fd("No object to draw! Enjoy the black screen!\n", 2);
-	else if (d->cam == NULL)
+	if (d->cam == NULL)
 	{
 		ft_return("Error: No valid camera. Cannot draw the scene.", d);
 		ft_putchar('\a');
 		return (-1);
 	}
+	else if (d->objects == 0)
+		ft_putstr_fd("No object to draw! Enjoy the black screen!\n", 2);
 	if (d->objects > 0 && (d->img->sp || d->img->gs || d->img->crtn))
 		filter(d);
 	d->current_img = 1;

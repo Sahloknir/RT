@@ -90,26 +90,3 @@ int		get_object_angle(char *f, int s, t_obj *obj)
 	free(tab);
 	return (1);
 }
-
-int		get_object_vec(char *f, int s, t_obj *obj)
-{
-	float	*tab;
-	t_vec	*vec;
-
-	tab = three_values_tab(f, s);
-	if (!(f[(int)tab[4]]) || tab[3] != 3)
-	{
-		free(tab);
-		return (0);
-	}
-	if (!(vec = (t_vec *)malloc(sizeof(t_vec) * 1)))
-		ft_fail("Error: Could not allocate memory.", NULL);
-	vec->x = tab[0];
-	vec->y = tab[1];
-	vec->z = tab[2];
-	norm_vec(vec);
-	obj->v = vec;
-	free(tab);
-	obj->vector_c += 1;
-	return (1);
-}

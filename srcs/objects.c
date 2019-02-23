@@ -107,8 +107,6 @@ int		compare_string_to_values(char *f, int s, t_obj *new)
 		return (get_object_rad(f, s, new));
 	else if (ft_strncmp(f + s, "angle(", 6) == 0)
 		return (get_object_angle(f, s, new));
-	else if (ft_strncmp(f + s, "vector(", 7) == 0)
-		return (get_object_vec(f, s, new));
 	else if (ft_strncmp(f + s, "rotation(", 9) == 0)
 		return (get_object_rot(f, s, new));
 	else if (ft_strncmp(f + s, "color(", 6) == 0)

@@ -15,7 +15,7 @@ object {
 object {
 	type(plane)
 	pos(0, -7, 0)
-	vector(0, 1, 0)
+	rotation(90, 0)
 	color(72, 71, 250)
 	checkered
 }

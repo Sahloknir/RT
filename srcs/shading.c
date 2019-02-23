@@ -20,16 +20,17 @@ t_color		add_shine(t_light *l, t_obj *o, t_color c, t_dot inter, t_color b)
 	t_vec	norm;
 	t_vec	lo;
 
-	norm = two_point_vector(o->pos, inter);
-	norm_vec(&(norm));
-	lo = two_point_vector(o->pos, l->pos);
-	norm_vec(&(lo));
-	col = new_color(c.r, c.g, c.b, 0);
-	angle = fabs(scalar(&norm, &lo));
-	if (o->shiny && angle >= 0.99)
-		col = color_interp(c, new_color(255, 255, 255, 0), angle);
-	if (col.r > b.r || col.g > b.g || col.b > b.b)
-		return (col);
+	if (o->type != PLANE && o->shiny)
+	{
+		norm = o->norm(o, inter);
+		lo = two_point_vector(l->pos, o->pos);
+		col = new_color(c.r, c.g, c.b, 0);
+		angle = fabs(scalar(&lo, &norm));
+		if (angle >= 0.99)
+			col = color_interp(c, new_color(255, 255, 255, 0), angle);
+		if (col.r > b.r || col.g > b.g || col.b > b.b)
+			return (col);
+	}
 	return (b);
 }
 
@@ -108,7 +109,6 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 		s.i = -1;
 		c = find_c(&s, c, o, d);
 	}
-//	if (d->img->d4)
 		c = perlin(d, c.r, c.g, c.b, inter);
 	if (obj->d3)
 		c = checkered(inter, c, new_color(1 + c.r / 2, 1 + c.g / 2, 1 + c.b / 2, 0));

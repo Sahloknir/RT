@@ -5,7 +5,7 @@ camera {
 
 object {
 	type(plane)
-	vector(0,1,-1)
+	rotation(80,10)
 	pos(0, 0, 50)
 	color(130,130,60)
 }
