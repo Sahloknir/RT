@@ -31,10 +31,7 @@ t_color		add_shine(t_light *l, t_obj *o, t_color c, t_dot inter, t_color b)
 	col = new_color(c.r, c.g, c.b, 0);
 	angle = fabs(scalar(&norm, &lo));
 	if (o->shiny && angle >= 0.99)
-	{
-		col = color_interp(new_color(c.r, c.g, c.b, 0),
-			new_color(255, 255, 255, 0), angle);
-	}
+		col = color_interp(c, new_color(255, 255, 255, 0), angle);
 	if (col.r > b.r || col.g > b.g || col.b > b.b)
 		return (col);
 	return (b);
@@ -114,10 +111,10 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 		s.i = -1;
 		c = find_c(&s, c, obj, d);
 	}
+//	if (d->img->d4)
+		c = perlin(d, c.r, c.g, c.b, inter);
 	if (obj->d3)
 		c = checkered(inter, c, new_color(1 + c.r / 2, 1 + c.g / 2, 1 + c.b / 2, 0));
-	if (d->img->d4)
-		c = perlin(d, c.r, c.g, c.b, inter);
 	i = -1;
 	col = new_color(c.r, c.g, c.b, 0);
 	while (++i < s.tab_size)

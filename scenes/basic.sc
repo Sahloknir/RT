@@ -40,16 +40,16 @@ object {
 	pos(5,0,30)
 	radius(2)
 	rotation(20,-60)
-	color(155,155,90)
+	color(255,255,0)
 }
 
 object {
 	shiny
 	type(cone)
-	pos(-20, -5, 50)
+	pos(20, 5, 50)
 	angle(5)
-	rotation(-60, -20)
-	color(212, 164, 249)
+	rotation(60, 20)
+	color(212, 164, 149)
 }
 
 light {
