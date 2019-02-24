@@ -75,15 +75,33 @@ int		write_options(t_data *d)
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 1.5, 0xFFDDDDDD, off);
 	else
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 1.5, 0xDDFFDDDD, on);
+	free(str);
 	str = ft_strdup("minecraft texture");
 	if (d->selected_option == 5)
-		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 1.5), HA / 1.2, 0xAAFFFAA, str);
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 1.5), HA / 1.3, 0xAAFFFAA, str);
 	else
-		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 1.2, 0xCCCCCCCC, str);
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 1.3, 0xCCCCCCCC, str);
 	if (d->img->d4 == 0)
-		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 1.2, 0xFFDDDDDD, off);
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 1.3, 0xFFDDDDDD, off);
 	else
-		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 1.2, 0xDDFFDDDD, on);
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(off) * 2.5), HA / 1.3, 0xDDFFDDDD, on);
+	free(str);
+	str = ft_strdup("perlin noise");
+	if (d->selected_option == 6)
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 1.5), HA / 1.15, 0xAAFFFAA, str);
+	else
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 1.15, 0xCCCCCCCC, str);
+	free(str);
+	if (d->img->d5 > 0)
+	{
+		str = d->img->d5 < 20 ? ft_strdup("strong") : ft_strdup("mild");
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(str) * 2.5), HA / 1.15, 0xDDFFDDDD, str);
+	}
+	else
+	{
+		str = ft_strdup("none");
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 1.7 - (ft_strlen(str) * 2.5), HA / 1.15, 0xCCCCCCCC, str);
+	}
 	free(on);
 	free(off);
 	free(str);

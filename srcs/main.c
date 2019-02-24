@@ -50,6 +50,7 @@ t_img		*init_img(t_data *data)
 		ft_fail("Error: cant create image.", NULL);
 	img->bpp /= 8;
 	img->d4 = 0;
+	img->d5 = 20;
 	return (img);
 }
 

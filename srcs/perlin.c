@@ -107,7 +107,7 @@ void	gen_permutation(int *tab)
 	i = -1;
 	while (++i < 255)
 	{
-		if (tab[i] >= tab[i + 1] - 5 && tab[i] <= tab[i + 1] + 5)
+		if (tab[i] >= tab[i + 1] - 3 && tab[i] <= tab[i + 1] + 3)
 		{
 			tab[i] = rand() % 255;
 			i = -1;
@@ -118,11 +118,11 @@ void	gen_permutation(int *tab)
 t_color	perlin(t_data *d, int red, int green, int blue, t_dot pt)
 {
 	float	noise;
-	t_color	color;
+	t_color	c;
 	t_color	basic;
 	int		level;
 
-	color = new_color(red, green, blue, 0);
+	c = new_color(red, green, blue, 0);
 	noise = 0.1;
 	if (d->perlin == 0)
 	{
@@ -137,18 +137,18 @@ t_color	perlin(t_data *d, int red, int green, int blue, t_dot pt)
 			noise += (1.0 / level) * fabsf((float)p_mine(level * 0.05 * pt.x,
 			level * 0.05 * pt.y, level * 0.05 * pt.z, d->p));
 		}
-		color.r += ft_clamp(color.r / (15 / noise), 0, 255);
-		color.g += ft_clamp(color.g / (15 / noise), 0, 255);
-		color.b += ft_clamp(color.b / (15 / noise), 0, 255);
+		c.r += ft_clamp(c.r / (15 / noise), 0, 255);
+		c.g += ft_clamp(c.g / (15 / noise), 0, 255);
+		c.b += ft_clamp(c.b / (15 / noise), 0, 255);
 	}
 	noise = cos(p_noise(pt.x, pt.y, pt.z, d->p) + pt.x + pt.y + pt.z);
-	if (noise >= -1)
+	if (noise > -1 && d->img->d5 > 0)
 	{
-		color.r = ft_clamp(color.r - (color.r / 20 * (1 - noise)), 0, 255);
-		color.g = ft_clamp(color.g - (color.g / 20 * (1 - noise)), 0, 255);
-		color.b = ft_clamp(color.b - (color.b / 20 * (1 - noise)), 0, 255);
+		c.r = ft_clamp(c.r - (c.r / d->img->d5 * (1 - noise)), 0, 255);
+		c.g = ft_clamp(c.g - (c.g / d->img->d5 * (1 - noise)), 0, 255);
+		c.b = ft_clamp(c.b - (c.b / d->img->d5 * (1 - noise)), 0, 255);
 		basic = new_color(red, green, blue, 0);
-		real_lerp(basic, color, 60);
+		real_lerp(basic, c, 60);
 	}
-	return (color);
+	return (c);
 }

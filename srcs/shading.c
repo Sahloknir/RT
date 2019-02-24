@@ -109,6 +109,7 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 		s.i = -1;
 		c = find_c(&s, c, o, d);
 	}
+	if (d->img->d5 > 0)
 		c = perlin(d, c.r, c.g, c.b, inter);
 	if (obj->d3)
 		c = checkered(inter, c, new_color(1 + c.r / 2, 1 + c.g / 2, 1 + c.b / 2, 0));

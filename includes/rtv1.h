@@ -118,6 +118,7 @@ typedef struct		s_img
 	int				d;
 	int				crtn;
 	int				d4;
+	int				d5;
 }					t_img;
 
 typedef struct		s_data

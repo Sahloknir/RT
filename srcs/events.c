@@ -61,6 +61,12 @@ void	switch_option(int option, t_data *d)
 		d->img->crtn = d->img->crtn > 0 ? 0 : 1;
 	else if (option == 5)
 		d->img->d4 = d->img->d4 > 0 ? 0 : 1;
+	else if (option == 6)
+	{
+		if (d->img->d5 == 0)
+			d->img->d5 = 30;
+		d->img->d5 -= 10;
+	}
 	refresh_expose(d);
 }
 
@@ -83,7 +89,7 @@ int		select_option(int key, t_data *d)
 		}
 		if (key == 36)
 			switch_option(d->selected_option, d);
-		if (key == 125 && d->selected_option < 5)
+		if (key == 125 && d->selected_option < 6)
 			d->selected_option += 1;
 		if (key == 126 && d->selected_option > 1)
 			d->selected_option -= 1;
