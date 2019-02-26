@@ -5,13 +5,14 @@ camera {
 
 object {
 	type(cylinder)
-	pos(0,0,50)
+	pos(0,0,110)
 	radius(10)
 	rotation(90,0)
 	color(23,110,16)
+	rlim_z(-30,30);
 	shiny
 }
 
 light {
-	pos(50,0,-20)
+	pos(30,0,0)
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rtv1.h                                             :+:      :+:    :+:   */
+/*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -242,6 +242,7 @@ t_img				*init_img(t_data *data);
 float				scalar(t_vec *v1, t_vec *v2);
 t_vec				trans_vec(t_vec vec, float tx, float ty, float tz);
 t_vec				rot_vec(t_vec ray, float rx, float ry, float rz);
+t_vec				unrot_vec(t_vec ray, float rx, float ry, float rz);
 float				degree_to_radian(float degree);
 float				ft_clamp(float to_clamp, float min, float max);
 t_dot				get_hitpoint(t_dot start, t_vec vector, float d);

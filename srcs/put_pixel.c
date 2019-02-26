@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void	put_pixel_to_image(t_dot d, t_data *dt, char *i, t_color c)
 {

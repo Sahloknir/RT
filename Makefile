@@ -38,7 +38,7 @@ SRCS =	main.c					\
 
 SRCO = $(SRCS:.c=.o)
 
-HEADER = includes/rtv1.h		\
+HEADER = includes/rt.h		\
 
 FLAGS = -o2 -Wall -Wextra -Werror
 

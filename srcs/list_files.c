@@ -1,4 +1,4 @@
-#include "rtv1.h"
+#include "rt.h"
 #include <dirent.h>
 
 int		add_to_files(t_data *d, char *name)

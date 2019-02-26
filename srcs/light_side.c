@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 int			side_light_check(t_dot origin, t_dot inter, t_dot inter2, t_obj *o)
 {

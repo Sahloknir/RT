@@ -1,4 +1,4 @@
-#include "rtv1.h"
+#include "rt.h"
 #include <math.h>
 
 int		simp_clr(int clr)

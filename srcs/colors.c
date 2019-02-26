@@ -1,4 +1,4 @@
-#include "rtv1.h"
+#include "rt.h"
 #include <math.h>
 
 t_color	real_lerp(t_color c1, t_color c2, float factor)

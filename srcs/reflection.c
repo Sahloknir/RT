@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 t_obj	*find_reflection(t_sec_r *s, t_obj *obj, t_data *d, t_obj *prev)
 {
@@ -18,7 +18,7 @@ t_obj	*find_reflection(t_sec_r *s, t_obj *obj, t_data *d, t_obj *prev)
 	t_obj	*o;
 	t_vec	norm;
 
-	norm = (obj->type == PLANE ? *obj->v : obj->norm(obj, s->inter));
+	norm = (obj->type == PLANE ? *(obj->v) : obj->norm(obj, s->inter));
 	if (obj->mirror > 0)
 	{
 		t = -1;
@@ -44,7 +44,7 @@ t_obj	*find_reflection(t_sec_r *s, t_obj *obj, t_data *d, t_obj *prev)
 				}
 			}
 		}
-		if (s->dist == -1 || (prev != NULL && prev == o))
+		if (o == NULL || s->dist == -1 || (prev != NULL && prev == o))
 			return (NULL);
 		s->inter = get_hitpoint(s->inter, s->o_ray, s->dist);
 		if (o != NULL && o->mirror > 0)

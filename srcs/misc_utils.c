@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 #include <math.h>
 
 t_dot	get_hitpoint(t_dot start, t_vec vector, float d)

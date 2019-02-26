@@ -1,4 +1,4 @@
-#include "rtv1.h"
+#include "rt.h"
 #include <fcntl.h>
 
 char	*get_file_name(char *str)

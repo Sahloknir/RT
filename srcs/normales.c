@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 #include "math.h"
 
 t_vec	sphere_norm(t_obj *o, t_dot inter)
@@ -30,9 +30,9 @@ t_vec	cylinder_norm(t_obj *o, t_dot inter)
 
 	r_inter = new_vec(inter.x, inter.y, inter.z);
 	r_inter = trans_vec(r_inter, o->pos.x, o->pos.y, o->pos.z);
-	r_inter = rot_vec(r_inter, o->rx, o->ry, 0);
-	r_inter = new_vec(0, 0, r_inter.z);
 	r_inter = rot_vec(r_inter, -o->rx, -o->ry, 0);
+	r_inter = new_vec(0, 0, r_inter.z);
+	r_inter = unrot_vec(r_inter, o->rx, o->ry, 0);
 	r_inter = trans_vec(r_inter, -o->pos.x, -o->pos.y, -o->pos.z);
 	affixe = new_dot(r_inter.x, r_inter.y, r_inter.z);
 	norm = two_point_vector(affixe, inter);
@@ -51,11 +51,10 @@ t_vec	cone_norm(t_obj *o, t_dot inter)
 	angle = 180 - (90 + o->angle);
 	r_inter = new_vec(inter.x, inter.y, inter.z);
 	r_inter = trans_vec(r_inter, o->pos.x, o->pos.y, o->pos.z);
-	r_inter = rot_vec(r_inter, o->rx, o->ry, 0);
-	affixe = new_dot(0, 0, r_inter.z);
+	r_inter = rot_vec(r_inter, -o->rx, -o->ry, 0);
 	len = two_point_dist(new_dot(r_inter.x, r_inter.y, r_inter.z), new_dot(0, 0, 0));
 	r_inter = new_vec(0, 0, len / (sin(angle)));
-	r_inter = rot_vec(r_inter, -o->rx, -o->ry, 0);
+	r_inter = unrot_vec(r_inter, o->rx, o->ry, 0);
 	r_inter = trans_vec(r_inter, -o->pos.x, -o->pos.y, -o->pos.z);
 	affixe = new_dot(r_inter.x, r_inter.y, r_inter.z);
 	norm = two_point_vector(affixe, inter);

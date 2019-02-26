@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 #include <math.h>
 
 t_vec	rot_x(t_vec ray, float teta)
@@ -55,6 +55,15 @@ t_vec	rot_vec(t_vec ray, float rx, float ry, float rz)
 	ray = rot_y(ray, degree_to_radian(ry));
 	if (rz != 0)
 		ray = rot_z(ray, degree_to_radian(rz));
+	return (ray);
+}
+
+t_vec	unrot_vec(t_vec ray, float rx, float ry, float rz)
+{
+	if (rz != 0)
+		ray = rot_z(ray, degree_to_radian(rz));
+	ray = rot_y(ray, degree_to_radian(ry));
+	ray = rot_x(ray, degree_to_radian(rx));
 	return (ray);
 }
 

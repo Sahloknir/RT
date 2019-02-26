@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 #include <math.h>
 
 t_vec	change_norm(t_dot inter, t_diffuse s, t_data *d, t_obj *o)
@@ -73,7 +73,7 @@ t_color		diffuse_cone(t_color c, t_dot inter, t_obj *o, t_data *d)
 	s.a_dot = rot_vec(s.a_dot, o->rx, o->ry, 0);
 	s.affixe = new_dot(0, 0, s.a_dot.z);
 	s.normale = two_point_vector(s.affixe,
-		new_dot(s.a_dot.x, s.a_dot.y, s.a_dot.z));
+	new_dot(s.a_dot.x, s.a_dot.y, s.a_dot.z));
 	norm_vec(&(s.normale));
 	s.normale = change_norm(inter, s, d, o);
 	s.lo = two_point_vector(s.affixe, new_dot(s.lo.x, s.lo.y, s.lo.z));

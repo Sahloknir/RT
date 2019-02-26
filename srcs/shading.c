@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 #include <math.h>
 
 t_color		add_shine(t_light *l, t_obj *o, t_color c, t_dot inter, t_color b)
@@ -23,9 +23,9 @@ t_color		add_shine(t_light *l, t_obj *o, t_color c, t_dot inter, t_color b)
 	if (o->type != PLANE && o->shiny)
 	{
 		norm = o->norm(o, inter);
-		lo = two_point_vector(l->pos, o->pos);
+		lo = two_point_vector(l->pos, inter);
 		col = new_color(c.r, c.g, c.b, 0);
-		angle = fabs(scalar(&lo, &norm));
+		angle = fabs(scalar(&norm, &lo));
 		if (angle >= 0.99)
 			col = color_interp(c, new_color(255, 255, 255, 0), angle);
 		if (col.r > b.r || col.g > b.g || col.b > b.b)

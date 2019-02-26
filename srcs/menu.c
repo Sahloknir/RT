@@ -1,4 +1,4 @@
-#include "rtv1.h"
+#include "rt.h"
 
 void	draw_menu0(t_img *img, t_data *d)
 {
@@ -7,7 +7,7 @@ void	draw_menu0(t_img *img, t_data *d)
 	int			x;
 	int			y;
 
-	c = new_color(200, 180, 100, 1);
+	c = new_color(75, 70, 117, 1);
 	y = -1;
 	while (++y < HA)
 	{
@@ -29,6 +29,9 @@ int		write_options(t_data *d)
 
 	on = ft_strdup("ON");
 	off = ft_strdup("OFF");
+	str = ft_strdup("<- Q TO SAVE AND RETURN");
+	mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 7 - (ft_strlen(str) * 2.5), HA / 5, 0xCCCCCCCC, str);
+	free(str);
 	str = ft_strdup("sepia");
 	if (d->selected_option == 1)
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 3.2, 0xAAFFFAA, str);
@@ -78,7 +81,7 @@ int		write_options(t_data *d)
 	free(str);
 	str = ft_strdup("minecraft texture");
 	if (d->selected_option == 5)
-		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 1.5), HA / 1.3, 0xAAFFFAA, str);
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 1.3, 0xAAFFFAA, str);
 	else
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 1.3, 0xCCCCCCCC, str);
 	if (d->img->d4 == 0)
@@ -88,7 +91,7 @@ int		write_options(t_data *d)
 	free(str);
 	str = ft_strdup("perlin noise");
 	if (d->selected_option == 6)
-		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 1.5), HA / 1.15, 0xAAFFFAA, str);
+		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 1.15, 0xAAFFFAA, str);
 	else
 		mlx_string_put(d->mlx_ptr, d->win_ptr, LA / 6 - (ft_strlen(str) * 2.5), HA / 1.15, 0xCCCCCCCC, str);
 	free(str);
