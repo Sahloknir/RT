@@ -76,5 +76,6 @@ void	free_data(t_data *d)
 	if (d->cam != NULL)
 		free(d->cam);
 	d->cam = NULL;
-	clear_images(d);
+	if (d->img0 != NULL)
+		clear_images(d);
 }

@@ -22,6 +22,11 @@ void		ft_return(char *str, t_data *d)
 		ft_putstr_fd(str, 2);
 		ft_putchar('\n');
 	}
+	if (d->img0 == NULL)
+	{
+		open_scenes_dir(d);
+		set_up_menu(d);
+	}
 	d->current_img = 0;
 	refresh_expose(d);
 }
@@ -71,8 +76,6 @@ int			main(int argc, char **argv)
 	data = new_data();
 	if (argc > 2)
 		ft_fail("Usage: rtv1 [input_file]", data);
-	open_scenes_dir(data);
-	set_up_menu(data);
 	if (argc == 2)
 	{
 		loading_screen_bar(data);
@@ -80,7 +83,11 @@ int			main(int argc, char **argv)
 		check_file(data, argv[1]);
 	}
 	else if (argc < 2)
+	{
 		data->current_img = 0;
+		open_scenes_dir(data);
+		set_up_menu(data);
+	}
 	refresh_expose(data);
 	let_mlx_loop(data);
 	return (0);
