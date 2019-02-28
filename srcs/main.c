@@ -15,17 +15,17 @@
 
 void		ft_return(char *str, t_data *d)
 {
+	if (d->img0 == NULL)
+	{
+		open_scenes_dir(d);
+		set_up_menu(d);
+	}
 	if (d)
 		free_data(d);
 	if (str)
 	{
 		ft_putstr_fd(str, 2);
 		ft_putchar('\n');
-	}
-	if (d->img0 == NULL)
-	{
-		open_scenes_dir(d);
-		set_up_menu(d);
 	}
 	d->current_img = 0;
 	refresh_expose(d);

@@ -290,5 +290,6 @@ t_vec				cone_norm(t_obj *o, t_dot inter);
 t_vec				sphere_norm(t_obj *o, t_dot inter);
 int					rel_lim(t_obj *o, t_dot d);
 int					double_rel_lim(t_obj *o, t_dot d1, t_dot d2);
+int					create_cube(t_data *d, t_obj *obj);
 
 #endif
