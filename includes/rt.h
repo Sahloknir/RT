@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 12:05:33 by axbal             #+#    #+#             */
-/*   Updated: 2019/02/23 15:52:32 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/04 16:11:03 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ typedef struct		s_sec_r
 	t_dot			ld;
 	t_vec			lo;
 	t_vec			o_ray;
+	t_obj			*o;
 	float			dist;
 	int				i;
 	t_dot			inter;

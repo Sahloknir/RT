@@ -95,9 +95,9 @@ object {
 object {
 	type(sphere)
 	pos(0, -18, 55)
-	radius(18)
+	radius(15)
 	color(125, 137, 228)
-	mirror(100)
+	mirror(50)
 }
 
 

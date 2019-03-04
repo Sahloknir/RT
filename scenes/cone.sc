@@ -7,11 +7,12 @@ object {
 	type(cone)
 	pos(0,0,100)
 	shiny
-	angle(30)
-	rotation(90,0)
+	angle(45)
+	rotation(90,10)
+	rlim_z(0, 25)
 	color(127,243,136)
 }
 
 light {
-	pos(100,0,-90)
+	pos(100,0,100)
 }

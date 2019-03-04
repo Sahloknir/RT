@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:17:13 by axbal             #+#    #+#             */
-/*   Updated: 2019/02/23 16:29:18 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/04 16:59:59 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,12 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 		/ (d->lights + 2), d->a.g * (obj->color.g * 0.2) / (d->lights + 2),
 			d->a.b * (obj->color.b * 0.2) / (d->lights + 2), 0) :
 	new_color(obj->color.r, obj->color.g, obj->color.b, 0);
+	s.o_ray = ray;
+	if (!(o = find_reflection(&s, obj, d, NULL)))
+		return (c);
 	while (++(d->l) < d->lights)
 	{
-		s.o_ray = ray;
 		s.lo = two_point_vector(d->light[d->l]->pos, s.inter);
-		if (!(o = find_reflection(&s, obj, d, NULL)))
-			return (c);
 		test_object(d, s.lo, o, d->light[d->l]->pos);
 		s.dist = find_right_distance(d, d->light[d->l]->pos, s.lo, inter);
 		s.i = -1;
@@ -118,6 +118,8 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 	while (++i < s.tab_size)
 		col = add_shine(d->light[i], obj, c, inter, col);
 	c = new_color(col.r, col.g, col.b, 0);
+	if (obj->mirror > -1 && obj->mirror < 100)
+		c = real_lerp(c, obj->color, obj->mirror);
 	free(s.tab);
 	return (c);
 }

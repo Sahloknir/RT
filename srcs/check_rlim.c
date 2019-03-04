@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:25:18 by axbal             #+#    #+#             */
-/*   Updated: 2019/02/21 18:35:34 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/04 14:46:48 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,7 @@ int		rel_y_lim(t_obj *o, t_dot d)
 	if (o->rlim_y_c == 1)
 	{
 		if (d.y < o->rlim_y_neg || d.y > o->rlim_y_pos)
-		{
-			ft_putnbr(d.y);
-			ft_putchar('\n');
 			return (-1);
-		}
 	}
 	return (1);
 }
@@ -49,17 +45,11 @@ int		rel_z_lim(t_obj *o, t_dot d)
 int		rel_lim(t_obj *o, t_dot d)
 {
 	t_vec	rel;
-	float	dist;
 
-/*	rel = two_point_vector(o->pos, d);
-	rel = rot_vec(rel, o->rx, o->ry, 0);
-	d = get_hitpoint(new_dot(0, 0, 0), rel, dist);
-*/	rel = new_vec(d.x, d.y, d.z);
+	rel = new_vec(d.x, d.y, d.z);
 	rel = trans_vec(rel, o->pos.x, o->pos.y, o->pos.z);
 	rel = rot_vec(rel, o->rx, o->ry, 0);
-	dist = two_point_dist(o->pos, d);
-	d = get_hitpoint(new_dot(0, 0, 0), rel, dist);
-//	d = new_dot(rel.x, rel.y, rel.z);
+	d = new_dot(rel.x, rel.y, rel.z);
 	if (rel_x_lim(o, d) == 1 && rel_y_lim(o, d) == 1 && rel_z_lim(o, d) == 1)
 		return (1);
 	return (-1);

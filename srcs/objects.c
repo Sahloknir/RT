@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 21:56:25 by axbal             #+#    #+#             */
-/*   Updated: 2019/02/23 16:34:15 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/04 14:53:41 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,11 @@ int		compare_string_to_values(char *f, int s, t_obj *new)
 	else if (ft_strncmp(f + s, "plim_z(", 7) == 0)
 		return (get_object_lim_z(f, s, new));
 	else if (ft_strncmp(f + s, "rlim_x(", 7) == 0)
-		return (get_object_lim_z(f, s, new));
+		return (get_object_rlim_x(f, s, new));
 	else if (ft_strncmp(f + s, "rlim_y(", 7) == 0)
-		return (get_object_lim_z(f, s, new));
+		return (get_object_rlim_y(f, s, new));
 	else if (ft_strncmp(f + s, "rlim_z(", 7) == 0)
-		return (get_object_lim_z(f, s, new));
+		return (get_object_rlim_z(f, s, new));
 	else if (ft_strncmp(f + s, "size(", 5) == 0)
 		return (get_object_size(f, s, new));
 	return (compare_string_to_values2(f, s, new));

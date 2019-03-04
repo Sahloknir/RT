@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 15:56:33 by axbal             #+#    #+#             */
-/*   Updated: 2019/02/11 17:10:36 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/04 15:50:29 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_vec	cylinder_norm(t_obj *o, t_dot inter)
 
 	r_inter = new_vec(inter.x, inter.y, inter.z);
 	r_inter = trans_vec(r_inter, o->pos.x, o->pos.y, o->pos.z);
-	r_inter = rot_vec(r_inter, -o->rx, -o->ry, 0);
+	r_inter = rot_vec(r_inter, o->rx, o->ry, 0);
 	r_inter = new_vec(0, 0, r_inter.z);
 	r_inter = unrot_vec(r_inter, o->rx, o->ry, 0);
 	r_inter = trans_vec(r_inter, -o->pos.x, -o->pos.y, -o->pos.z);
@@ -48,12 +48,12 @@ t_vec	cone_norm(t_obj *o, t_dot inter)
 	float	angle;
 	float	len;
 
-	angle = 180 - (90 + o->angle);
+	angle = degree_to_radian(180 - (90 + o->angle));
 	r_inter = new_vec(inter.x, inter.y, inter.z);
 	r_inter = trans_vec(r_inter, o->pos.x, o->pos.y, o->pos.z);
-	r_inter = rot_vec(r_inter, -o->rx, -o->ry, 0);
+	r_inter = rot_vec(r_inter, o->rx, o->ry, 0);
 	len = two_point_dist(new_dot(r_inter.x, r_inter.y, r_inter.z), new_dot(0, 0, 0));
-	r_inter = new_vec(0, 0, len / (sin(angle)));
+	r_inter = new_vec(0, 0, len / sin(angle));
 	r_inter = unrot_vec(r_inter, o->rx, o->ry, 0);
 	r_inter = trans_vec(r_inter, -o->pos.x, -o->pos.y, -o->pos.z);
 	affixe = new_dot(r_inter.x, r_inter.y, r_inter.z);

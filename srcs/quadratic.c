@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 14:44:53 by axbal             #+#    #+#             */
-/*   Updated: 2019/02/23 15:51:43 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/04 14:40:14 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int		solve_cyli(t_data *d, t_vec ray, t_obj *o, t_dot start)
 	t_dot	q;
 	t_vec	p;
 	float	delta;
+	t_vec	o_ray;
 
+	o_ray = ray;
 	p = new_vec((float)start.x, (float)start.y, (float)start.z);
 	p = trans_vec(p, o->pos.x, o->pos.y, o->pos.z);
 	p = rot_vec(p, o->rx, o->ry, 0);
@@ -30,14 +32,14 @@ int		solve_cyli(t_data *d, t_vec ray, t_obj *o, t_dot start)
 	if (delta == 0)
 	{
 		d->t[0] = -q.y / (2 * q.x);
-		return (check_lim(o, get_hitpoint(start, ray, d->t[0])));
+		return (check_lim(o, get_hitpoint(start, o_ray, d->t[0])));
 	}
 	else if (delta > 0)
 	{
 		d->t[0] = (-q.y - sqrt(delta)) / (2 * q.x);
 		d->t[1] = (-q.y + sqrt(delta)) / (2 * q.x);
-		return (double_check_lim(o, get_hitpoint(start, ray, d->t[0]),
-		get_hitpoint(start, ray, d->t[1])));
+		return (double_check_lim(o, get_hitpoint(start, o_ray, d->t[0]),
+		get_hitpoint(start, o_ray, d->t[1])));
 	}
 	return (-1);
 }
@@ -47,7 +49,9 @@ int		solve_cone(t_data *d, t_vec ray, t_obj *o, t_dot start)
 	t_dot	q;
 	t_vec	p;
 	float	delta;
+	t_vec	o_ray;
 
+	o_ray = ray;
 	p = new_vec((float)start.x, (float)start.y, (float)start.z);
 	p = trans_vec(p, o->pos.x, o->pos.y, o->pos.z);
 	p = rot_vec(p, o->rx, o->ry, 0);
@@ -60,14 +64,14 @@ int		solve_cone(t_data *d, t_vec ray, t_obj *o, t_dot start)
 	if (delta == 0)
 	{
 		d->t[0] = -q.y / (2 * q.x);
-		return (check_lim(o, get_hitpoint(start, ray, d->t[0])));
+		return (check_lim(o, get_hitpoint(start, o_ray, d->t[0])));
 	}
 	else if (delta > 0)
 	{
 		d->t[0] = (-q.y - sqrt(delta)) / (2 * q.x);
 		d->t[1] = (-q.y + sqrt(delta)) / (2 * q.x);
-		return (double_check_lim(o, get_hitpoint(start, ray, d->t[0]),
-		get_hitpoint(start, ray, d->t[1])));
+		return (double_check_lim(o, get_hitpoint(start, o_ray, d->t[0]),
+		get_hitpoint(start, o_ray, d->t[1])));
 	}
 	return (-1);
 }
