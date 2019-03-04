@@ -9,6 +9,7 @@ object {
 	rotation(90, 0)
 	radius(5)
 	color(125, 137, 94)
+	sinus
 }
 
 object {
@@ -17,6 +18,7 @@ object {
 	rotation(90, 0)
 	radius(5)
 	color(125, 137, 94)
+	sinus
 }
 
 object {
@@ -25,6 +27,7 @@ object {
 	rotation(90, 0)
 	radius(5)
 	color(125, 137, 94)
+	sinus
 }
 
 object {
@@ -33,6 +36,7 @@ object {
 	rotation(90, 0)
 	radius(5)
 	color(125, 137, 94)
+	sinus
 }
 
 object {

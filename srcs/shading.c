@@ -26,7 +26,7 @@ t_color		add_shine(t_light *l, t_obj *o, t_color c, t_dot inter, t_color b)
 		lo = two_point_vector(l->pos, inter);
 		col = new_color(c.r, c.g, c.b, 0);
 		angle = fabs(scalar(&norm, &lo));
-		if (angle >= 0.99)
+		if (angle >= 0.98)
 			col = color_interp(c, new_color(255, 255, 255, 0), angle);
 		if (col.r > b.r || col.g > b.g || col.b > b.b)
 			return (col);

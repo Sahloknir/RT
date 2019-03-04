@@ -43,21 +43,20 @@ t_vec	cylinder_norm(t_obj *o, t_dot inter)
 t_vec	cone_norm(t_obj *o, t_dot inter)
 {
 	t_vec	norm;
-	t_vec	r_inter;
 	t_dot	affixe;
-	float	angle;
-	float	len;
+	float	dist;
+	t_vec	r_inter;
 
-	angle = degree_to_radian(180 - (90 + o->angle));
+	dist = two_point_dist(o->pos, inter);
 	r_inter = new_vec(inter.x, inter.y, inter.z);
 	r_inter = trans_vec(r_inter, o->pos.x, o->pos.y, o->pos.z);
 	r_inter = rot_vec(r_inter, o->rx, o->ry, 0);
-	len = two_point_dist(new_dot(r_inter.x, r_inter.y, r_inter.z), new_dot(0, 0, 0));
-	r_inter = new_vec(0, 0, len / sin(angle));
+	r_inter = new_vec(0, 0, r_inter.z + dist);
 	r_inter = unrot_vec(r_inter, o->rx, o->ry, 0);
 	r_inter = trans_vec(r_inter, -o->pos.x, -o->pos.y, -o->pos.z);
 	affixe = new_dot(r_inter.x, r_inter.y, r_inter.z);
 	norm = two_point_vector(affixe, inter);
+
 	norm_vec(&norm);
 	return (norm);
 }

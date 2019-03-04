@@ -98,6 +98,7 @@ object {
 	radius(8)
 	rlim_z(-8, 1)
 	color(125, 137, 228)
+	mirror(50)
 }
 
 
