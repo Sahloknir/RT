@@ -26,7 +26,7 @@ t_color		add_shine(t_light *l, t_obj *o, t_color c, t_dot inter, t_color b)
 		lo = two_point_vector(l->pos, inter);
 		col = new_color(c.r, c.g, c.b, 0);
 		angle = fabs(scalar(&norm, &lo));
-		if (angle >= 0.98)
+		if (angle >= 0.99)
 			col = color_interp(c, new_color(255, 255, 255, 0), angle);
 		if (col.r > b.r || col.g > b.g || col.b > b.b)
 			return (col);
@@ -100,7 +100,7 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 	new_color(obj->color.r, obj->color.g, obj->color.b, 0);
 	s.o_ray = ray;
 	if (!(o = find_reflection(&s, obj, d, NULL)))
-		return (c);
+		return (real_lerp(c, obj->color, obj->mirror));
 	while (++(d->l) < d->lights)
 	{
 		s.lo = two_point_vector(d->light[d->l]->pos, s.inter);

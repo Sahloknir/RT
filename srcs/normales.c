@@ -47,16 +47,15 @@ t_vec	cone_norm(t_obj *o, t_dot inter)
 	float	dist;
 	t_vec	r_inter;
 
-	dist = two_point_dist(o->pos, inter);
 	r_inter = new_vec(inter.x, inter.y, inter.z);
 	r_inter = trans_vec(r_inter, o->pos.x, o->pos.y, o->pos.z);
 	r_inter = rot_vec(r_inter, o->rx, o->ry, 0);
+	dist = two_point_dist(new_dot(0, 0, 0), new_dot(r_inter.x, r_inter.y, r_inter.z));
 	r_inter = new_vec(0, 0, r_inter.z + dist);
 	r_inter = unrot_vec(r_inter, o->rx, o->ry, 0);
 	r_inter = trans_vec(r_inter, -o->pos.x, -o->pos.y, -o->pos.z);
 	affixe = new_dot(r_inter.x, r_inter.y, r_inter.z);
 	norm = two_point_vector(affixe, inter);
-
 	norm_vec(&norm);
 	return (norm);
 }

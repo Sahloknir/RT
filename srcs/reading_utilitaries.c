@@ -100,6 +100,7 @@ void		get_vec(t_obj *o)
 
 	v = new_vec(0, 0, 1);
 	v = rot_vec(v, o->rx, o->ry, 0);
+	norm_vec(&v);
 	if (!(vec = (t_vec *)malloc(sizeof(t_vec) * 1)))
 		ft_fail("Error: Could not allocate memory.", NULL);
 	vec->x = v.x;

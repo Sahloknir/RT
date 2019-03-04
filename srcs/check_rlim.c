@@ -14,31 +14,22 @@
 
 int		rel_x_lim(t_obj *o, t_dot d)
 {
-	if (o->rlim_x_c == 1)
-	{
-		if (d.x < o->rlim_x_neg || d.x > o->rlim_x_pos)
+	if (o->rlim_x_c == 1 && (d.x < o->rlim_x_neg || d.x > o->rlim_x_pos))
 			return (-1);
-	}
 	return (1);
 }
 
 int		rel_y_lim(t_obj *o, t_dot d)
 {
-	if (o->rlim_y_c == 1)
-	{
-		if (d.y < o->rlim_y_neg || d.y > o->rlim_y_pos)
+	if (o->rlim_y_c == 1 && (d.y < o->rlim_y_neg || d.y > o->rlim_y_pos))
 			return (-1);
-	}
 	return (1);
 }
 
 int		rel_z_lim(t_obj *o, t_dot d)
 {
-	if (o->rlim_z_c == 1)
-	{
-		if (d.z < o->rlim_z_neg || d.z > o->rlim_z_pos)
+	if (o->rlim_z_c == 1 && (d.z < o->rlim_z_neg || d.z > o->rlim_z_pos))
 			return (-1);
-	}
 	return (1);
 }
 
@@ -48,7 +39,10 @@ int		rel_lim(t_obj *o, t_dot d)
 
 	rel = new_vec(d.x, d.y, d.z);
 	rel = trans_vec(rel, o->pos.x, o->pos.y, o->pos.z);
-	rel = rot_vec(rel, o->rx, o->ry, 0);
+	if (o->rotation_c == 1 && o->type == PLANE)
+		rel = unrot_vec(rel, o->rx, o->ry, 0);
+	else if (o->rotation_c == 1)
+		rel = rot_vec(rel, o->rx, o->ry, 0);
 	d = new_dot(rel.x, rel.y, rel.z);
 	if (rel_x_lim(o, d) == 1 && rel_y_lim(o, d) == 1 && rel_z_lim(o, d) == 1)
 		return (1);

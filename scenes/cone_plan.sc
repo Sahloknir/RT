@@ -4,12 +4,12 @@ camera {
 }
 
 object {
-	shiny
 	type(cone)
 	pos(0, 0, 30)
 	rotation(90, 0)
 	angle(40)
 	color(255, 230, 0)
+	mirror(10)
 }
 
 object {
