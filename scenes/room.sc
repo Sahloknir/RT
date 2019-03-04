@@ -117,6 +117,7 @@ object{
 	pos(0, -25, 0)
 	rotation(90, 0)
 	color(125, 195, 218)
+	checkered
 }
 
 object{

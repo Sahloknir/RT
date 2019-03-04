@@ -111,8 +111,8 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 	}
 	if (d->img->d5 > 0)
 		c = perlin(d, c.r, c.g, c.b, inter);
-	if (obj->d3)
-		c = checkered(inter, c, new_color(1 + c.r / 2, 1 + c.g / 2, 1 + c.b / 2, 0));
+	if (obj->d3 > 0 || (obj->mirror > 0 && o->d3))
+		c = checkered(s.inter, c, new_color(1 + c.r / 2, 1 + c.g / 2, 1 + c.b / 2, 0));
 	i = -1;
 	col = new_color(c.r, c.g, c.b, 0);
 	while (++i < s.tab_size)
