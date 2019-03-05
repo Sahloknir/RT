@@ -100,7 +100,10 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 	new_color(obj->color.r, obj->color.g, obj->color.b, 0);
 	s.o_ray = ray;
 	if (!(o = find_reflection(&s, obj, d, NULL)))
+	{
+		free(s.tab);
 		return (real_lerp(c, obj->color, obj->mirror));
+	}
 	while (++(d->l) < d->lights)
 	{
 		s.lo = two_point_vector(d->light[d->l]->pos, s.inter);
