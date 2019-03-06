@@ -12,6 +12,7 @@
 
 #include "rt.h"
 #include <math.h>
+#include <pthread.h>
 
 void	rot_rays(t_data *d)
 {
@@ -47,17 +48,18 @@ void	malloc_rays(t_data *d)
 	}
 }
 
-void	gen_rays(t_data *d)
+void	*mt_rays(void *data)
 {
-	int		i;
-	int		j;
+	t_data *d;
 	t_dot	p1;
 	t_dot	p2;
+	int		i;
+	int		j;
 
-	i = 0;
+	d = data;
+	i = d->start - 1;
 	p1 = new_dot(0, 0, 0);
-	malloc_rays(d);
-	while (i < HA)
+	while (++i < d->limit)
 	{
 		j = 0;
 		while (j < LA)
@@ -67,7 +69,30 @@ void	gen_rays(t_data *d)
 			norm_vec(&(d->rays[i][j]));
 			j++;
 		}
-		i++;
+	}
+	return (data);
+}
+
+void	gen_rays(t_data *d)
+{
+	pthread_t	thread_tab[4];
+	int			calcul;
+	int			thread_nb;
+
+	thread_nb = 4;
+	calcul = HA / thread_nb;
+	d->start = 0;
+	d->limit = calcul;
+	malloc_rays(d);
+	thread_nb -= 1;
+	while (thread_nb >= 0)
+	{
+		if (pthread_create(&thread_tab[thread_nb], NULL, &mt_rays, d) != 0)
+			ft_fail("Error: Multi-threading failed.", d);
+		pthread_join(thread_tab[thread_nb], NULL);
+		d->start += calcul;
+		d->limit += calcul;
+		thread_nb -= 1;
 	}
 	rot_rays(d);
 }
