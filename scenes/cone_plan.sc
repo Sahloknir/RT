@@ -9,7 +9,7 @@ object {
 	rotation(90, 0)
 	angle(40)
 	color(255, 230, 0)
-	mirror(5)
+	mirror(85)
 }
 
 object {

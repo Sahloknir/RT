@@ -98,11 +98,12 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 		/ (d->lights + 2), d->a.g * (obj->color.g * 0.2) / (d->lights + 2),
 			d->a.b * (obj->color.b * 0.2) / (d->lights + 2), 0) :
 	new_color(obj->color.r, obj->color.g, obj->color.b, 0);
+	o = obj;
 	s.o_ray = ray;
 	if (!(o = find_reflection(&s, obj, d, NULL)))
 	{
 		free(s.tab);
-		return (real_lerp(c, obj->color, obj->mirror));
+		return (real_lerp(obj->color, c, obj->mirror));
 	}
 	while (++(d->l) < d->lights)
 	{
@@ -122,7 +123,7 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 		col = add_shine(d->light[i], obj, c, inter, col);
 	c = new_color(col.r, col.g, col.b, 0);
 	if (obj->mirror > -1 && obj->mirror < 100)
-		c = real_lerp(c, obj->color, obj->mirror);
+		c = real_lerp(obj->color, c, obj->mirror);
 	free(s.tab);
 	return (c);
 }
