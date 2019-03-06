@@ -100,7 +100,6 @@ int		screenshot(t_data *d)
 	char	*tmp;
 	char	*trois;
 
-	ft_putstr("SCREENSHOT -\n");
 	trois = get_file_name(d->file_name);
 	tmp = ft_strjoin("./screenshots/", trois);
 	free(trois);
@@ -112,13 +111,12 @@ int		screenshot(t_data *d)
 		ft_putstr(name);
 		ft_putstr(" already exists or cannot be created.\n");
 		free(name);
-		ft_putstr("SCREENSHOT OK\n");
 		return (-1);
 	}
+	ft_putstr("Your screenshot has been saved in ./screenshots/\n");
 	free(name);
 	fill_header_info(fd, d);
 	if (close(fd) == -1)
 		ft_fail("Error occurred while closing file descriptor.\n", d);
-	ft_putstr("SCREENSHOT OK\n");
 	return (1);
 }
