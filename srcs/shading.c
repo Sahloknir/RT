@@ -81,12 +81,41 @@ t_color		checkered(t_dot inter, t_color c1, t_color c2)
 	return (c1);
 }
 
+t_color		apply_color_effects(t_color c, t_sec_r s, t_data *d, t_obj *o)
+{
+	t_color	col;
+	int		i;
+
+	if (d->img->d5 > 0)
+		c = perlin(d, c.r, c.g, c.b, s.inter);
+	if (o->d3)
+		c = checkered(s.inter, c, new_color(1 + c.r / 2, 1 + c.g / 2, 1 + c.b / 2, 0));
+	i = -1;
+	col = new_color(c.r, c.g, c.b, 0);
+	while (++i < s.tab_size)
+		col = add_shine(d->light[i], o, c, s.inter, col);
+	return (col);
+}
+
+t_color		every_lights(t_data *d, t_sec_r s, t_obj *o, t_color c)
+{
+	while (++(d->l) < d->lights)
+	{
+		s.lo = two_point_vector(d->light[d->l]->pos, s.inter);
+		test_object(d, s.lo, o, d->light[d->l]->pos);
+		s.dist = find_right_distance(d, d->light[d->l]->pos, s.lo, s.inter);
+		s.i = -1;
+		c = find_c(&s, c, o, d);
+	}
+	c = apply_color_effects(c, s, d, o);
+	free(s.tab);
+	return (c);
+}
+
 t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 {
 	t_sec_r	s;
 	t_color	c;
-	t_color	col;
-	int		i;
 	t_obj	*o;
 
 	s.inter = inter;
@@ -98,32 +127,16 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 		/ (d->lights + 2), d->a.g * (obj->color.g * 0.2) / (d->lights + 2),
 			d->a.b * (obj->color.b * 0.2) / (d->lights + 2), 0) :
 	new_color(obj->color.r, obj->color.g, obj->color.b, 0);
-	o = obj;
+	if (obj->mirror == -1)
+		o = obj;
 	s.o_ray = ray;
 	if (!(o = find_reflection(&s, obj, d, NULL)))
 	{
 		free(s.tab);
 		return (real_lerp(obj->color, c, obj->mirror));
 	}
-	while (++(d->l) < d->lights)
-	{
-		s.lo = two_point_vector(d->light[d->l]->pos, s.inter);
-		test_object(d, s.lo, o, d->light[d->l]->pos);
-		s.dist = find_right_distance(d, d->light[d->l]->pos, s.lo, inter);
-		s.i = -1;
-		c = find_c(&s, c, o, d);
-	}
-	if (d->img->d5 > 0)
-		c = perlin(d, c.r, c.g, c.b, inter);
-	if (obj->d3 > 0 || (obj->mirror > 0 && o->d3))
-		c = checkered(s.inter, c, new_color(1 + c.r / 2, 1 + c.g / 2, 1 + c.b / 2, 0));
-	i = -1;
-	col = new_color(c.r, c.g, c.b, 0);
-	while (++i < s.tab_size)
-		col = add_shine(d->light[i], obj, c, inter, col);
-	c = new_color(col.r, col.g, col.b, 0);
+	c = every_lights(d, s, o, c);
 	if (obj->mirror > -1 && obj->mirror < 100)
 		c = real_lerp(obj->color, c, obj->mirror);
-	free(s.tab);
 	return (c);
 }
