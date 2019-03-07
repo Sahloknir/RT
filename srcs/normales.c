@@ -50,8 +50,8 @@ t_vec	cone_norm(t_obj *o, t_dot inter)
 	r_inter = new_vec(inter.x, inter.y, inter.z);
 	r_inter = trans_vec(r_inter, o->pos.x, o->pos.y, o->pos.z);
 	r_inter = rot_vec(r_inter, o->rx, o->ry, 0);
-	dist = two_point_dist(new_dot(0, 0, 0), new_dot(r_inter.x, r_inter.y, r_inter.z));
-	r_inter = new_vec(0, 0, r_inter.z + dist);
+	dist = r_inter.x + r_inter.y + r_inter.z;
+	r_inter = new_vec(0, 0, dist);
 	r_inter = unrot_vec(r_inter, o->rx, o->ry, 0);
 	r_inter = trans_vec(r_inter, -o->pos.x, -o->pos.y, -o->pos.z);
 	affixe = new_dot(r_inter.x, r_inter.y, r_inter.z);
