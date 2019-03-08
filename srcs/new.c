@@ -83,5 +83,7 @@ t_obj		*create_object(t_data *data)
 	new->d2 = 0;
 	new->d3 = 0;
 	new->color = new_color(255, 255, 255, 0);
+	new->rf = 0;
+	new->trsp = 0;
 	return (new);
 }

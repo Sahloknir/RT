@@ -12,12 +12,33 @@
 
 #include "rt.h"
 
+int		get_object_refraction(char *f, int s, t_obj *obj)
+{
+	float	*tab;
+
+	tab = three_values_tab(f, s);
+	if (!(f[(int)tab[4]]) || tab[3] != 2)
+	{
+		free(tab);
+		return (0);
+	}
+	if (tab[1] > 0 && tab[1] <= 100)
+	{
+		if (tab[0] >= 0 && tab[0] <= 2)
+		{
+			obj->rf = tab[0];
+			obj->trsp = (int)tab[1];
+		}
+	}
+	free(tab);
+	return (0);
+}
 int		get_object_mirror(char *f, int s, t_obj *obj)
 {
 	float	*tab;
 
 	tab = three_values_tab(f, s);
-	if (tab[3] != 1)
+	if (!(f[(int)tab[4]]) || tab[3] != 1)
 	{
 		free(tab);
 		return (0);

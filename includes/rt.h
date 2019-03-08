@@ -102,6 +102,8 @@ typedef struct		s_obj
 	int				d1;
 	int				d2;
 	int				d3;
+	float			rf;
+	int				trsp;
 }					t_obj;
 
 typedef struct		s_img
@@ -259,6 +261,7 @@ int					get_object_lim_z(char *f, int s, t_obj *obj);
 int					get_object_rlim_x(char *f, int s, t_obj *obj);
 int					get_object_rlim_y(char *f, int s, t_obj *obj);
 int					get_object_rlim_z(char *f, int s, t_obj *obj);
+int					get_object_refraction(char *f, int s, t_obj *obj);
 int					check_lim(t_obj *o, t_dot dot);
 int					double_check_lim(t_obj *o, t_dot d1, t_dot d2);
 int					cmp_dot(t_dot d1, t_dot d2);

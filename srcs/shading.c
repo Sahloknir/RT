@@ -34,15 +34,28 @@ t_color		add_shine(t_light *l, t_obj *o, t_color c, t_dot inter, t_color b)
 	return (b);
 }
 
+t_color		init_c(t_data *d, t_obj *obj)
+{
+	t_color	c;
+
+	c = d->lights > 0 ? new_color(d->a.r * (obj->color.r * 0.2)
+		/ (d->lights + 2), d->a.g * (obj->color.g * 0.2) / (d->lights + 2),
+			d->a.b * (obj->color.b * 0.2) / (d->lights + 2), 0) :
+	new_color(obj->color.r, obj->color.g, obj->color.b, 0);
+	return (c);
+}
+
 t_color		find_c(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 {
 	t_dot	dot;
 	t_dot	dot2;
 	int		ret;
+	t_color	col;
 
 	if ((obj->lim_x_c || obj->lim_y_c || obj->lim_z_c) &&
 	call_side_light_check(*s, obj, d) == -1)
 		return (c);
+	col = new_color(c.r, c.g, c.b, 1);
 	while (++(s->i) < d->objects)
 	{
 		ret = test_object(d, s->lo ,d->obj[s->i], d->light[d->l]->pos);
@@ -53,10 +66,16 @@ t_color		find_c(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 			if ((d->t[0] > 0 && d->t[0] < s->dist && check_lim(d->obj[s->i], dot)
 				== 1) || (d->t[1] > 0 && d->t[1] < s->dist &&
 					check_lim(d->obj[s->i], dot2) == 1))
-				break ;
+			{
+					if (d->obj[s->i]->trsp <= 0)
+						break;
+					col = real_lerp(c, find_diffuse(col, s->inter, obj, d), d->obj[s->i]->trsp);
+			}
 		}
 		if (s->i == d->objects - 1)
 		{
+			if (col.r != c.r || col.g != c.g || col.b != c.b)
+				return (col);
 			c = find_diffuse(c, s->inter, obj, d);
 			s->tab[s->tab_size] = d->l;
 			s->tab_size++;
@@ -112,6 +131,20 @@ t_color		every_lights(t_data *d, t_sec_r s, t_obj *o, t_color c)
 	return (c);
 }
 
+t_color		transp_color(t_sec_r s, t_obj *o, t_data *d, t_color c)
+{
+//	t_rtc	r;
+	t_vec	ray;
+
+	if (o->type != 0 && d)
+	ray = s.o_ray;
+//	if (o->trsp > 0)
+//	{
+//		
+//	}
+	return (c);
+}
+
 t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 {
 	t_sec_r	s;
@@ -123,20 +156,20 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 		ft_fail("Error: Unable to allocate memory.", d);
 	d->l = -1;
 	s.tab_size = 0;
-	c = d->lights > 0 ? new_color(d->a.r * (obj->color.r * 0.2)
-		/ (d->lights + 2), d->a.g * (obj->color.g * 0.2) / (d->lights + 2),
-			d->a.b * (obj->color.b * 0.2) / (d->lights + 2), 0) :
-	new_color(obj->color.r, obj->color.g, obj->color.b, 0);
+	c = init_c(d, obj);
 	if (obj->mirror == -1)
 		o = obj;
 	s.o_ray = ray;
 	if (!(o = find_reflection(&s, obj, d, NULL)))
 	{
 		free(s.tab);
-		return (real_lerp(obj->color, c, obj->mirror));
+		if (obj->rf == 0)
+			return (real_lerp(obj->color, c, obj->mirror));
 	}
 	c = every_lights(d, s, o, c);
 	if (obj->mirror > -1 && obj->mirror < 100)
 		c = real_lerp(obj->color, c, obj->mirror);
+//	if (obj->trsp > 0)
+//		c = real_lerp(c, transp_color(s, o, d, c), obj->trsp);
 	return (c);
 }

@@ -102,6 +102,7 @@ object {
 	radius(15)
 	color(125, 137, 228)
 	mirror(50)
+	transparent(1, 60)
 }
 
 
