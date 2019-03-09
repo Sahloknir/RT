@@ -51,6 +51,7 @@ t_color		find_c(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 	t_dot	dot2;
 	int		ret;
 	t_color	col;
+	t_color	col2;
 
 	if ((obj->lim_x_c || obj->lim_y_c || obj->lim_z_c) &&
 	call_side_light_check(*s, obj, d) == -1)
@@ -69,7 +70,11 @@ t_color		find_c(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 			{
 					if (d->obj[s->i]->trsp <= 0)
 						break;
-					col = real_lerp(c, find_diffuse(col, s->inter, obj, d), d->obj[s->i]->trsp);
+					col2 = real_lerp(c, find_diffuse(col, s->inter, obj, d), d->obj[s->i]->trsp);
+					if ((col.r != c.r || col.g != c.g || col.b != c.b) && (col2.r <= col.r && col2.g <= col.g && col2.b <= col.b))
+						col = col2;
+					else if (col.r == c.r && col.g == c.g && col.b == c.b)
+						col = col2;
 			}
 		}
 		if (s->i == d->objects - 1)
