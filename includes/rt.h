@@ -209,6 +209,11 @@ typedef struct		s_sec_r
 	t_dot			inter;
 	int				*tab;
 	int				tab_size;
+	t_dot			dot;
+	t_dot			dot2;
+	t_color			col;
+	int				ret;
+	int				lever;
 }					t_sec_r;
 
 void				ft_fail(char *str, t_data *data);

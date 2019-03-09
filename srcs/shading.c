@@ -45,42 +45,50 @@ t_color		init_c(t_data *d, t_obj *obj)
 	return (c);
 }
 
-t_color		find_c(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
+t_sec_r *init_var_s(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 {
-	t_dot	dot;
-	t_dot	dot2;
-	int		ret;
-	t_color	col;
 	t_color	col2;
 
+	s->ret = test_object(d, s->lo ,d->obj[s->i], d->light[d->l]->pos);
+	s->dot = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[0]);
+	s->dot2 = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[1]);
+	if (s->ret == 1)
+	{
+		if ((d->t[0] > 0 && d->t[0] < s->dist && check_lim(d->obj[s->i], s->dot)
+			== 1) || (d->t[1] > 0 && d->t[1] < s->dist &&
+				check_lim(d->obj[s->i], s->dot2) == 1))
+		{
+				if (d->obj[s->i]->trsp <= 0)
+					s->lever = 1;
+				col2 = real_lerp(c, find_diffuse(s->col, s->inter, obj, d),
+					d->obj[s->i]->trsp);
+				if ((s->col.r != c.r || s->col.b != c.b || s->col.g != c.g)
+					&& (col2.r <= s->col.r && col2.g <= s->col.g
+						&& col2.b <= s->col.b))
+					s->col = new_color(col2.r, col2.g, col2.b, 1);
+				else if (s->col.r == c.r && s->col.b == c.b && s->col.g == c.g)
+					s->col = new_color(col2.r, col2.g, col2.b, 1);
+		}
+	}
+	return (s);
+}
+
+t_color		find_c(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
+{
 	if ((obj->lim_x_c || obj->lim_y_c || obj->lim_z_c) &&
 	call_side_light_check(*s, obj, d) == -1)
 		return (c);
-	col = new_color(c.r, c.g, c.b, 1);
+	s->col = new_color(c.r, c.g, c.b, 1);
+	s->lever = 0;
 	while (++(s->i) < d->objects)
 	{
-		ret = test_object(d, s->lo ,d->obj[s->i], d->light[d->l]->pos);
-		dot = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[0]);
-		dot2 = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[1]);
-		if (ret == 1)
-		{
-			if ((d->t[0] > 0 && d->t[0] < s->dist && check_lim(d->obj[s->i], dot)
-				== 1) || (d->t[1] > 0 && d->t[1] < s->dist &&
-					check_lim(d->obj[s->i], dot2) == 1))
-			{
-					if (d->obj[s->i]->trsp <= 0)
-						break;
-					col2 = real_lerp(c, find_diffuse(col, s->inter, obj, d), d->obj[s->i]->trsp);
-					if ((col.r != c.r || col.g != c.g || col.b != c.b) && (col2.r <= col.r && col2.g <= col.g && col2.b <= col.b))
-						col = col2;
-					else if (col.r == c.r && col.g == c.g && col.b == c.b)
-						col = col2;
-			}
-		}
+		s = init_var_s(s, c, obj, d);
+		if (s->lever == 1)
+			break;
 		if (s->i == d->objects - 1)
 		{
-			if (col.r != c.r || col.g != c.g || col.b != c.b)
-				return (col);
+			if (s->col.r != c.r || s->col.g != c.g || s->col.b != c.b)
+				return (s->col);
 			c = find_diffuse(c, s->inter, obj, d);
 			s->tab[s->tab_size] = d->l;
 			s->tab_size++;
@@ -113,7 +121,8 @@ t_color		apply_color_effects(t_color c, t_sec_r s, t_data *d, t_obj *o)
 	if (d->img->d5 > 0)
 		c = perlin(d, c.r, c.g, c.b, s.inter);
 	if (o->d3)
-		c = checkered(s.inter, c, new_color(1 + c.r / 2, 1 + c.g / 2, 1 + c.b / 2, 0));
+		c = checkered(s.inter, c, new_color(1 + c.r / 2, 1 + c.g / 2, 1
+			+ c.b / 2, 0));
 	i = -1;
 	col = new_color(c.r, c.g, c.b, 0);
 	while (++i < s.tab_size)
