@@ -130,6 +130,98 @@ t_color		apply_color_effects(t_color c, t_sec_r s, t_data *d, t_obj *o)
 	return (col);
 }
 
+t_vec		refract_ray(t_obj *o, t_sec_r s)
+{
+	t_vec	norm;
+	float	refraction;
+	float	sin_n_r;
+	float	sin_n_n;
+	t_vec	new;
+
+	norm = (o->type == PLANE ? *(o->v) : o->norm(o, s.inter));
+	refraction = o->rf;
+	s.o_ray.x *= -1;
+	s.o_ray.y *= -1;
+	s.o_ray.z *= -1;
+	sin_n_r = scalar(&norm, &s.o_ray);
+	s.o_ray.x *= -1;
+	s.o_ray.y *= -1;
+	s.o_ray.z *= -1;
+	sin_n_n = sqrt(1 - pow(1 / refraction, 2) * (1 - pow(sin_n_r, 2)));
+	if (sin_n_r >= 0)
+	{
+		new.x = 1 / refraction * s.o_ray.x + (1 / refraction * sin_n_r
+			- sin_n_n) * norm.x;
+		new.y = 1 / refraction * s.o_ray.y + (1 / refraction * sin_n_r
+			- sin_n_n) * norm.y;
+		new.z = 1 / refraction * s.o_ray.z + (1 / refraction * sin_n_r
+			- sin_n_n) * norm.z;
+	}
+	else
+	{
+		new.x = 1 / refraction * s.o_ray.x + (1 / refraction * sin_n_r
+			+ sin_n_n) * norm.x;
+		new.y = 1 / refraction * s.o_ray.y + (1 / refraction * sin_n_r
+			+ sin_n_n) * norm.y;
+		new.z = 1 / refraction * s.o_ray.z + (1 / refraction * sin_n_r
+			+ sin_n_n) * norm.z;
+	}
+	return (new);
+}
+
+t_obj	*find_object_behind(t_data *d, t_sec_r *s, t_obj *obj)
+{
+	t_obj	*o;
+	int		i;
+	int		dist;
+
+	i = -1;
+	o = NULL;
+	dist = -1;
+	while (++i <= d->objects - 1)
+	{
+		if (d->obj[i] != obj && test_object(d, s->o_ray, d->obj[i], s->inter) > 0)
+		{
+			if (d->t[0] > 0.01 || d->t[1] > 0.01)
+			{
+				if (d->t[0] > 0.01 && ((dist == -1 || dist > d->t[0])))
+				{
+					dist = d->t[0];
+					o = d->obj[i];
+				}
+				if (d->t[1] > 0.01 && ((dist == -1) || dist > d->t[1]))
+				{
+					dist = d->t[1];
+					o = d->obj[i];
+				}
+			}
+		}
+	}
+	if (dist <= 0.01 || o == NULL)
+		return (NULL);
+	s->dist = dist;
+	s->inter = get_hitpoint(s->inter, s->o_ray, dist);
+	return (o);
+}
+
+t_color		transparent(t_color c, t_data *d, t_sec_r s, t_obj *o)
+{
+	t_color	col;
+	t_obj	*bfr;
+
+	col = find_c(&s, c, o, d);
+	while (o->trsp > 0)
+	{
+		bfr = o;
+		s.o_ray = refract_ray(o, s);
+		o = find_object_behind(d, &s, o);
+		if (o == NULL || o == bfr)
+			return (real_lerp(col, init_c(d, bfr), bfr->trsp));
+		return (real_lerp(col, secondary_rays(s.inter, d, o, s.o_ray), bfr->trsp));
+	}
+	return (col);
+}
+
 t_color		every_lights(t_data *d, t_sec_r s, t_obj *o, t_color c)
 {
 	while (++(d->l) < d->lights)
@@ -141,21 +233,6 @@ t_color		every_lights(t_data *d, t_sec_r s, t_obj *o, t_color c)
 		c = find_c(&s, c, o, d);
 	}
 	c = apply_color_effects(c, s, d, o);
-	free(s.tab);
-	return (c);
-}
-
-t_color		transp_color(t_sec_r s, t_obj *o, t_data *d, t_color c)
-{
-//	t_rtc	r;
-	t_vec	ray;
-
-	if (o->type != 0 && d)
-	ray = s.o_ray;
-//	if (o->trsp > 0)
-//	{
-//		
-//	}
 	return (c);
 }
 
@@ -177,13 +254,13 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 	if (!(o = find_reflection(&s, obj, d, NULL)))
 	{
 		free(s.tab);
-		if (obj->rf == 0)
-			return (real_lerp(obj->color, c, obj->mirror));
+		return (real_lerp(obj->color, c, obj->mirror));
 	}
 	c = every_lights(d, s, o, c);
+	if (obj->trsp > 0)
+		c = real_lerp(c, transparent(c, d, s, obj), obj->trsp);
 	if (obj->mirror > -1 && obj->mirror < 100)
 		c = real_lerp(obj->color, c, obj->mirror);
-//	if (obj->trsp > 0)
-//		c = real_lerp(c, transp_color(s, o, d, c), obj->trsp);
+	free(s.tab);
 	return (c);
 }

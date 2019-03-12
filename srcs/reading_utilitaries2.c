@@ -24,7 +24,7 @@ int		get_object_refraction(char *f, int s, t_obj *obj)
 	}
 	if (tab[1] > 0 && tab[1] <= 100)
 	{
-		if (tab[0] >= 0 && tab[0] <= 2)
+		if (tab[0] >= 1 && tab[0] <= 2)
 		{
 			obj->rf = tab[0];
 			obj->trsp = (int)tab[1];

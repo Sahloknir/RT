@@ -101,8 +101,7 @@ object {
 	pos(0, -18, 55)
 	radius(15)
 	color(125, 137, 228)
-	mirror(50)
-	transparent(1, 60)
+	transparent(1, 90)
 }
 
 
