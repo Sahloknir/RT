@@ -49,11 +49,13 @@ t_sec_r *init_var_s(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 {
 	t_color	col2;
 
+	if (d->l >= d->lights)
+		d->l -= 1;
 	s->ret = test_object(d, s->lo ,d->obj[s->i], d->light[d->l]->pos);
-	s->dot = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[0]);
-	s->dot2 = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[1]);
 	if (s->ret >= 1)
 	{
+		s->dot = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[0]);
+		s->dot2 = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[1]);
 		if ((d->t[0] > 0 && d->t[0] < s->dist && check_lim(d->obj[s->i], s->dot)
 			== 1) || (d->t[1] > 0 && d->t[1] < s->dist &&
 				check_lim(d->obj[s->i], s->dot2) == 1))
@@ -75,9 +77,10 @@ t_sec_r *init_var_s(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 
 t_color		find_c(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 {
-	if ((obj->lim_x_c || obj->lim_y_c || obj->lim_z_c) &&
+	if (obj->trsp <= 0 && (obj->lim_x_c || obj->lim_y_c || obj->lim_z_c) &&
 	call_side_light_check(*s, obj, d) == -1)
 		return (c);
+	s->i = -1;
 	s->col = new_color(c.r, c.g, c.b, 0);
 	s->lever = 0;
 	while (++(s->i) < d->objects)
@@ -173,7 +176,7 @@ t_obj	*find_object_behind(t_data *d, t_sec_r *s, t_obj *obj)
 {
 	t_obj	*o;
 	int		i;
-	int		dist;
+	float	dist;
 
 	i = -1;
 	o = NULL;
@@ -182,14 +185,14 @@ t_obj	*find_object_behind(t_data *d, t_sec_r *s, t_obj *obj)
 	{
 		if (d->obj[i] != obj && test_object(d, s->o_ray, d->obj[i], s->inter) > 0)
 		{
-			if (d->t[0] > 0 || d->t[1] > 0)
+			if (d->t[0] > 0.01 || d->t[1] > 0)
 			{
-				if (d->t[0] > 0 && ((dist == -1 || dist > d->t[0])))
+				if (d->t[0] > 0.01 && ((dist == -1 || dist > d->t[0])))
 				{
 					dist = d->t[0];
 					o = d->obj[i];
 				}
-				if (d->t[1] > 0 && ((dist == -1) || dist > d->t[1]))
+				if (d->t[1] > 0.01 && ((dist == -1) || dist > d->t[1]))
 				{
 					dist = d->t[1];
 					o = d->obj[i];
@@ -197,7 +200,7 @@ t_obj	*find_object_behind(t_data *d, t_sec_r *s, t_obj *obj)
 			}
 		}
 	}
-	if (dist <= 0 || o == NULL || o == d->trspa)
+	if (dist <= 0.01 || o == NULL)
 		return (NULL);
 	s->inter = get_hitpoint(s->inter, s->o_ray, dist);
 	return (o);
@@ -218,11 +221,8 @@ t_color		transparent(t_color c, t_data *d, t_sec_r s, t_obj *o)
 		s.o_ray = refract_ray(o, s);
 		o = find_object_behind(d, &s, o);
 		if (o == NULL || o == bfr)
-			return (real_lerp(col, init_c(d, bfr), src->trsp));
-		if (o->trsp > 0)
-			d->trspa = src;
-		return (real_lerp(col, secondary_rays(s.inter, d, o, two_point_vector(d->cam->pos, s.inter)),
-			src->trsp));
+			return (real_lerp(col, init_c(d, src), src->trsp));
+		return (real_lerp(col, secondary_rays(s.inter, d, o, two_point_vector(d->cam->pos, s.inter)), src->trsp));
 	}
 	return (col);
 }
