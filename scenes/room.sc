@@ -95,15 +95,13 @@ object {
 	color(125, 137, 94)
 }
 
-
 object {
 	type(sphere)
-	pos(0, -18, 55)
+	pos(0, -15, 55)
 	radius(15)
 	color(125, 137, 228)
-	transparent(1, 90)
+	transparent(1, 70)
 }
-
 
 object {
 	type(plane)

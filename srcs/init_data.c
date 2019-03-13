@@ -75,4 +75,5 @@ void	init_data(t_data *new)
 	new->img->d = 0;
 	new->img->crtn = 0;
 	new->perlin = 0;
+	new->trspa = NULL;
 }

@@ -158,6 +158,7 @@ typedef struct		s_data
 	int				p[256];
 	int				start;
 	int				limit;
+	t_obj			*trspa;
 }					t_data;
 
 typedef struct		s_hdr
