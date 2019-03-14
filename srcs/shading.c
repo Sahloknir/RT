@@ -266,8 +266,8 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
 	c = every_lights(d, s, o, c);
 	if (obj->mirror > -1 && obj->mirror < 100)
 		c = real_lerp(obj->color, c, obj->mirror);
-	if (obj->trsp > 0)
-		c = real_lerp(c, transparent(c, d, s, obj), obj->trsp);
+	if (o->trsp > 0)
+		c = real_lerp(c, transparent(c, d, s, o), o->trsp);
 	free(s.tab);
 	return (c);
 }

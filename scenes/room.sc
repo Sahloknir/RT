@@ -98,9 +98,9 @@ object {
 object {
 	type(sphere)
 	pos(0, -15, 55)
-	radius(15)
+	radius(8)
 	color(125, 137, 228)
-	transparent(1, 70)
+	mirror(80)
 }
 
 object {
@@ -123,6 +123,7 @@ object{
 	pos(0, 0, 100)
 	rotation(0, 0)
 	color(189, 215, 168)
+	mirror(90)
 }
 
 object{

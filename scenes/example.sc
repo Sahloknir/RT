@@ -1,5 +1,5 @@
 camera {
-	pos(0,0,-100)
+	pos(0,0,-80)
 	rotation(0,0,0)
 }
 

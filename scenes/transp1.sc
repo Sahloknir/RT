@@ -5,6 +5,13 @@ camera {
 
 object {
 	type(sphere)
+	pos(0, -15, 55)
+	radius(5)
+	color(225, 237, 228)
+}
+
+object {
+	type(sphere)
 	pos(-20, -15, 55)
 	radius(15)
 	color(125, 237, 128)
