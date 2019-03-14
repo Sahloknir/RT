@@ -77,8 +77,8 @@ t_sec_r *init_var_s(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 
 t_color		find_c(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 {
-	if (obj->trsp <= 0 && (obj->lim_x_c || obj->lim_y_c || obj->lim_z_c) &&
-	call_side_light_check(*s, obj, d) == -1)
+	if ((obj->trsp <= 0 && (obj->lim_x_c || obj->lim_y_c || obj->lim_z_c) &&
+	call_side_light_check(*s, obj, d) == -1) || (d->lights == 0))
 		return (c);
 	s->i = -1;
 	s->col = new_color(c.r, c.g, c.b, 0);
@@ -220,10 +220,12 @@ t_color		transparent(t_color c, t_data *d, t_sec_r s, t_obj *o)
 		bfr = o;
 		s.o_ray = refract_ray(o, s);
 		o = find_object_behind(d, &s, o);
-		if (o == NULL || o == bfr)
+		if (o == NULL || o == bfr || o == d->trspa)
 			return (real_lerp(col, init_c(d, src), src->trsp));
-		return (real_lerp(col, secondary_rays(s.inter, d, o, two_point_vector(d->cam->pos, s.inter)), src->trsp));
+		d->trspa = src;
+		col = (real_lerp(col, secondary_rays(s.inter, d, o, two_point_vector(d->cam->pos, s.inter)), src->trsp));
 	}
+	d->trspa = NULL;
 	return (col);
 }
 
