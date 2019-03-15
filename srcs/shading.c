@@ -80,7 +80,6 @@ t_color		find_c(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 	if ((obj->trsp <= 0 && (obj->lim_x_c || obj->lim_y_c || obj->lim_z_c) &&
 	call_side_light_check(*s, obj, d) == -1) || (d->lights == 0))
 		return (c);
-	s->i = -1;
 	s->col = new_color(c.r, c.g, c.b, 0);
 	s->lever = 0;
 	while (++(s->i) < d->objects)
