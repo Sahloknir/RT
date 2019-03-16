@@ -6,7 +6,7 @@
 /*   By: ceugene <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 12:37:21 by ceugene           #+#    #+#             */
-/*   Updated: 2019/02/27 12:37:23 by ceugene          ###   ########.fr       */
+/*   Updated: 2019/03/16 15:03:13 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,13 @@ void	init_data(t_data *new)
 	new->img0 = NULL;
 	new->img2 = NULL;
 	new->obj = NULL;
+	new->neg = NULL;
 	new->cam = NULL;
 	new->light = NULL;
 	new->rays = NULL;
 	new->lights = 0;
 	new->objects = 0;
+	new->negs = 0;
 	new->t[0] = -1;
 	new->t[1] = -1;
 	new->img = init_img(new);

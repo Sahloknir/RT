@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/11 21:56:25 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/04 14:53:41 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/16 15:15:46 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,26 @@ void	add_obj(t_data *data, t_obj *obj)
 	data->objects++;
 }
 
+void	add_neg(t_data *data, t_obj *obj)
+{
+	t_obj	**tmp;
+	int		i;
+
+	i = 0;
+	if (!(tmp = (t_obj **)malloc(sizeof(t_obj *) * (data->negs + 1))))
+		ft_fail("Error: Could not allocate memory.", data);
+	while (i < data->negs)
+	{
+		tmp[i] = data->neg[i];
+		i++;
+	}
+	tmp[i] = obj;
+	if (data->negs > 0)
+		free(data->neg);
+	data->neg = tmp;
+	data->negs++;
+}
+
 int		assign_func(t_obj *o)
 {
 	if (o->type == PLANE)
@@ -50,6 +70,11 @@ int		expected_result2(t_obj *obj)
 	if (obj->type == CUBE)
 	{
 		if (obj->pos_c == 1 && obj->size_c == 1)
+			return (1);
+	}
+	if (obj->type == SQUARE)
+	{
+		if (obj->pos_c == 1 && obj->size_c == 1 && obj->rotation_c == 1)
 			return (1);
 	}
 	return (-2);
@@ -91,6 +116,8 @@ int		compare_string_to_values2(char *f, int s, t_obj *new)
 		return (get_object_size(f, s, new));
 	if (ft_strncmp(f + s, "shiny", 5) == 0)
 		new->shiny = 1;
+	if (ft_strncmp(f + s, "neg", 3) == 0)
+		new->neg = 1;
 	else if (ft_strncmp(f + s, "sinus", 5) == 0)
 		new->d1 = 1;
 	else if (ft_strncmp(f + s, "squared", 7) == 0)
@@ -157,12 +184,14 @@ int		read_object(t_data *d, char *f, int s)
 		free(new);
 		return (0);
 	}
-	if (new->type == CUBE)
+	if (new->type == CUBE || new->type == SQUARE)
 	{
 		fabricated_object(d, new);
 		free(new);
 		return (0);
 	}
+	else if (new->neg == 1)
+		add_neg(d, new);
 	else
 		add_obj(d, new);
 	return (1);

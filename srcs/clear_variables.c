@@ -6,7 +6,7 @@
 /*   By: ceugene <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 12:37:36 by ceugene           #+#    #+#             */
-/*   Updated: 2019/02/27 12:37:37 by ceugene          ###   ########.fr       */
+/*   Updated: 2019/03/16 14:47:51 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,20 @@ void	free_obj(int j, t_data *d)
 		free(d->obj[j]->v);
 	free(d->obj[j]);
 	d->obj[j] = NULL;
+}
+
+void	free_neg(t_data *d)
+{
+	int		j;
+
+	j = -1;
+	while (++j < d->negs)
+	{
+		if (d->neg[j]->vector_c == 1)
+			free(d->neg[j]->v);
+		free(d->neg[j]);
+		d->neg[j] = NULL;
+	}
 }
 
 void	free_rays(t_data *d)
@@ -67,10 +81,13 @@ void	free_data(t_data *d)
 	if (d->light != NULL)
 		free(d->light);
 	j = -1;
+	free_neg(d);
 	while (d->obj && d->objects > 0 && ++j < d->objects)
 		free_obj(j, d);
 	if (d->obj != NULL)
 		free(d->obj);
+	if (d->neg != NULL)
+		free(d->neg);
 	if (d->objects > 0 && d->cam != NULL && d->rays != NULL)
 		free_rays(d);
 	if (d->cam != NULL)

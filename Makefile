@@ -36,6 +36,8 @@ SRCS =	main.c					\
 		normales.c				\
 		check_rlim.c			\
 		cube.c					\
+		square.c				\
+		negobj.c				\
 
 SRCO = $(SRCS:.c=.o)
 

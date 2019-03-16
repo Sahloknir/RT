@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 16:09:35 by axbal             #+#    #+#             */
-/*   Updated: 2019/02/23 15:07:14 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/16 15:22:10 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int		get_object_type(char *f, int s, t_obj *obj)
 	type = word_return(f, s);
 	if (type != NULL && (ft_strcmp(type, "sphere") == 0
 		|| ft_strcmp(type, "cylinder") == 0 || ft_strcmp(type, "cone") == 0
-			|| ft_strcmp(type, "plane") == 0 || ft_strcmp(type, "cube") == 0))
+			|| ft_strcmp(type, "plane") == 0 || ft_strcmp(type, "cube") == 0
+				|| ft_strcmp(type, "holedcube") == 0
+					|| ft_strcmp(type, "square") == 0))
 	{
 		if (obj->type_c == 0)
 		{
@@ -34,6 +36,13 @@ int		get_object_type(char *f, int s, t_obj *obj)
 				obj->type = CONE;
 			if (ft_strcmp(type, "cube") == 0)
 				obj->type = CUBE;
+			if (ft_strcmp(type, "holedcube") == 0)
+			{
+				obj->holes = 1;
+				obj->type = CUBE;
+			}
+			if (ft_strcmp(type, "square") == 0)
+				obj->type = SQUARE;
 		}
 		obj->type_c += 1;
 	}

@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:17:13 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/04 16:59:59 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/16 15:39:26 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ t_sec_r *init_var_s(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 	{
 		s->dot = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[0]);
 		s->dot2 = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[1]);
-		if ((d->t[0] > 0 && d->t[0] < s->dist && check_lim(d->obj[s->i], s->dot)
+		if ((d->t[0] > 0 && d->t[0] < s->dist && check_lim(d->obj[s->i], s->dot, s->o_ray, d)
 			== 1) || (d->t[1] > 0 && d->t[1] < s->dist &&
-				check_lim(d->obj[s->i], s->dot2) == 1))
+				check_lim(d->obj[s->i], s->dot2, s->o_ray, d) == 1))
 		{
 				if (d->obj[s->i]->trsp <= 0)
 					s->lever = 1;
@@ -99,13 +99,18 @@ t_color		find_c(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 	return (c);
 }
 
-t_color		checkered(t_dot inter, t_color c1, t_color c2)
+t_color		checkered(t_obj *o, t_dot inter, t_color c1, t_color c2)
 {
 	float	x;
 	float	y;
 	float	z;
 	int		offset;
+	t_vec	v;
 
+	v = new_vec(inter.x, inter.y, inter.z);
+	v = trans_vec(v, o->pos.x, o->pos.y, o->pos.z);
+	v = rot_vec(v, o->rx, o->ry, o->rz);
+	inter = new_dot(v.x, v.y, v.z);
 	offset = 2000;
 	x = (int)((round(inter.x) + offset) / 2) % 2 == 0 ? 1 : 0;
 	y = (int)((round(inter.y) + offset) / 2) % 2 == 0 ? 1 : 0;
@@ -123,7 +128,7 @@ t_color		apply_color_effects(t_color c, t_sec_r s, t_data *d, t_obj *o)
 	if (d->img->d5 > 0)
 		c = perlin(d, c.r, c.g, c.b, s.inter);
 	if (o->d3)
-		c = checkered(s.inter, c, new_color(1 + c.r / 2, 1 + c.g / 2, 1
+		c = checkered(o, s.inter, c, new_color(1 + c.r / 2, 1 + c.g / 2, 1
 			+ c.b / 2, 0));
 	i = -1;
 	col = new_color(c.r, c.g, c.b, 0);

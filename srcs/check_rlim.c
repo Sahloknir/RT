@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:25:18 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/04 14:46:48 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/05 18:07:45 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ int		rel_lim(t_obj *o, t_dot d)
 	rel = new_vec(d.x, d.y, d.z);
 	rel = trans_vec(rel, o->pos.x, o->pos.y, o->pos.z);
 	if (o->rotation_c == 1 && o->type == PLANE)
-		rel = unrot_vec(rel, o->rx, o->ry, 0);
+		rel = unrot_vec(rel, o->rx, o->ry, o->rz);
 	else if (o->rotation_c == 1)
-		rel = rot_vec(rel, o->rx, o->ry, 0);
+		rel = rot_vec(rel, o->rx, o->ry, o->rz);
 	d = new_dot(rel.x, rel.y, rel.z);
 	if (rel_x_lim(o, d) == 1 && rel_y_lim(o, d) == 1 && rel_z_lim(o, d) == 1)
 		return (1);

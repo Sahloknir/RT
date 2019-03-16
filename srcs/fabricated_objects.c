@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 12:30:01 by axbal             #+#    #+#             */
-/*   Updated: 2019/02/23 14:54:08 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/16 14:58:12 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,6 @@ void	fabricated_object(t_data *d, t_obj *obj)
 {
 	if (obj->type == CUBE)
 		create_cube(d, obj);
+	if (obj->type == SQUARE)
+		create_square(d, obj);
 }

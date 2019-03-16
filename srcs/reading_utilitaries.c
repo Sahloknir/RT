@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/23 16:10:34 by axbal             #+#    #+#             */
-/*   Updated: 2019/02/23 16:18:17 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/16 15:24:03 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,14 @@ int			get_object_rot(char *f, int s, t_obj *obj)
 	float	*tab;
 
 	tab = three_values_tab(f, s);
-	if (!(f[(int)tab[4]]) || tab[3] != 2)
+	if (!(f[(int)tab[4]]) || tab[3] != 3)
 	{
 		free(tab);
 		return (0);
 	}
 	obj->rx = tab[0];
 	obj->ry = tab[1];
+	obj->rz = tab[2];
 	free(tab);
 	obj->rotation_c += 1;
 	if (obj->type == PLANE)

@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 12:05:33 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/04 16:11:03 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/16 14:57:25 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define CYLINDER 3
 # define CONE 4
 # define CUBE 5
+# define SQUARE 6
 
 typedef struct		s_color
 {
@@ -70,6 +71,7 @@ typedef struct		s_obj
 	t_vec			*v;
 	int				rx;
 	int				ry;
+	int				rz;
 	t_color			color;
 	t_vec			(*norm)(struct s_obj *, t_dot);
 	float			lim_x_neg;
@@ -99,6 +101,8 @@ typedef struct		s_obj
 	int				rotation_c;
 	int				shiny;
 	int				mirror;
+	int				neg;
+	int				holes;
 	int				d1;
 	int				d2;
 	int				d3;
@@ -133,12 +137,14 @@ typedef struct		s_data
 	t_img			*img;
 	t_img			*img2;
 	t_obj			**obj;
+	t_obj			**neg;
 	t_light			**light;
 	t_cam			*cam;
 	t_vec			**rays;
 	t_color			**pix_col;
 	int				lights;
 	int				objects;
+	int				negs;
 	float			s_xmin;
 	float			s_ymin;
 	float			s_xmax;
@@ -268,8 +274,8 @@ int					get_object_rlim_x(char *f, int s, t_obj *obj);
 int					get_object_rlim_y(char *f, int s, t_obj *obj);
 int					get_object_rlim_z(char *f, int s, t_obj *obj);
 int					get_object_refraction(char *f, int s, t_obj *obj);
-int					check_lim(t_obj *o, t_dot dot);
-int					double_check_lim(t_obj *o, t_dot d1, t_dot d2);
+int					check_lim(t_obj *o, t_dot dot, t_vec ray, t_data *d);
+int					double_check_lim(t_obj *o, t_dot d1, t_dot d2, t_vec ray, t_data *d);
 int					cmp_dot(t_dot d1, t_dot d2);
 float				find_right_distance(t_data *d, t_dot l, t_vec v, t_dot i);
 int					call_side_light_check(t_sec_r s, t_obj *obj, t_data *d);
@@ -303,5 +309,8 @@ t_vec				sphere_norm(t_obj *o, t_dot inter);
 int					rel_lim(t_obj *o, t_dot d);
 int					double_rel_lim(t_obj *o, t_dot d1, t_dot d2);
 int					create_cube(t_data *d, t_obj *obj);
+int					check_neg(t_dot dot, t_vec ray, t_data *d);
+void				add_neg(t_data *data, t_obj *obj);
+void				create_square(t_data *d, t_obj *o);
 
 #endif
