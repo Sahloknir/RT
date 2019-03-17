@@ -14,7 +14,7 @@ object {
 object {
 	type(plane)
 	pos(0, -15, 76)
-	rotation(0, 0)
+	rotation(0, 0, 0)
 	color(225, 137, 128)
 	rlim_x(-7, 7)
 	rlim_y(-17, 17)
@@ -24,7 +24,7 @@ object {
 object {
 	type(plane)
 	pos(0, -15, 70)
-	rotation(0, 0)
+	rotation(0, 0, 0)
 	color(125, 217, 128)
 	rlim_x(-27, 27)
 	rlim_y(-7, 7)
@@ -34,7 +34,7 @@ object {
 object {
 	type(plane)
 	pos(15, -15, 102)
-	rotation(0, 0)
+	rotation(0, 0, 0)
 	color(249, 209, 74)
 	rlim_x(-17, 107)
 	rlim_y(-27, 27)

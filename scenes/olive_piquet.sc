@@ -7,7 +7,7 @@ object {
 	shiny
 	type(cylinder)
 	pos(0, 10, 50)
-	rotation(45, -30)
+	rotation(45, -30, 0)
 	radius(5)
 	color(230, 225, 212)
 }
