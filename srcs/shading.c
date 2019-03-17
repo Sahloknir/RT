@@ -13,48 +13,6 @@
 #include "rt.h"
 #include <math.h>
 
-t_color		add_shine(t_light *l, t_obj *o, t_color c, t_dot inter, t_color b)
-{
-	float	angle;
-	t_color	col;
-	t_vec	norm;
-	t_vec	lo;
-
-	if (o->type != PLANE && o->shiny)
-	{
-		norm = o->norm(o, inter);
-		lo = two_point_vector(l->pos, inter);
-		col = new_color(c.r, c.g, c.b, 0);
-		angle = fabs(scalar(&norm, &lo));
-		if (angle >= 0.99)
-			col = color_interp(c, new_color(255, 255, 255, 0), angle);
-		if (col.r > b.r || col.g > b.g || col.b > b.b)
-			return (col);
-	}
-	return (b);
-}
-
-t_color		checkered(t_obj *o, t_dot inter, t_color c1, t_color c2)
-{
-	float	x;
-	float	y;
-	float	z;
-	float	offset;
-	t_vec	v;
-
-	v = new_vec(inter.x, inter.y, inter.z);
-	v = trans_vec(v, o->pos.x, o->pos.y, o->pos.z);
-	v = rot_vec(v, o->rx, o->ry, o->rz);
-	inter = new_dot(v.x, v.y, v.z);
-	offset = 3333.33;
-	x = (int)((inter.x + offset)) % 2 == 0 ? 1 : 0;
-	y = (int)((inter.y + offset)) % 2 == 0 ? 1 : 0;
-	z = (int)((inter.z + offset)) % 2 == 0 ? 1 : 0;
-	if ((x && y == z) || (y && z == x) || (z && x == y))
-		return (c2);
-	return (c1);
-}
-
 t_color		apply_color_effects(t_color c, t_sec_r s, t_data *d, t_obj *o)
 {
 	t_color	col;
@@ -68,10 +26,12 @@ t_color		apply_color_effects(t_color c, t_sec_r s, t_data *d, t_obj *o)
 	i = -1;
 	col = new_color(c.r, c.g, c.b, 0);
 	while (++i < s.tab_size)
-		col = add_shine(d->light[i], o, c, s.inter, col);
+	{
+		s.lo = two_point_vector(d->light[s.tab[i]]->pos, s.inter);
+		col = add_shine(s, o, c, col);
+	}
 	return (col);
 }
-
 
 t_color		every_lights(t_data *d, t_sec_r s, t_obj *o, t_color c)
 {

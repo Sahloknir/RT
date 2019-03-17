@@ -13,26 +13,6 @@
 #include "rt.h"
 #include <math.h>
 
-t_vec	change_norm(t_dot inter, t_diffuse s, t_data *d, t_obj *o)
-{
-	if (d->img->d == 1 || o->d1 == 1)
-	{
-			s.normale.x /= cosf(sinf(1 - inter.x - inter.y - inter.z));
-			s.normale.y /= cosf(sinf(1 - inter.x - inter.y - inter.z));
-			s.normale.z /= cosf(sinf(1 - inter.x - inter.y - inter.z));
-	}
-	if (d->img->d == 2 || o->d2 == 1)
-	{
-			s.normale.y *= 1 + (sinf(inter.x + 1.1)) / (cosf(inter.x + 0.1));
-			s.normale.z *= 1 + (sinf(inter.x + 1.1)) / (cosf(inter.x + 0.1));
-			s.normale.x *= 1 + (sinf(inter.y + 1.1)) / (cosf(inter.y + 0.1));
-			s.normale.z *= 1 + (sinf(inter.y + 1.1)) / (cosf(inter.y + 0.1));
-			s.normale.x *= 1 + (sinf(inter.z + 1.1)) / (cosf(inter.z + 0.1));
-			s.normale.y *= 1 + (sinf(inter.z + 1.1)) / (cosf(inter.z + 0.1));
-	}
-	return (s.normale);
-}
-
 t_color		diffuse_sphere(t_color c, t_dot inter, t_obj *o, t_data *d)
 {
 	t_diffuse	s;
@@ -65,7 +45,8 @@ t_color		diffuse_cone(t_color c, t_dot inter, t_obj *o, t_data *d)
 {
 	t_diffuse	s;
 
-	s.lo = new_vec(d->light[d->l]->pos.x, d->light[d->l]->pos.y, d->light[d->l]->pos.z);
+	s.lo = new_vec(d->light[d->l]->pos.x, d->light[d->l]->pos.y,
+		d->light[d->l]->pos.z);
 	s.lo = trans_vec(s.lo, o->pos.x, o->pos.y, o->pos.z);
 	s.lo = rot_vec(s.lo, o->rx, o->ry, 0);
 	s.a_dot = new_vec(inter.x, inter.y, inter.z);
@@ -87,7 +68,8 @@ t_color		diffuse_cylinder(t_color c, t_dot inter, t_obj *o, t_data *d)
 {
 	t_diffuse	s;
 
-	s.lo = new_vec(d->light[d->l]->pos.x, d->light[d->l]->pos.y, d->light[d->l]->pos.z);
+	s.lo = new_vec(d->light[d->l]->pos.x, d->light[d->l]->pos.y,
+		d->light[d->l]->pos.z);
 	s.lo = trans_vec(s.lo, o->pos.x, o->pos.y, o->pos.z);
 	s.lo = rot_vec(s.lo, o->rx, o->ry, 0);
 	s.a_dot = new_vec(inter.x, inter.y, inter.z);

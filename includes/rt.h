@@ -317,5 +317,8 @@ t_color				init_c(t_data *d, t_obj *obj);
 t_color				find_c(t_sec_r *s, t_color c, t_obj *obj, t_data *d);
 int					expected_result(t_obj *obj);
 int					compare_string_to_values(char *f, int s, t_obj *n);
+t_vec				change_norm(t_dot inter, t_diffuse s, t_data *d, t_obj *o);
+t_color				checkered(t_obj *o, t_dot inter, t_color c1, t_color c2);
+t_color				add_shine(t_sec_r s, t_obj *o, t_color c, t_color b);
 
 #endif
