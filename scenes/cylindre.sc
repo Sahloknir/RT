@@ -8,7 +8,7 @@ object {
 	type(cylinder)
 	pos(0,0,80)
 	radius(20)
-	rotation(150,10)
+	rotation(150,10, 0)
 	color(23,110,16)
 	rlim_z(-20,20);
 }
