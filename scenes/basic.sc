@@ -30,7 +30,7 @@ object {
 object {
 	type(plane)
 	pos(0,0,200)
-	rotation(45,45)
+	rotation(45,45, 0)
 	color(125,149,238)
 }
 
@@ -39,7 +39,7 @@ object {
 	type(cylinder)
 	pos(5,0,30)
 	radius(2)
-	rotation(20,-60)
+	rotation(20,-60, 0)
 	color(255,255,0)
 }
 
@@ -48,7 +48,7 @@ object {
 	shiny
 	pos(20, 5, 50)
 	angle(5)
-	rotation(60, 20)
+	rotation(60, 20, 0)
 	color(212, 164, 149)
 }
 

@@ -8,7 +8,7 @@ object {
 	pos(0,0,100)
 	shiny
 	angle(45)
-	rotation(90,10)
+	rotation(90,10, 0)
 	rlim_z(0, 25)
 	color(127,243,136)
 }

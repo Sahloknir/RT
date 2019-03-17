@@ -104,18 +104,18 @@ t_color		checkered(t_obj *o, t_dot inter, t_color c1, t_color c2)
 	float	x;
 	float	y;
 	float	z;
-	int		offset;
+	float	offset;
 	t_vec	v;
 
 	v = new_vec(inter.x, inter.y, inter.z);
 	v = trans_vec(v, o->pos.x, o->pos.y, o->pos.z);
 	v = rot_vec(v, o->rx, o->ry, o->rz);
 	inter = new_dot(v.x, v.y, v.z);
-	offset = 2000;
-	x = (int)((round(inter.x) + offset) / 2) % 2 == 0 ? 1 : 0;
-	y = (int)((round(inter.y) + offset) / 2) % 2 == 0 ? 1 : 0;
-	z = (int)((round(inter.z) + offset) / 2) % 2 == 0 ? 1 : 0;
-	if ((x && y == z) || (y && x == z) || (z && x == y))
+	offset = 3333.33;
+	x = (int)((inter.x + offset)) % 2 == 0 ? 1 : 0;
+	y = (int)((inter.y + offset)) % 2 == 0 ? 1 : 0;
+	z = (int)((inter.z + offset)) % 2 == 0 ? 1 : 0;
+	if ((x && y == z) || (y && z == x) || (z && x == y))
 		return (c2);
 	return (c1);
 }
