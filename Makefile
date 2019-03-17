@@ -39,6 +39,7 @@ SRCS =	main.c					\
 		square.c				\
 		negobj.c				\
 		transparent.c			\
+		secondary_rays_init.c	\
 
 SRCO = $(SRCS:.c=.o)
 
