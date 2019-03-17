@@ -12,42 +12,47 @@
 
 #include "rt.h"
 
+int		get_object_type2(t_obj *obj, char *type)
+{
+	if ((type != NULL && (ft_strcmp(type, "sphere") == 0
+		|| ft_strcmp(type, "cylinder") == 0 || ft_strcmp(type, "cone") == 0
+			|| ft_strcmp(type, "plane") == 0 || ft_strcmp(type, "cube") == 0
+				|| ft_strcmp(type, "holedcube") == 0
+					|| ft_strcmp(type, "square") == 0)) && obj->type_c == 0)
+	{
+		if (ft_strcmp(type, "sphere") == 0)
+			obj->type = SPHERE;
+		if (ft_strcmp(type, "cylinder") == 0)
+			obj->type = CYLINDER;
+		if (ft_strcmp(type, "plane") == 0)
+			obj->type = PLANE;
+		return (1);
+	}
+	return (0);
+}
+
 int		get_object_type(char *f, int s, t_obj *obj)
 {
 	char	*type;
 
-	s += 5;
-	type = word_return(f, s);
-	if (type != NULL && (ft_strcmp(type, "sphere") == 0
-		|| ft_strcmp(type, "cylinder") == 0 || ft_strcmp(type, "cone") == 0
-			|| ft_strcmp(type, "plane") == 0 || ft_strcmp(type, "cube") == 0
-				|| ft_strcmp(type, "holedcube") == 0
-					|| ft_strcmp(type, "square") == 0))
+	type = word_return(f, s + 5);
+	if (get_object_type2(obj, type) == 1)
 	{
-		if (obj->type_c == 0)
+		if (ft_strcmp(type, "cone") == 0)
+			obj->type = CONE;
+		if (ft_strcmp(type, "cube") == 0)
+			obj->type = CUBE;
+		if (ft_strcmp(type, "holedcube") == 0)
 		{
-			if (ft_strcmp(type, "sphere") == 0)
-				obj->type = SPHERE;
-			if (ft_strcmp(type, "cylinder") == 0)
-				obj->type = CYLINDER;
-			if (ft_strcmp(type, "plane") == 0)
-				obj->type = PLANE;
-			if (ft_strcmp(type, "cone") == 0)
-				obj->type = CONE;
-			if (ft_strcmp(type, "cube") == 0)
-				obj->type = CUBE;
-			if (ft_strcmp(type, "holedcube") == 0)
-			{
-				obj->holes = 1;
-				obj->type = CUBE;
-			}
-			if (ft_strcmp(type, "square") == 0)
-				obj->type = SQUARE;
+			obj->holes = 1;
+			obj->type = CUBE;
 		}
+		if (ft_strcmp(type, "square") == 0)
+			obj->type = SQUARE;
 		obj->type_c += 1;
 	}
 	free(type);
-	return (0);
+	return (1);
 }
 
 int		get_object_pos(char *f, int s, t_obj *obj)

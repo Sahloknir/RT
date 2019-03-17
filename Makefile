@@ -40,6 +40,7 @@ SRCS =	main.c					\
 		negobj.c				\
 		transparent.c			\
 		secondary_rays_init.c	\
+		check_obj.c				\
 
 SRCO = $(SRCS:.c=.o)
 

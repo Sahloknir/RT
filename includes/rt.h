@@ -232,7 +232,7 @@ int					read_light(t_data *data, char *file, int select);
 char				*word_return(char *str, int select);
 int					read_camera(t_data *data, char *file, int select);
 int					read_object(t_data *d, char *f, int s);
-int					get_object_type(char *f, int s, t_obj *obj);
+int				get_object_type(char *f, int s, t_obj *obj);
 int					get_object_pos(char *f, int s, t_obj *obj);
 int					get_object_rad(char *f, int s, t_obj *obj);
 int					get_object_angle(char *f, int s, t_obj *obj);
@@ -315,5 +315,7 @@ void				create_square(t_data *d, t_obj *o);
 t_color				transparent(t_color c, t_data *d, t_sec_r s, t_obj *o);
 t_color				init_c(t_data *d, t_obj *obj);
 t_color				find_c(t_sec_r *s, t_color c, t_obj *obj, t_data *d);
+int					expected_result(t_obj *obj);
+int					compare_string_to_values(char *f, int s, t_obj *n);
 
 #endif
