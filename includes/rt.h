@@ -312,5 +312,8 @@ int					create_cube(t_data *d, t_obj *obj);
 int					check_neg(t_dot dot, t_vec ray, t_data *d);
 void				add_neg(t_data *data, t_obj *obj);
 void				create_square(t_data *d, t_obj *o);
+t_color				transparent(t_color c, t_data *d, t_sec_r s, t_obj *o);
+t_color				init_c(t_data *d, t_obj *obj);
+t_color				find_c(t_sec_r *s, t_color c, t_obj *obj, t_data *d);
 
 #endif

@@ -38,6 +38,7 @@ SRCS =	main.c					\
 		cube.c					\
 		square.c				\
 		negobj.c				\
+		transparent.c			\
 
 SRCO = $(SRCS:.c=.o)
 
