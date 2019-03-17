@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 12:05:33 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/16 14:57:25 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/17 15:51:59 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,7 +301,7 @@ void				reset_colors(t_data *d);
 int					color_diff(t_color c1, t_color c2);
 t_color				perlin(t_data *d, int red, int blue, int green, t_dot pt);
 t_vec				reflect_ray(t_vec *inc, t_vec *norm);
-t_obj				*find_reflection(t_sec_r *s, t_obj *o, t_data *d, t_obj *p);
+t_obj				*find_reflection(t_sec_r *s, t_obj *o, t_data *d, int iter);
 int					get_object_mirror(char *f, int s, t_obj *obj);
 t_vec				cylinder_norm(t_obj *o, t_dot inter);
 t_vec				cone_norm(t_obj *o, t_dot inter);

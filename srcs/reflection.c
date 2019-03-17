@@ -6,13 +6,13 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 15:55:34 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/16 15:33:50 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/17 15:58:48 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-t_obj	*find_reflection(t_sec_r *s, t_obj *obj, t_data *d, t_obj *prev)
+t_obj	*find_reflection(t_sec_r *s, t_obj *obj, t_data *d, int iter)
 {
 	int		t;
 	t_obj	*o;
@@ -44,11 +44,11 @@ t_obj	*find_reflection(t_sec_r *s, t_obj *obj, t_data *d, t_obj *prev)
 				}
 			}
 		}
-		if (o == NULL || s->dist == -1 || (prev != NULL && prev == o))
+		if (o == NULL || s->dist == -1 || iter > 25)
 			return (NULL);
 		s->inter = get_hitpoint(s->inter, s->o_ray, s->dist);
 		if (o != NULL && o->mirror > 0)
-			o = find_reflection(s, o, d, obj);
+			o = find_reflection(s, o, d, iter + 1);
 		return (o);
 	}
 	return (obj);
