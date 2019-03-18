@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:17:13 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/17 15:52:50 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/18 16:32:15 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,29 +47,21 @@ t_color		every_lights(t_data *d, t_sec_r s, t_obj *o, t_color c)
 	return (c);
 }
 
-t_color		secondary_rays(t_dot inter, t_data *d, t_obj *obj, t_vec ray)
+t_color		secondary_rays(t_dot inter, t_data *d, t_obj *o, t_vec ray)
 {
 	t_sec_r	s;
 	t_color	c;
-	t_obj	*o;
 
 	s.inter = inter;
 	if (!(s.tab = malloc(sizeof(int) * d->lights)))
 		ft_fail("Error: Unable to allocate memory.", d);
 	d->l = -1;
 	s.tab_size = 0;
-	c = init_c(d, obj);
-	if (obj->mirror == -1)
-		o = obj;
+	c = init_c(d, o);
 	s.o_ray = ray;
-	if (!(o = find_reflection(&s, obj, d, 0)))
-	{
-		free(s.tab);
-		return (real_lerp(obj->color, c, obj->mirror));
-	}
 	c = every_lights(d, s, o, c);
-	if (obj->mirror > -1 && obj->mirror < 100)
-		c = real_lerp(obj->color, c, obj->mirror);
+	if (o->mirror > 0 && o->mirror < 100)
+		c = real_lerp(c, find_reflection(c, s, o, d), o->mirror);
 	if (o->trsp > 0)
 		c = real_lerp(c, transparent(c, d, s, o), o->trsp);
 	free(s.tab);
