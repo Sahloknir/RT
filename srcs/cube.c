@@ -12,19 +12,6 @@
 
 #include "rt.h"
 
-void	find_limits(t_obj *o, t_obj *obj)
-{
-	obj->rlim_x_c = 1;
-	obj->rlim_x_neg = -(o->size / 2);
-	obj->rlim_x_pos = o->size / 2;
-	obj->rlim_y_c = 1;
-	obj->rlim_y_neg = -(o->size / 2);
-	obj->rlim_y_pos = o->size / 2;
-	obj->rlim_z_c = 1;
-	obj->rlim_z_neg = -(o->size / 2);
-	obj->rlim_z_pos = o->size / 2;
-}
-
 t_obj	*apply_effects(t_obj *new, t_obj *src)
 {
 	new->d1 = src->d1;
@@ -34,6 +21,24 @@ t_obj	*apply_effects(t_obj *new, t_obj *src)
 	new->mirror = src->mirror;
 	new->trsp = src->trsp;
 	return (new);
+}
+
+void	find_limits(t_obj *o, t_obj *obj, t_vec *v2)
+{
+	norm_vec(v2);
+	obj->v = v2;
+	obj->vector_c = 1;
+	obj->color = o->color;
+	obj = apply_effects(obj, o);
+	obj->rlim_x_c = 1;
+	obj->rlim_x_neg = -(o->size / 2);
+	obj->rlim_x_pos = o->size / 2;
+	obj->rlim_y_c = 1;
+	obj->rlim_y_neg = -(o->size / 2);
+	obj->rlim_y_pos = o->size / 2;
+	obj->rlim_z_c = 1;
+	obj->rlim_z_neg = -(o->size / 2);
+	obj->rlim_z_pos = o->size / 2;
 }
 
 t_obj	*gen_plane(t_dot d, t_obj *o, t_data *data)
@@ -59,12 +64,7 @@ t_obj	*gen_plane(t_dot d, t_obj *o, t_data *data)
 	obj->rz = o->rz;
 	obj->rotation_c = 1;
 	*v2 = two_point_vector(new_dot(0, 0, 0), d);
-	norm_vec(v2);
-	obj->v = v2;
-	obj->vector_c = 1;
-	obj->color = o->color;
-	obj = apply_effects(obj, o);
-	find_limits(o, obj);
+	find_limits(o, obj, v2);
 	return (obj);
 }
 
