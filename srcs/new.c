@@ -36,10 +36,10 @@ t_color		new_color(int r, int g, int b, int a)
 {
 	t_color		new;
 
-	new.r = r;
-	new.g = g;
-	new.b = b;
-	new.a = a;
+	new.r = ft_clamp(r, 0, 255);
+	new.g = ft_clamp(g, 0, 255);
+	new.b = ft_clamp(b, 0, 255);
+	new.a = ft_clamp(a, 0, 1);
 	return (new);
 }
 

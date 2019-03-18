@@ -50,6 +50,21 @@ void	gen_colors(t_data *d)
 	reset_colors(d);
 }
 
+void	init_data2(t_data *new)
+{
+	new->a = new_color(0, 0, 0, 0);
+	new->current_img = 1;
+	new->file_name = NULL;
+	gen_colors(new);
+	new->selected_option = -1;
+	new->img->sp = 0;
+	new->img->gs = 0;
+	new->img->d = 0;
+	new->img->d5 = 0;
+	new->img->crtn = 0;
+	new->perlin = 0;
+}
+
 void	init_data(t_data *new)
 {
 	new->img = NULL;
@@ -64,20 +79,10 @@ void	init_data(t_data *new)
 	new->objects = 0;
 	new->negs = 0;
 	new->miter = 0;
+	new->titer = 0;
 	new->t[0] = -1;
 	new->t[1] = -1;
 	new->img = init_img(new);
 	new->img2 = init_img(new);
-	new->a = new_color(0, 0, 0, 0);
-	new->current_img = 1;
-	new->file_name = NULL;
-	gen_colors(new);
-	new->selected_option = -1;
-	new->img->sp = 0;
-	new->img->gs = 0;
-	new->img->d = 0;
-	new->img->d5 = 0;
-	new->img->crtn = 0;
-	new->perlin = 0;
-	new->trspa = NULL;
+	init_data2(new);
 }

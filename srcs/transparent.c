@@ -66,7 +66,7 @@ t_obj	*find_object_behind(t_data *d, t_sec_r *s, t_obj *obj)
 			&& test_object(d, s->o_ray, d->obj[i], s->inter) > 0)
 			dist = compare_dists(&o, d, dist, i);
 	}
-	if (dist <= 0.01 || o == NULL)
+	if (dist <= 0.01 || o == NULL || d->titer > 10)
 		return (NULL);
 	s->inter = get_hitpoint(s->inter, s->o_ray, dist);
 	return (o);
@@ -86,12 +86,12 @@ t_color		transparent(t_color c, t_data *d, t_sec_r s, t_obj *o)
 		bfr = o;
 		s.o_ray = refract_ray(o, s);
 		o = find_object_behind(d, &s, o);
-		if (o == NULL || o == bfr || o == d->trspa)
+		if (o == NULL || o == bfr || d->titer > 10)
 			return (real_lerp(col, init_c(d, src), src->trsp));
-		d->trspa = src;
+		d->titer += 1;
 		col = (real_lerp(col, secondary_rays(s.inter, d, o,
 			two_point_vector(d->cam->pos, s.inter)), src->trsp));
 	}
-	d->trspa = NULL;
+	d->titer = 0;
 	return (col);
 }

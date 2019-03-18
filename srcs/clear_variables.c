@@ -12,12 +12,20 @@
 
 #include "rt.h"
 
-void	free_obj(int j, t_data *d)
+void	free_obj(t_data *d)
 {
-	if (d->obj[j]->vector_c == 1)
-		free(d->obj[j]->v);
-	free(d->obj[j]);
-	d->obj[j] = NULL;
+	int		j;
+
+	j = -1;
+	while (d->obj && d->objects > 0 && ++j < d->objects)
+	{
+		if (d->obj[j]->vector_c == 1)
+			free(d->obj[j]->v);
+		free(d->obj[j]);
+		d->obj[j] = NULL;
+	}
+	if (d->obj != NULL)
+		free(d->obj);
 }
 
 void	free_neg(t_data *d)
@@ -87,11 +95,7 @@ void	free_data(t_data *d)
 	}
 	if (d->light != NULL)
 		free(d->light);
-	j = -1;
-	while (d->obj && d->objects > 0 && ++j < d->objects)
-		free_obj(j, d);
-	if (d->obj != NULL)
-		free(d->obj);
+	free_obj(d);
 	free_neg(d);
 	if (d->objects > 0 && d->cam != NULL && d->rays != NULL)
 		free_rays(d);
