@@ -49,13 +49,19 @@ int		rel_lim(t_obj *o, t_dot d)
 	return (-1);
 }
 
-int		double_check_lim(t_obj *o, t_dot d1, t_dot d2, t_dir dir, t_data *d)
+int		double_check_lim(t_obj *o, t_dir dir, t_data *d)
 {
 	int		r1;
 	int		r2;
+	t_dot	dot1;
+	t_dot	dot2;
 
-	r1 = check_lim(o, d1, dir, d);
-	r2 = check_lim(o, d2, dir, d);
+	dot1 = new_dot(dir.d.x + dir.v.x * d->t[0], dir.d.y + dir.v.y * d->t[0],
+		dir.d.z + dir.v.z * d->t[0]);
+	dot2 = new_dot(dir.d.x + dir.v.x * d->t[1], dir.d.y + dir.v.y * d->t[1],
+		dir.d.z + dir.v.z * d->t[1]);
+	r1 = check_lim(o, dot1, dir, d);
+	r2 = check_lim(o, dot2, dir, d);
 	if (r1 == 1 || r2 == 1)
 		return (1);
 	return (-1);

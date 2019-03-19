@@ -282,7 +282,7 @@ int					get_object_rlim_y(char *f, int s, t_obj *obj);
 int					get_object_rlim_z(char *f, int s, t_obj *obj);
 int					get_object_refraction(char *f, int s, t_obj *obj);
 int					check_lim(t_obj *o, t_dot dot, t_dir dir, t_data *d);
-int					double_check_lim(t_obj *o, t_dot a, t_dot b, t_dir dir, t_data *d);
+int					double_check_lim(t_obj *o, t_dir dir, t_data *d);
 int					cmp_dot(t_dot d1, t_dot d2);
 float				find_right_distance(t_data *d, t_dot l, t_vec v, t_dot i);
 int					call_side_light_check(t_sec_r s, t_obj *obj, t_data *d);

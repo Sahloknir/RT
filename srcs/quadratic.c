@@ -21,25 +21,23 @@ int		solve_cyli(t_data *d, t_vec ray, t_obj *o, t_dot start)
 	t_vec	o_ray;
 
 	o_ray = ray;
-	p = new_vec((float)start.x, (float)start.y, (float)start.z);
-	p = trans_vec(p, o->pos.x, o->pos.y, o->pos.z);
-	p = rot_vec(p, o->rx, o->ry, 0);
+	p = rot_vec(trans_vec(new_vec(start.x, start.y, start.z), o->pos.x,
+		o->pos.y, o->pos.z), o->rx, o->ry, 0);
 	ray = rot_vec(ray, o->rx, o->ry, 0);
-	q.x = pow(ray.x, 2) + pow(ray.y, 2);
-	q.y = 2 * p.x * ray.x + 2 * p.y * ray.y;
-	q.z = pow(p.x, 2) + pow(p.y, 2) - pow(o->radius, 2);
+	q = new_dot(pow(ray.x, 2) + pow(ray.y, 2), 2 * p.x * ray.x + 2 * p.y
+		* ray.y, pow(p.x, 2) + pow(p.y, 2) - pow(o->radius, 2));
 	delta = pow(q.y, 2) - 4 * q.x * q.z;
 	if (delta == 0)
 	{
 		d->t[0] = -q.y / (2 * q.x);
-		return (check_lim(o, get_hitpoint(start, o_ray, d->t[0]), newdir(start, o_ray), d));
+		return (check_lim(o, get_hitpoint(start, o_ray, d->t[0]),
+			newdir(start, o_ray), d));
 	}
 	else if (delta > 0)
 	{
 		d->t[0] = (-q.y - sqrt(delta)) / (2 * q.x);
 		d->t[1] = (-q.y + sqrt(delta)) / (2 * q.x);
-		return (double_check_lim(o, get_hitpoint(start, o_ray, d->t[0]),
-		get_hitpoint(start, o_ray, d->t[1]), newdir(start, o_ray), d));
+		return (double_check_lim(o, newdir(start, ray), d));
 	}
 	return (-1);
 }
@@ -52,28 +50,25 @@ int		solve_cone(t_data *d, t_vec ray, t_obj *o, t_dot start)
 	t_vec	o_ray;
 
 	o_ray = ray;
-	p = new_vec((float)start.x, (float)start.y, (float)start.z);
-	p = trans_vec(p, o->pos.x, o->pos.y, o->pos.z);
-	p = rot_vec(p, o->rx, o->ry, 0);
+	p = rot_vec(trans_vec(new_vec(start.x, start.y, start.z), o->pos.x,
+		o->pos.y, o->pos.z), o->rx, o->ry, 0);
 	ray = rot_vec(ray, o->rx, o->ry, 0);
-	q.x = pow(ray.x, 2) + pow(ray.y, 2) - pow(ray.z, 2) * tan(o->angle);
-	q.y = 2 * (p.x * ray.x) + 2 * (p.y * ray.y) - 2 * ((p.z * ray.z)
-		* tan(o->angle));
-	q.z = pow(p.x, 2) + pow(p.y, 2) - (pow(p.z, 2) * tan(o->angle));
+	q = new_dot(pow(ray.x, 2) + pow(ray.y, 2) - pow(ray.z, 2) * tan(o->angle),
+		2 * (p.x * ray.x) + 2 * (p.y * ray.y) - 2 * ((p.z * ray.z)
+			* tan(o->angle)), pow(p.x, 2) + pow(p.y, 2) - (pow(p.z, 2)
+				* tan(o->angle)));
 	delta = pow(q.y, 2) - 4 * q.x * q.z;
+	if (delta < 0)
+		return (-1);
 	if (delta == 0)
 	{
 		d->t[0] = -q.y / (2 * q.x);
-		return (check_lim(o, get_hitpoint(start, o_ray, d->t[0]), newdir(start, o_ray), d));
+		return (check_lim(o, get_hitpoint(start, o_ray, d->t[0]),
+			newdir(start, o_ray), d));
 	}
-	else if (delta > 0)
-	{
-		d->t[0] = (-q.y - sqrt(delta)) / (2 * q.x);
-		d->t[1] = (-q.y + sqrt(delta)) / (2 * q.x);
-		return (double_check_lim(o, get_hitpoint(start, o_ray, d->t[0]),
-		get_hitpoint(start, o_ray, d->t[1]), newdir(start, o_ray), d));
-	}
-	return (-1);
+	d->t[0] = (-q.y - sqrt(delta)) / (2 * q.x);
+	d->t[1] = (-q.y + sqrt(delta)) / (2 * q.x);
+	return (double_check_lim(o, newdir(start, ray), d));
 }
 
 int		solve_plane(t_data *d, t_vec ray, t_obj *o, t_dot start)
@@ -114,14 +109,14 @@ int		solve_sphere(t_data *d, t_vec ray, t_obj *o, t_dot start)
 	if (delta == 0)
 	{
 		d->t[0] = -b / (2 * a);
-		return (check_lim(o, get_hitpoint(start, ray, d->t[0]), newdir(start, ray), d));
+		return (check_lim(o, get_hitpoint(start, ray, d->t[0]),
+			newdir(start, ray), d));
 	}
 	else if (delta > 0)
 	{
 		d->t[0] = (-b - sqrt(delta)) / (2 * a);
 		d->t[1] = (-b + sqrt(delta)) / (2 * a);
-		return (double_check_lim(o, get_hitpoint(start, ray, d->t[0]),
-		get_hitpoint(start, ray, d->t[1]), newdir(start, ray), d));
+		return (double_check_lim(o, newdir(start, ray), d));
 	}
 	return (-1);
 }
