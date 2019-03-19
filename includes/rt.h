@@ -282,7 +282,7 @@ int					get_object_rlim_y(char *f, int s, t_obj *obj);
 int					get_object_rlim_z(char *f, int s, t_obj *obj);
 int					get_object_refraction(char *f, int s, t_obj *obj);
 int					check_lim(t_obj *o, t_dot dot, t_dir dir, t_data *d);
-int					double_check_lim(t_obj *o, t_dot d1, t_dot d2, t_dir dir, t_data *d);
+int					double_check_lim(t_obj *o, t_dot a, t_dot b, t_dir dir, t_data *d);
 int					cmp_dot(t_dot d1, t_dot d2);
 float				find_right_distance(t_data *d, t_dot l, t_vec v, t_dot i);
 int					call_side_light_check(t_sec_r s, t_obj *obj, t_data *d);
@@ -328,5 +328,6 @@ t_vec				change_norm(t_dot inter, t_diffuse s, t_data *d, t_obj *o);
 t_color				checkered(t_obj *o, t_dot inter, t_color c1, t_color c2);
 t_color				add_shine(t_sec_r s, t_obj *o, t_color c, t_color b);
 t_dir				newdir(t_dot d, t_vec v);
+int					select_option(int key, t_data *d);
 
 #endif

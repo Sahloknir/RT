@@ -42,6 +42,7 @@ SRCS =	main.c					\
 		secondary_rays_init.c	\
 		check_obj.c				\
 		effects.c				\
+		options.c				\
 
 SRCO = $(SRCS:.c=.o)
 

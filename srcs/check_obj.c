@@ -57,7 +57,6 @@ int		expected_result(t_obj *obj)
 
 int		compare_string_to_values2(char *f, int s, t_obj *new)
 {
-
 	if (ft_strncmp(f + s, "rlim_z(", 7) == 0)
 		return (get_object_rlim_z(f, s, new));
 	if (ft_strncmp(f + s, "size(", 5) == 0)

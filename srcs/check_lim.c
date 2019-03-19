@@ -57,15 +57,3 @@ int		check_lim(t_obj *o, t_dot d, t_dir dir, t_data *dt)
 		return (1);
 	return (-1);
 }
-
-int		double_check_lim(t_obj *o, t_dot d1, t_dot d2, t_dir dir, t_data *d)
-{
-	int		r1;
-	int		r2;
-
-	r1 = check_lim(o, d1, dir, d);
-	r2 = check_lim(o, d2, dir, d);
-	if (r1 == 1 || r2 == 1)
-		return (1);
-	return (-1);
-}
