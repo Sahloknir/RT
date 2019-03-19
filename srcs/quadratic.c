@@ -37,7 +37,7 @@ int		solve_cyli(t_data *d, t_vec ray, t_obj *o, t_dot start)
 	{
 		d->t[0] = (-q.y - sqrt(delta)) / (2 * q.x);
 		d->t[1] = (-q.y + sqrt(delta)) / (2 * q.x);
-		return (double_check_lim(o, newdir(start, ray), d));
+		return (double_check_lim(o, newdir(start, o_ray), d));
 	}
 	return (-1);
 }
@@ -68,7 +68,7 @@ int		solve_cone(t_data *d, t_vec ray, t_obj *o, t_dot start)
 	}
 	d->t[0] = (-q.y - sqrt(delta)) / (2 * q.x);
 	d->t[1] = (-q.y + sqrt(delta)) / (2 * q.x);
-	return (double_check_lim(o, newdir(start, ray), d));
+	return (double_check_lim(o, newdir(start, o_ray), d));
 }
 
 int		solve_plane(t_data *d, t_vec ray, t_obj *o, t_dot start)
