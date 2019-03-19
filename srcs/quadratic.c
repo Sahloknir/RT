@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 14:44:53 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/16 15:18:17 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/19 12:59:56 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ int		solve_cyli(t_data *d, t_vec ray, t_obj *o, t_dot start)
 	if (delta == 0)
 	{
 		d->t[0] = -q.y / (2 * q.x);
-		return (check_lim(o, get_hitpoint(start, o_ray, d->t[0]), o_ray, d));
+		return (check_lim(o, get_hitpoint(start, o_ray, d->t[0]), newdir(start, o_ray), d));
 	}
 	else if (delta > 0)
 	{
 		d->t[0] = (-q.y - sqrt(delta)) / (2 * q.x);
 		d->t[1] = (-q.y + sqrt(delta)) / (2 * q.x);
 		return (double_check_lim(o, get_hitpoint(start, o_ray, d->t[0]),
-		get_hitpoint(start, o_ray, d->t[1]), o_ray, d));
+		get_hitpoint(start, o_ray, d->t[1]), newdir(start, o_ray), d));
 	}
 	return (-1);
 }
@@ -64,14 +64,14 @@ int		solve_cone(t_data *d, t_vec ray, t_obj *o, t_dot start)
 	if (delta == 0)
 	{
 		d->t[0] = -q.y / (2 * q.x);
-		return (check_lim(o, get_hitpoint(start, o_ray, d->t[0]), o_ray, d));
+		return (check_lim(o, get_hitpoint(start, o_ray, d->t[0]), newdir(start, o_ray), d));
 	}
 	else if (delta > 0)
 	{
 		d->t[0] = (-q.y - sqrt(delta)) / (2 * q.x);
 		d->t[1] = (-q.y + sqrt(delta)) / (2 * q.x);
 		return (double_check_lim(o, get_hitpoint(start, o_ray, d->t[0]),
-		get_hitpoint(start, o_ray, d->t[1]), o_ray, d));
+		get_hitpoint(start, o_ray, d->t[1]), newdir(start, o_ray), d));
 	}
 	return (-1);
 }
@@ -90,7 +90,7 @@ int		solve_plane(t_data *d, t_vec ray, t_obj *o, t_dot start)
 		if (d->t[0] < 0)
 			return (-1);
 		dot = get_hitpoint(start, ray, d->t[0]);
-		if (check_lim(o, dot, ray, d) != 1)
+		if (check_lim(o, dot, newdir(start, ray), d) != 1)
 			return (-1);
 		return (1);
 	}
@@ -114,14 +114,14 @@ int		solve_sphere(t_data *d, t_vec ray, t_obj *o, t_dot start)
 	if (delta == 0)
 	{
 		d->t[0] = -b / (2 * a);
-		return (check_lim(o, get_hitpoint(start, ray, d->t[0]), ray, d));
+		return (check_lim(o, get_hitpoint(start, ray, d->t[0]), newdir(start, ray), d));
 	}
 	else if (delta > 0)
 	{
 		d->t[0] = (-b - sqrt(delta)) / (2 * a);
 		d->t[1] = (-b + sqrt(delta)) / (2 * a);
 		return (double_check_lim(o, get_hitpoint(start, ray, d->t[0]),
-		get_hitpoint(start, ray, d->t[1]), ray, d));
+		get_hitpoint(start, ray, d->t[1]), newdir(start, ray), d));
 	}
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 14:05:21 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/16 15:08:37 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/19 13:12:33 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ float	pick_a_side(float dm, t_vec ray, t_obj *o, t_data *d)
 {
 	int		d1;
 	int		d2;
+	t_dir	dir;
 
-	d1 = check_lim(o, get_hitpoint(d->cam->pos, ray, d->t[0]), ray, d);
-	d2 = check_lim(o, get_hitpoint(d->cam->pos, ray, d->t[1]), ray, d);
+	dir = newdir(d->cam->pos, ray);
+	d1 = check_lim(o, get_hitpoint(d->cam->pos, ray, d->t[0]), dir, d);
+	d2 = check_lim(o, get_hitpoint(d->cam->pos, ray, d->t[1]), dir, d);
 	if (dm == -1 && ((d->t[0] > 0 && d1 == 1) || (d->t[1] > 0 && d2 == 1)))
 	{
 		if (d->t[0] > 0 && d1 == 1)
@@ -74,4 +76,13 @@ void	fswap(float *f1, float *f2)
 	tmp = *f1;
 	*f1 = *f2;
 	*f2 = tmp;
+}
+
+t_dir	newdir(t_dot d, t_vec v)
+{
+	t_dir	new;
+
+	new.d = d;
+	new.v = v;
+	return (new);
 }

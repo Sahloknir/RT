@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 13:59:34 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/16 15:06:22 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/19 13:10:48 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int			side_light_check(t_dot origin, t_dot inter, t_dot inter2, t_obj *o, t_sec_
 	d2 = two_point_dist(origin, inter2);
 	if (d1 <= d2)
 		return (1);
-	if (d2 < d1 && check_lim(o, inter2, s.o_ray, d) == -1)
+	if (d2 < d1 && check_lim(o, inter2, newdir(origin, s.o_ray), d) == -1)
 		return (2);
 	return (0);
 }

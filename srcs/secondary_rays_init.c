@@ -15,16 +15,16 @@ t_sec_r *init_var_s(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 {
 	t_color	col2;
 
-		d->l = d->l >= d->lights ? d->l - 1 : d->l;
+	d->l = d->l >= d->lights ? d->l - 1 : d->l;
 	s->ret = test_object(d, s->lo ,d->obj[s->i], d->light[d->l]->pos);
 	if (s->ret < 1)
 		return (s);
 	s->dot = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[0]);
 	s->dot2 = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[1]);
 	if ((d->t[0] > 0 && d->t[0] < s->dist
-		&& check_lim(d->obj[s->i], s->dot, s->o_ray, d) == 1)
+		&& check_lim(d->obj[s->i], s->dot, newdir(d->light[d->l]->pos, s->o_ray), d) == 1)
 			|| (d->t[1] > 0 && d->t[1] < s->dist
-				&& check_lim(d->obj[s->i], s->dot2, s->o_ray, d) == 1))
+				&& check_lim(d->obj[s->i], s->dot2, newdir(d->light[d->l]->pos, s->o_ray), d) == 1))
 	{
 			if (d->obj[s->i]->trsp <= 0)
 				s->lever = 1;
