@@ -29,7 +29,7 @@ object {
 	pos(0, 25, 0)
 	rotation(90, 0, 0)
 	color(255, 255, 255)
-	mirror(80)
+	mirror(100)
 }
 
 object{
@@ -38,7 +38,7 @@ object{
 	rotation(90, 0, 0)
 	color(255, 255, 255)
 	checkered
-	mirror(80)
+	mirror(100)
 }
 
 object{
@@ -46,7 +46,7 @@ object{
 	pos(0, 0, 100)
 	rotation(0, 0, 0)
 	color(255, 255, 255)
-	mirror(80)
+	mirror(100)
 }
 
 object{
@@ -54,7 +54,7 @@ object{
 	pos(-40, 0, 0)
 	rotation(0, 90, 0)
 	color(255, 255, 255)
-	mirror(80)
+	mirror(100)
 }
 
 object{
@@ -62,7 +62,7 @@ object{
 	pos(40, 0, 0)
 	rotation(0, 90, 0)
 	color(255, 255, 255)
-	mirror(80)
+	mirror(100)
 }
 
 object{
@@ -70,7 +70,7 @@ object{
 	pos(0, 0, -20)
 	rotation(0, 0, 0)
 	color(255, 255, 255)
-	mirror(80)
+	mirror(100)
 }
 
 light{

@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:17:13 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/18 16:32:15 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/19 14:28:17 by axbal            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_color		secondary_rays(t_dot inter, t_data *d, t_obj *o, t_vec ray)
 	c = init_c(d, o);
 	s.o_ray = ray;
 	c = every_lights(d, s, o, c);
-	if (o->mirror > 0 && o->mirror < 100)
+	if (o->mirror > 0 && o->mirror <= 100)
 		c = real_lerp(c, find_reflection(c, s, o, d), o->mirror);
 	if (o->trsp > 0)
 		c = real_lerp(c, transparent(c, d, s, o), o->trsp);
