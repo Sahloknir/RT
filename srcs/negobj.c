@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "rt.h"
-#include <stdio.h>
 
 int		check_neg2(int i, t_dir dir, t_data *d, float l)
 {

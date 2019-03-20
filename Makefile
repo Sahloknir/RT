@@ -13,6 +13,7 @@ SRCS =	main.c					\
 		vector.c				\
 		put_pixel.c				\
 		new.c					\
+		create_obj.c			\
 		rays.c					\
 		quadratic.c				\
 		matrix.c				\
