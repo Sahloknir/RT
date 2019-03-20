@@ -19,7 +19,7 @@ t_color		apply_color_effects(t_color c, t_sec_r s, t_data *d, t_obj *o)
 	int		i;
 
 	if (d->img->d5 > 0)
-		c = perlin(d, c.r, c.g, c.b, s.inter);
+		c = perlin(d, c, s.inter);
 	if (o->d3)
 		c = checkered(o, s.inter, c, new_color(1 + (c.r + 1) / 2, 1
 			+ (c.g + 1) / 2, 1 + (c.b + 1) / 2, 0));

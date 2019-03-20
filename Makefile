@@ -33,6 +33,7 @@ SRCS =	main.c					\
 		init_data.c				\
 		colors.c				\
 		perlin.c				\
+		perlin_utils.c			\
 		reflection.c			\
 		normales.c				\
 		check_rlim.c			\

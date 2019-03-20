@@ -230,6 +230,22 @@ typedef struct		s_sec_r
 	int				lever;
 }					t_sec_r;
 
+typedef struct		s_perl
+{
+	int				ix;
+	int				igrek;
+	int				zed;
+	int				a;
+	int				b;
+	int				aa;
+	int				ab;
+	int				bb;
+	int				ba;
+	float			u;
+	float			v;
+	float			w;
+}					t_perl;
+
 void				ft_fail(char *str, t_data *data);
 void				ft_return(char *str, t_data *data);
 int					read_file(t_data *data, char *file);
@@ -306,7 +322,7 @@ t_color				real_lerp(t_color c1, t_color c2, float factor);
 void				init_data(t_data *n);
 void				reset_colors(t_data *d);
 int					color_diff(t_color c1, t_color c2);
-t_color				perlin(t_data *d, int red, int blue, int green, t_dot pt);
+t_color				perlin(t_data *d, t_color c, t_dot pt);
 t_vec				reflect_ray(t_vec *inc, t_vec *norm);
 t_color				find_reflection(t_color c, t_sec_r s, t_obj *ob, t_data *d);
 int					get_object_mirror(char *f, int s, t_obj *obj);
@@ -331,5 +347,10 @@ t_dir				newdir(t_dot d, t_vec v);
 int					select_option(int key, t_data *d);
 int					write_options(t_data *d);
 void				ft_string(t_data *d, char *str, int color, int nb);
+float				p_fade(float t);
+float				p_lerp(float t, float a, float b);
+float				p_grad(int hash, float x, float y, float z);
+int					return_permutation(int x, int *p);
+void				gen_permutation(int *tab);
 
 #endif

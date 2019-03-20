@@ -14,133 +14,56 @@
 #include <math.h>
 #include <stdlib.h>
 
-float	p_fade(float t)
-{
-	return (t * t * t * (t * (t * 6 - 15) + 10));
-}
-
-float	p_lerp(float t, float a, float b)
-{
-	return (a + (t) * (b - a));
-}
-
-float	p_grad(int hash, float x, float y, float z)
-{
-	int		h;
-	float	u;
-	float	v;
-
-	h = hash & 15;
-	u = h < 8 ? x : y;
-	v = z;
-	if (h < 4)
-		v = y;
-	else if (h == 12 || h == 14)
-		v = x;
-	u = (h & 1) == 0 ? u : -u;
-	v = (h & 2) == 0 ? v : -v;
-	return (u + v);
-}
-
 float	p_noise(float x, float y, float z, int *p)
 {
-	int		ix;
-	int		igrek;
-	int		zed;
-	int		a;
-	int		b;
-	int		aa;
-	int		ab;
-	int		bb;
-	int		ba;
-	float	u;
-	float	v;
-	float	w;
+	t_perl	s;
 
-	ix = (int)floor(x) & 255;
-	igrek = (int)floor(y) & 255;
-	zed = (int)floor(z) & 255;
-	u = p_fade(x);
-	v = p_fade(y);
-	w = p_fade(z);
+	s.ix = (int)floor(x) & 255;
+	s.igrek = (int)floor(y) & 255;
+	s.zed = (int)floor(z) & 255;
+	s.u = p_fade(x);
+	s.v = p_fade(y);
+	s.w = p_fade(z);
 	x -= floor(x);
 	y -= floor(y);
 	z -= floor(z);
-	a = p[ix] + igrek;
-	b = p[ix + 1] + igrek;
-	aa = (int)(p[a] + zed) % 255;
-	ab = (int)(p[a + 1] + zed) % 255;
-	ba = (int)(p[b] + zed) % 255;
-	bb = (int)(p[b + 1] + zed) % 255;
-	return (p_lerp(w, p_lerp(v, p_lerp(u, p_grad(p[aa], x, y, z), p_grad(p[ba], x, y, z)), p_lerp(u, p_grad(p[ab], x, y - 1, z), p_grad(p[bb], x - 1, y - 1, z))),
-p_lerp(v, p_lerp(u, p_grad(p[aa + 1], x, y, z - 1), p_grad(p[ba + 1], x - 1, y, z -1)), p_lerp(u, p_grad(p[ab + 1], x, y - 1, z - 1), p_grad(p[bb + 1], x - 1, y - 1, z - 1)))));
+	s.a = p[s.ix] + s.igrek;
+	s.b = p[s.ix + 1] + s.igrek;
+	s.aa = (int)(p[s.a] + s.zed) % 255;
+	s.ab = (int)(p[s.a + 1] + s.zed) % 255;
+	s.ba = (int)(p[s.b] + s.zed) % 255;
+	s.bb = (int)(p[s.b + 1] + s.zed) % 255;
+	return (p_lerp(s.w, p_lerp(s.v, p_lerp(s.u, p_grad(p[s.aa], x, y, z),
+		p_grad(p[s.ba], x, y, z)), p_lerp(s.u, p_grad(p[s.ab], x, y - 1, z),
+			p_grad(p[s.bb], x - 1, y - 1, z))), p_lerp(s.v, p_lerp(s.u,
+				p_grad(p[s.aa + 1], x, y, z - 1), p_grad(p[s.ba + 1],
+					x - 1, y, z -1)), p_lerp(s.u, p_grad(p[s.ab + 1], x, y - 1,
+						z - 1), p_grad(p[s.bb + 1], x - 1, y - 1, z - 1)))));
 }
 
 float	p_mine(float x, float y, float z, int *p)
 {
-	int		ix;
-	int		igrek;
-	int		zed;
-	int		a;
-	int		b;
-	int		aa;
-	int		ab;
-	int		bb;
-	int		ba;
+	t_perl	s;
 
-	ix = (int)floor(x  + 0.01) & 255;
-	igrek = (int)floor(y + 0.01) & 255;
-	zed = (int)floor(z + 0.01) & 255;
+	s.ix = (int)floor(x  + 0.01) & 255;
+	s.igrek = (int)floor(y + 0.01) & 255;
+	s.zed = (int)floor(z + 0.01) & 255;
 	x -= floor(x + 0.01);
 	y -= floor(y + 0.01);
 	z -= floor(z + 0.01);
-	a = p[ix] + igrek;
-	b = p[ix + 1] + igrek;
-	aa = p[a] + zed;
-	ab = p[a + 1] + zed;
-	ba = p[b] + zed;
-	bb = p[b + 1] + zed;
-	return ((ba * bb * (aa * ba - aa - bb) % 10));
+	s.a = p[s.ix] + s.igrek;
+	s.b = p[s.ix + 1] + s.igrek;
+	s.aa = p[s.a] + s.zed;
+	s.ab = p[s.a + 1] + s.zed;
+	s.ba = p[s.b] + s.zed;
+	s.bb = p[s.b + 1] + s.zed;
+	return ((s.ba * s.bb * (s.aa * s.ba - s.aa - s.bb) % 10));
 }
 
-int		return_permutation(int x, int *p)
+t_color	minecraft(t_dot pt, t_color c, float noise, t_data *d)
 {
-	x = x % 255;
-	return (p[x]);
-}
+	int	level;
 
-void	gen_permutation(int *tab)
-{
-	int		i;
-
-	i = -1;
-	while (++i < 256)
-		tab[i] = rand() % 255;
-	i = -1;
-	while (++i < 255)
-	{
-		if (tab[i] >= tab[i + 1] - 3 && tab[i] <= tab[i + 1] + 3)
-		{
-			tab[i] = rand() % 255;
-			i = -1;
-		}
-	}
-}
-
-t_color	perlin(t_data *d, int red, int green, int blue, t_dot pt)
-{
-	float	noise;
-	t_color	c;
-	t_color	basic;
-	int		level;
-
-	c = new_color(red, green, blue, 0);
-	noise = 0.1;
-	if (d->perlin == 0)
-	{
-		gen_permutation(d->p);
-		d->perlin = 1;
-	}
 	level = 0;
 	if (d->img->d4)
 	{
@@ -153,13 +76,30 @@ t_color	perlin(t_data *d, int red, int green, int blue, t_dot pt)
 		c.g += ft_clamp(c.g / (15 / noise), 0, 255);
 		c.b += ft_clamp(c.b / (15 / noise), 0, 255);
 	}
+	return (c);
+}
+
+t_color	perlin(t_data *d, t_color col, t_dot pt)
+{
+	float	noise;
+	t_color	c;
+	t_color	basic;
+
+	c = new_color(col.r, col.g, col.b, 0);
+	noise = 0.1;
+	if (d->perlin == 0)
+	{
+		gen_permutation(d->p);
+		d->perlin = 1;
+	}
+	c = minecraft(pt, c, noise, d);
 	noise = cos(p_noise(pt.x, pt.y, pt.z, d->p) + pt.x + pt.y + pt.z);
 	if (noise > -1 && d->img->d5 > 0)
 	{
 		c.r = ft_clamp(c.r - (c.r / d->img->d5 * (1 - noise)), 0, 255);
 		c.g = ft_clamp(c.g - (c.g / d->img->d5 * (1 - noise)), 0, 255);
 		c.b = ft_clamp(c.b - (c.b / d->img->d5 * (1 - noise)), 0, 255);
-		basic = new_color(red, green, blue, 0);
+		basic = new_color(col.r, col.g, col.b, 0);
 		real_lerp(basic, c, 60);
 	}
 	return (c);
