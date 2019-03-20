@@ -43,6 +43,7 @@ SRCS =	main.c					\
 		check_obj.c				\
 		effects.c				\
 		options.c				\
+		write_options.c			\
 
 SRCO = $(SRCS:.c=.o)
 

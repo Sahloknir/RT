@@ -67,10 +67,3 @@ t_vec	unrot_vec(t_vec ray, float rx, float ry, float rz)
 	return (ray);
 }
 
-t_vec	trans_vec(t_vec vec, float tx, float ty, float tz)
-{
-	vec.x -= tx;
-	vec.y -= ty;
-	vec.z -= tz;
-	return (vec);
-}

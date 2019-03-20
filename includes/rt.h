@@ -329,5 +329,7 @@ t_color				checkered(t_obj *o, t_dot inter, t_color c1, t_color c2);
 t_color				add_shine(t_sec_r s, t_obj *o, t_color c, t_color b);
 t_dir				newdir(t_dot d, t_vec v);
 int					select_option(int key, t_data *d);
+int					write_options(t_data *d);
+void				ft_string(t_data *d, char *str, int color, int nb);
 
 #endif

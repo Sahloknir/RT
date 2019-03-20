@@ -59,3 +59,11 @@ t_vec	reflect_ray(t_vec *inc, t_vec *norm)
 	reflect.z = (scal * norm->z) + inc->z;
 	return (reflect);
 }
+
+t_vec	trans_vec(t_vec vec, float tx, float ty, float tz)
+{
+	vec.x -= tx;
+	vec.y -= ty;
+	vec.z -= tz;
+	return (vec);
+}
