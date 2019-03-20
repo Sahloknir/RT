@@ -101,6 +101,7 @@ object {
 	radius(8)
 	color(125, 137, 228)
 	mirror(80)
+	transparent(1, 80)
 }
 
 object {

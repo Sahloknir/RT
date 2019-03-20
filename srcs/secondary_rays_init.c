@@ -11,6 +11,13 @@ t_color		init_c(t_data *d, t_obj *obj)
 	return (c);
 }
 
+int		comp_c(t_color c1, t_color c2)
+{
+	if (c1.r == c2.r && c1.b == c2.b && c1.g == c2.g)
+		return (1);
+	return (0);
+}
+
 t_sec_r *init_var_s(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 {
 	t_color	col2;
@@ -22,19 +29,18 @@ t_sec_r *init_var_s(t_sec_r *s, t_color c, t_obj *obj, t_data *d)
 	s->dot = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[0]);
 	s->dot2 = get_hitpoint(d->light[d->l]->pos, s->lo, d->t[1]);
 	if ((d->t[0] > 0 && d->t[0] < s->dist
-		&& check_lim(d->obj[s->i], s->dot, newdir(d->light[d->l]->pos, s->o_ray), d) == 1)
-			|| (d->t[1] > 0 && d->t[1] < s->dist
-				&& check_lim(d->obj[s->i], s->dot2, newdir(d->light[d->l]->pos, s->o_ray), d) == 1))
+		&& check_lim(d->obj[s->i], s->dot,
+			newdir(d->light[d->l]->pos, s->o_ray), d) == 1)
+				|| (d->t[1] > 0 && d->t[1] < s->dist
+					&& check_lim(d->obj[s->i], s->dot2,
+						newdir(d->light[d->l]->pos, s->o_ray), d) == 1))
 	{
 			if (d->obj[s->i]->trsp <= 0)
 				s->lever = 1;
 			col2 = real_lerp(c, find_diffuse(s->col, s->inter, obj, d),
 				d->obj[s->i]->trsp);
-			if ((s->col.r != c.r || s->col.b != c.b || s->col.g != c.g)
-				&& (col2.r <= s->col.r || col2.g <= s->col.g
-					|| col2.b <= s->col.b))
-				s->col = new_color(col2.r, col2.g, col2.b, 0);
-			else if (s->col.r == c.r && s->col.b == c.b && s->col.g == c.g)
+			if ((!comp_c(s->col, c) && (col2.r <= s->col.r || col2.g <= s->col.g
+				|| col2.b <= s->col.b)) || comp_c(s->col, c))
 				s->col = new_color(col2.r, col2.g, col2.b, 0);
 	}
 	return (s);
