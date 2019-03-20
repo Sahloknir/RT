@@ -158,6 +158,7 @@ typedef struct		s_data
 	float			s_xmax;
 	float			s_ymax;
 	int				l;
+	int				i;
 	float			t[2];
 	t_color			a;
 	t_color			green;

@@ -12,34 +12,43 @@
 
 #include "rt.h"
 
+float	compare_dist(float dist, t_data *d, t_obj **o, t_sec_r *s)
+{
+	if ((d->t[0] > 0.01 || d->t[1] > 0.01))
+	{
+		if (d->t[0] > 0.01 && (dist == -1 || dist > d->t[0])
+			&& check_lim(d->obj[d->i],
+				get_hitpoint(s->inter, s->o_ray, d->t[0]),
+					newdir(s->inter, s->o_ray), d))
+		{
+			dist = d->t[0];
+			*o = d->obj[d->i];
+		}
+		if (d->t[1] > 0.01 && (dist == -1 || dist > d->t[1])
+			&& check_lim(d->obj[d->i],
+				get_hitpoint(s->inter, s->o_ray, d->t[1]),
+					newdir(s->inter, s->o_ray), d))
+		{
+			dist = d->t[1];
+			*o = d->obj[d->i];
+		}
+	}
+	return (dist);
+}
+
 t_obj	*find_dists(t_sec_r *s, t_obj *obj, t_data *d)
 {
 	t_obj	*o;
-	int		t;
 	float	dist;
 
-	t = -1;
+	d->i = -1;
 	dist = -1;
 	o = NULL;
-	while (++t <= d->objects - 1)
+	while (++d->i <= d->objects - 1)
 	{
-		if (d->obj[t] != obj
-			&& test_object(d, s->o_ray, d->obj[t], s->inter) > 0)
-		{
-			if ((d->t[0] > 0.01 || d->t[1] > 0.01))
-			{
-				if (d->t[0] > 0.01 && (dist == -1 || dist > d->t[0]))
-				{
-					dist = d->t[0];
-					o = d->obj[t];
-				}
-				if (d->t[1] > 0.01 && (dist == -1 || dist > d->t[1]))
-				{
-					dist = d->t[1];
-					o = d->obj[t];
-				}
-			}
-		}
+		if (d->obj[d->i] != obj
+			&& test_object(d, s->o_ray, d->obj[d->i], s->inter) > 0)
+			dist = compare_dist(dist, d, &o, s);
 	}
 	s->inter = get_hitpoint(s->inter, s->o_ray, dist);
 	return (o);
