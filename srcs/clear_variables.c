@@ -6,7 +6,7 @@
 /*   By: ceugene <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 12:37:36 by ceugene           #+#    #+#             */
-/*   Updated: 2019/03/16 14:47:51 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/22 14:07:39 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	clear_images(t_data *d)
 		* d->img->s_l);
 	ft_memset(d->img2->str, 0, (LA - 1) * d->img2->bpp + (HA - 1)
 		* d->img2->s_l);
-		loading_screen_bar(d);
+	loading_screen_bar(d);
 	reset_colors(d);
 	refresh_expose(d);
 	d->selected_option = -1;

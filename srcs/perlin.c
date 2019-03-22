@@ -6,7 +6,7 @@
 /*   By: ceugene <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 12:37:50 by ceugene           #+#    #+#             */
-/*   Updated: 2019/02/27 12:37:56 by ceugene          ###   ########.fr       */
+/*   Updated: 2019/03/22 14:26:25 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ float	p_noise(float x, float y, float z, int *p)
 		p_grad(p[s.ba], x, y, z)), p_lerp(s.u, p_grad(p[s.ab], x, y - 1, z),
 			p_grad(p[s.bb], x - 1, y - 1, z))), p_lerp(s.v, p_lerp(s.u,
 				p_grad(p[s.aa + 1], x, y, z - 1), p_grad(p[s.ba + 1],
-					x - 1, y, z -1)), p_lerp(s.u, p_grad(p[s.ab + 1], x, y - 1,
+					x - 1, y, z - 1)), p_lerp(s.u, p_grad(p[s.ab + 1], x, y - 1,
 						z - 1), p_grad(p[s.bb + 1], x - 1, y - 1, z - 1)))));
 }
 
@@ -45,7 +45,7 @@ float	p_mine(float x, float y, float z, int *p)
 {
 	t_perl	s;
 
-	s.ix = (int)floor(x  + 0.01) & 255;
+	s.ix = (int)floor(x + 0.01) & 255;
 	s.igrek = (int)floor(y + 0.01) & 255;
 	s.zed = (int)floor(z + 0.01) & 255;
 	x -= floor(x + 0.01);

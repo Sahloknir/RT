@@ -6,13 +6,13 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/05 16:03:36 by axbal             #+#    #+#             */
-/*   Updated: 2019/02/05 16:10:39 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/22 14:31:05 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void		get_vec(t_obj *o)
+void	get_vec(t_obj *o)
 {
 	t_vec	v;
 	t_vec	*vec;
@@ -66,7 +66,7 @@ int		get_object_mirror(char *f, int s, t_obj *obj)
 	return (0);
 }
 
-int			get_object_rot(char *f, int s, t_obj *obj)
+int		get_object_rot(char *f, int s, t_obj *obj)
 {
 	float	*tab;
 
@@ -86,7 +86,7 @@ int			get_object_rot(char *f, int s, t_obj *obj)
 	return (1);
 }
 
-int			get_object_color(char *f, int s, t_obj *obj)
+int		get_object_color(char *f, int s, t_obj *obj)
 {
 	float	*tab;
 

@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:30:39 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/21 14:30:41 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/22 14:45:08 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_string(t_data *d, char *str, int color, int nb)
 		|| ft_strcmp("sinus", str) == 0 || !ft_strcmp("squared", str)
 			|| !ft_strcmp("none", str) || !ft_strcmp("strong", str)
 				|| !ft_strcmp("mild", str))
-			x = LA / 1.7 - (ft_strlen(str) * 2.5);
+		x = LA / 1.7 - (ft_strlen(str) * 2.5);
 	else
 		x = LA / 6 - (ft_strlen(str) * 2.5);
 	y = (HA / 3.5) + ((HA / 15) * nb);
@@ -115,7 +115,6 @@ int		write_options2(t_data *d, char *off, char *on, char *str)
 	str = ft_strdup("cartoon");
 	return (write_options3(d, off, on, str));
 }
-
 
 int		write_options(t_data *d)
 {

@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:27:36 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/21 14:27:38 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/22 14:16:17 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		add_to_files(t_data *d, char *name)
 		return (1);
 	}
 	if (!(tmp = (char **)(malloc(sizeof(char *) * d->dir_files - 1))))
-			ft_fail("Error: Could not malloc memory for files tab.", d);
+		ft_fail("Error: Could not malloc memory for files tab.", d);
 	while (++i < d->dir_files - 1)
 	{
 		tmp[i] = ft_strdup(d->files[i]);

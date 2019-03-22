@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_lim.c                                         :+:      :+:    :+:   */
+/*   read_rlim.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ceugene <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/07 15:43:31 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/22 14:28:39 by ceugene          ###   ########.fr       */
+/*   Created: 2019/03/22 14:27:31 by ceugene           #+#    #+#             */
+/*   Updated: 2019/03/22 14:28:36 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-int		get_object_lim_x(char *f, int s, t_obj *obj)
+int		get_object_rlim_x(char *f, int s, t_obj *obj)
 {
 	float	*tab;
 
@@ -24,15 +24,15 @@ int		get_object_lim_x(char *f, int s, t_obj *obj)
 	}
 	if (tab[0] < 1 && tab[1] > 0)
 	{
-		obj->lim_x_neg = tab[0];
-		obj->lim_x_pos = tab[1];
-		obj->lim_x_c = 1;
+		obj->rlim_x_neg = tab[0];
+		obj->rlim_x_pos = tab[1];
+		obj->rlim_x_c = 1;
 	}
 	free(tab);
 	return (1);
 }
 
-int		get_object_lim_y(char *f, int s, t_obj *obj)
+int		get_object_rlim_y(char *f, int s, t_obj *obj)
 {
 	float	*tab;
 
@@ -44,15 +44,15 @@ int		get_object_lim_y(char *f, int s, t_obj *obj)
 	}
 	if (tab[0] < 1 && tab[1] > 0)
 	{
-		obj->lim_y_neg = tab[0];
-		obj->lim_y_pos = tab[1];
-		obj->lim_y_c = 1;
+		obj->rlim_y_neg = tab[0];
+		obj->rlim_y_pos = tab[1];
+		obj->rlim_y_c = 1;
 	}
 	free(tab);
 	return (1);
 }
 
-int		get_object_lim_z(char *f, int s, t_obj *obj)
+int		get_object_rlim_z(char *f, int s, t_obj *obj)
 {
 	float	*tab;
 
@@ -64,9 +64,9 @@ int		get_object_lim_z(char *f, int s, t_obj *obj)
 	}
 	if (tab[0] < 1 && tab[1] > 0)
 	{
-		obj->lim_z_neg = tab[0];
-		obj->lim_z_pos = tab[1];
-		obj->lim_z_c = 1;
+		obj->rlim_z_neg = tab[0];
+		obj->rlim_z_pos = tab[1];
+		obj->rlim_z_c = 1;
 	}
 	free(tab);
 	return (1);

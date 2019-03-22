@@ -21,6 +21,7 @@ SRCS =	main.c					\
 		shading.c				\
 		diffuse.c				\
 		read_lim.c				\
+		read_rlim.c				\
 		check_lim.c				\
 		light_side.c			\
 		misc_utils.c			\

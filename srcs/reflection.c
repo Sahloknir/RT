@@ -6,11 +6,23 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 15:55:34 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/18 18:18:34 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/22 14:43:11 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
+
+t_vec	reflect_ray(t_vec *inc, t_vec *norm)
+{
+	t_vec	reflect;
+	float	scal;
+
+	scal = -2 * scalar(norm, inc);
+	reflect.x = (scal * norm->x) + inc->x;
+	reflect.y = (scal * norm->y) + inc->y;
+	reflect.z = (scal * norm->z) + inc->z;
+	return (reflect);
+}
 
 float	compare_dist(float dist, t_data *d, t_obj **o, t_sec_r *s)
 {
@@ -54,7 +66,7 @@ t_obj	*find_dists(t_sec_r *s, t_obj *obj, t_data *d)
 	return (o);
 }
 
-t_color		find_reflection(t_color c, t_sec_r s, t_obj *obj, t_data *d)
+t_color	find_reflection(t_color c, t_sec_r s, t_obj *obj, t_data *d)
 {
 	t_obj	*o;
 	t_vec	norm;

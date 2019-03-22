@@ -6,42 +6,20 @@
 /*   By: ceugene <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 12:37:13 by ceugene           #+#    #+#             */
-/*   Updated: 2019/02/27 12:37:15 by ceugene          ###   ########.fr       */
+/*   Updated: 2019/03/22 14:45:21 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 #include <math.h>
 
-int		simp_clr(int clr)
-{
-	if (clr <= 0)
-		return (0);
-	if (clr < 50)
-		return (25);
-	if (clr <= 75)
-		return (75);
-	if (clr <= 125)
-		return (100);
-	if (clr <= 150)
-		return (150);
-	if (clr <= 175)
-		return (175);
-	if (clr <= 215)
-		return (200);
-	if (clr <= 230)
-		return (230);
-	if (clr <= 245)
-		return (245);
-	return (255);
-}
-
 void	blend_grey(t_data *d, int x, int y)
 {
 	t_color	color;
 	int		l;
 
-	l = d->pix_col[y][x].r * 0.2126 + d->pix_col[y][x].g * 0.7152 + d->pix_col[y][x].b * 0.0722;
+	l = d->pix_col[y][x].r * 0.2126 + d->pix_col[y][x].g * 0.7152
+		+ d->pix_col[y][x].b * 0.0722;
 	color = new_color(l, l, l, 0);
 	d->pix_col[y][x] = color;
 }
@@ -69,23 +47,25 @@ void	filter(t_data *d)
 	int		y;
 	int		x;
 
-		y = -1;
-		while (++y < HA)
+	y = -1;
+	while (++y < HA)
+	{
+		x = -1;
+		t.y = y;
+		while (++x < LA)
 		{
-			x = -1;
-			t.y = y;
-			while (++x < LA)
-			{
-				t.x = x;
-				if (d->img->crtn)
-					d->pix_col[y][x] = new_color(simp_clr(d->pix_col[y][x].r), simp_clr(d->pix_col[y][x].g), simp_clr(d->pix_col[y][x].b), 0);
-				if (d->img->sp)
-					blend_sepia(d, x, y);
-				else if (d->img->gs)
-					blend_grey(d, x, y);
-				put_pixel_to_image(t, d, d->img->str, d->pix_col[y][x]);
-			}
+			t.x = x;
+			if (d->img->crtn)
+				d->pix_col[y][x] = new_color(simp_clr(d->pix_col[y][x].r),
+					simp_clr(d->pix_col[y][x].g),
+						simp_clr(d->pix_col[y][x].b), 0);
+			if (d->img->sp)
+				blend_sepia(d, x, y);
+			else if (d->img->gs)
+				blend_grey(d, x, y);
+			put_pixel_to_image(t, d, d->img->str, d->pix_col[y][x]);
 		}
+	}
 }
 
 int		open_selected_choice(t_data *d)

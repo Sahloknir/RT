@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:29:58 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/21 14:29:59 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/22 14:31:24 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_file_name(char *str)
 	while (str[s] != '\0' && str[s] != '/')
 		s--;
 	min_len = s;
-	return(ft_strsub(str, s + 1, max_len - min_len - 1));
+	return (ft_strsub(str, s + 1, max_len - min_len - 1));
 }
 
 char	*get_img(char *img_str, t_data *d, t_hdr h)

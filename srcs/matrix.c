@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/06 13:33:37 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/04 14:26:28 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/22 14:16:38 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,3 @@ t_vec	unrot_vec(t_vec ray, float rx, float ry, float rz)
 	ray = rot_x(ray, -degree_to_radian(rx));
 	return (ray);
 }
-

@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:16:31 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/18 18:17:56 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/22 14:25:43 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	loading_screen_bar(t_data *d)
 	dot.x = LA / 5;
 	while (++dot.x < LA / 5 + HA)
 	{
-		dot.y = HA -15;
+		dot.y = HA - 15;
 		while (++dot.y < HA - 11)
 			put_pixel_to_image(dot, d, d->img2->str, d->blue);
 	}
@@ -51,10 +51,19 @@ void	loading_screen_update(t_data *d, int h)
 	}
 }
 
+void	call_secondary_rays(t_data *d, t_rtc r)
+{
+	t_color	c;
+
+	c = secondary_rays(get_hitpoint(d->cam->pos, d->rays[r.i][r.j],
+		r.dm), d, r.o, d->rays[r.i][r.j]);
+	put_pixel_to_image(new_dot(r.j, r.i, 0), d, d->img->str, c);
+	d->pix_col[r.i][r.j] = c;
+}
+
 void	start_raytracing(t_data *d)
 {
 	t_rtc	r;
-	t_color	c;
 
 	d->current_img = 2;
 	r.i = -1;
@@ -70,12 +79,7 @@ void	start_raytracing(t_data *d)
 			while (++r.obj_i <= d->objects - 1)
 				r = ft_raytracer(r, d);
 			if (r.dm > -1)
-			{
-				c = secondary_rays(get_hitpoint(d->cam->pos, d->rays[r.i][r.j],
-					r.dm), d, r.o, d->rays[r.i][r.j]);
-				put_pixel_to_image(new_dot(r.j, r.i, 0), d, d->img->str, c);
-				d->pix_col[r.i][r.j] = c;
-			}
+				call_secondary_rays(d, r);
 		}
 		loading_screen_update(d, r.i);
 	}

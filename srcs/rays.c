@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 13:15:40 by axbal             #+#    #+#             */
-/*   Updated: 2019/02/23 15:05:02 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/22 14:17:44 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	malloc_rays(t_data *d)
 
 void	*mt_rays(void *data)
 {
-	t_data *d;
+	t_data	*d;
 	t_dot	p1;
 	t_dot	p2;
 	int		i;

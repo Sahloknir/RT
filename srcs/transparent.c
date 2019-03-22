@@ -6,14 +6,14 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/21 14:30:26 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/21 14:30:27 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/22 14:41:56 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 #include <math.h>
 
-t_vec		change_vec_sign(t_vec to_change)
+t_vec	change_vec_sign(t_vec to_change)
 {
 	to_change.x *= -1;
 	to_change.y *= -1;
@@ -21,7 +21,7 @@ t_vec		change_vec_sign(t_vec to_change)
 	return (to_change);
 }
 
-t_vec		refract_ray(t_obj *o, t_sec_r s)
+t_vec	refract_ray(t_obj *o, t_sec_r s)
 {
 	t_vec	norm;
 	float	sin_n_r;
@@ -34,7 +34,7 @@ t_vec		refract_ray(t_obj *o, t_sec_r s)
 	s.o_ray = change_vec_sign(s.o_ray);
 	sin_n_n = sqrt(1 - pow(1 / o->rf, 2) * (1 - pow(sin_n_r, 2)));
 	if (sin_n_r < 0)
-		sin_n_n *= - 1;
+		sin_n_n *= -1;
 	new.x = 1 / o->rf * s.o_ray.x + (1 / o->rf * sin_n_r
 		- sin_n_n) * norm.x;
 	new.y = 1 / o->rf * s.o_ray.y + (1 / o->rf * sin_n_r
@@ -46,7 +46,6 @@ t_vec		refract_ray(t_obj *o, t_sec_r s)
 
 float	compare_dists(t_obj **o, t_data *d, float dist, int i)
 {
-
 	if (d->t[0] > 0.01 || d->t[1] > 0)
 	{
 		if (d->t[0] > 0.01 && ((dist == -1 || dist > d->t[0])))
@@ -84,7 +83,7 @@ t_obj	*find_object_behind(t_data *d, t_sec_r *s, t_obj *obj)
 	return (o);
 }
 
-t_color		transparent(t_color c, t_data *d, t_sec_r s, t_obj *o)
+t_color	transparent(t_color c, t_data *d, t_sec_r s, t_obj *o)
 {
 	t_color	col;
 	t_obj	*src;

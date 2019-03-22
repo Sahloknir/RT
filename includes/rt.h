@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 12:05:33 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/19 13:08:51 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/22 14:36:40 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -353,5 +353,6 @@ float				p_lerp(float t, float a, float b);
 float				p_grad(int hash, float x, float y, float z);
 int					return_permutation(int x, int *p);
 void				gen_permutation(int *tab);
+int					simp_clr(int clr);
 
 #endif

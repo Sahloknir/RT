@@ -6,7 +6,7 @@
 /*   By: axbal <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:25:18 by axbal             #+#    #+#             */
-/*   Updated: 2019/03/19 12:31:52 by axbal            ###   ########.fr       */
+/*   Updated: 2019/03/22 14:07:22 by ceugene          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 int		rel_x_lim(t_obj *o, t_dot d)
 {
 	if (o->rlim_x_c == 1 && (d.x < o->rlim_x_neg || d.x > o->rlim_x_pos))
-			return (-1);
+		return (-1);
 	return (1);
 }
 
 int		rel_y_lim(t_obj *o, t_dot d)
 {
 	if (o->rlim_y_c == 1 && (d.y < o->rlim_y_neg || d.y > o->rlim_y_pos))
-			return (-1);
+		return (-1);
 	return (1);
 }
 
 int		rel_z_lim(t_obj *o, t_dot d)
 {
 	if (o->rlim_z_c == 1 && (d.z < o->rlim_z_neg || d.z > o->rlim_z_pos))
-			return (-1);
+		return (-1);
 	return (1);
 }
 
