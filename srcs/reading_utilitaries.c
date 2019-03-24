@@ -73,8 +73,7 @@ char		*start_reading(char *str)
 	char	*line;
 
 	file = NULL;
-	fd = open(str, O_RDONLY);
-	if (fd < 0)
+	if ((fd = open(str, O_RDONLY)) < 0)
 	{
 		ft_putstr_fd("Error: No file '", 2);
 		ft_putstr_fd(str, 2);
@@ -84,10 +83,12 @@ char		*start_reading(char *str)
 	{
 		if (ft_increase_file(&file, line) == -1)
 			ft_fail("Error: An error occurred.", NULL);
+		if (file && ft_strlen(file) >= (8000))
+			ft_fail("Error: File is too big.", NULL);
 	}
 	close(fd);
-	if (ret <= -1 || (file && ft_strlen(file) >= (163840)))
-		ft_fail("Error: File is too big or is a directory.", NULL);
+	if (ret <= -1 || (file && ft_strlen(file) >= (8000)))
+		ft_fail("Error: File is a directory.", NULL);
 	if (!file || ft_strlen(file) == 0)
 		ft_fail("Error: File is empty.", NULL);
 	return (file);
