@@ -1,6 +1,7 @@
 camera {
 	pos(50,0,0)
 	rotation(0,-45,0)
+	ambient(60, 20, 20)
 }
 
 object {
@@ -21,8 +22,8 @@ object {
 }
 
 light {
-	pos(105,5,-100)
+	pos(165,5,0)
 }
 light {
-	pos(100,0,-100)
+	pos(90,0,-100)
 }

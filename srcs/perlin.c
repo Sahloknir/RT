@@ -92,7 +92,8 @@ t_color	perlin(t_data *d, t_color col, t_dot pt)
 		gen_permutation(d->p);
 		d->perlin = 1;
 	}
-	c = minecraft(pt, c, noise, d);
+	if (d->img->d4 > 0)
+		c = minecraft(pt, c, noise, d);
 	noise = cos(p_noise(pt.x, pt.y, pt.z, d->p) + pt.x + pt.y + pt.z);
 	if (noise > -1 && d->img->d5 > 0)
 	{

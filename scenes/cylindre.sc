@@ -1,6 +1,7 @@
 camera {
 	pos(0,0,0)
 	rotation(0,0,0)
+	ambient(100, 100, 100)
 }
 
 object {
